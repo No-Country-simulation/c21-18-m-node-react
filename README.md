@@ -2,12 +2,12 @@
 
 ## Equipo:
 
-Claudio M. F. Castillo | [ Github ](https://github.com/ClaudioMFCDev)
+<b>Claudio M. F. Castillo</b> | [ Github ](https://github.com/ClaudioMFCDev)
 
-Rocio G. Carle - Front-End | [ Github ](https://github.com/Rocksyro)
+<b>Rocio G. Carle</b> - Front-End | [ Github ](https://github.com/Rocksyro)
 
-Alicia Gálvez - Front-End | [ Github ](https://github.com/alicia4079/)
+<b>Alicia Gálvez</b> - Front-End | [ Github ](https://github.com/alicia4079/)
 
-Cesar Benitez - Back-End | [ Github ](https://github.com/cesar0987)
+<b>Cesar Benitez</b> - Back-End | [ Github ](https://github.com/cesar0987)
 
-Javier Colodro - | [ Github ](https://github.com/Javierdigital85)
+<b>Javier Colodro</b> - | [ Github ](https://github.com/Javierdigital85)
