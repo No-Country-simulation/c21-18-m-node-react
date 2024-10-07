@@ -8,12 +8,13 @@ import routes from '@/routes';
 import swaggerOptions from '@/config/swagger';
 import swaggerJSDoc from 'swagger-jsdoc';
 import { serve, setup } from 'swagger-ui-express';
+import { envs } from './config/plugins/env.plugin';
 
 // Create Express server
 const app = express();
 
 // Express configuration
-app.set('port', process.env.PORT ?? 3001);
+app.set('port', envs.PORT ?? 3001);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
@@ -28,10 +29,10 @@ app.use('/api/docs', serve, setup(specs));
 
 // Root endpoint
 app.get('/', (req: Request, res: Response) => {
-  res.send({
-    name: 'API adopción de mascotas',
-    environment: app.get('env'),
-  });
+	res.send({
+		name: 'API adopción de mascotas',
+		environment: app.get('env'),
+	});
 });
 
 // Api routes
