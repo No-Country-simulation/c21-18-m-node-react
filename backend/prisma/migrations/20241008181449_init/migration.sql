@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('GUEST', 'ADMIN');
+CREATE TYPE "Role" AS ENUM ('GUEST', 'ADMIN', 'SUPER_ADMIN');
 
 -- CreateEnum
 CREATE TYPE "PetType" AS ENUM ('DOG', 'CAT');
@@ -22,7 +22,7 @@ CREATE TABLE "pets" (
     "name" TEXT NOT NULL,
     "age" INTEGER NOT NULL,
     "type" "PetType" NOT NULL,
-    "refugeId" TEXT NOT NULL,
+    "shelterId" INTEGER NOT NULL,
     "picture" TEXT,
 
     CONSTRAINT "pets_pkey" PRIMARY KEY ("id")
@@ -30,7 +30,7 @@ CREATE TABLE "pets" (
 
 -- CreateTable
 CREATE TABLE "applications" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
     "petId" TEXT NOT NULL,
     "status" BOOLEAN NOT NULL DEFAULT false,
@@ -39,23 +39,24 @@ CREATE TABLE "applications" (
 );
 
 -- CreateTable
-CREATE TABLE "refuges" (
-    "id" TEXT NOT NULL,
+CREATE TABLE "shelter" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
 
-    CONSTRAINT "refuges_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "shelter_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "refuges_email_key" ON "refuges"("email");
+CREATE UNIQUE INDEX "shelter_email_key" ON "shelter"("email");
 
 -- AddForeignKey
-ALTER TABLE "pets" ADD CONSTRAINT "pets_refugeId_fkey" FOREIGN KEY ("refugeId") REFERENCES "refuges"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "pets" ADD CONSTRAINT "pets_shelterId_fkey" FOREIGN KEY ("shelterId") REFERENCES "shelter"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "applications" ADD CONSTRAINT "applications_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
