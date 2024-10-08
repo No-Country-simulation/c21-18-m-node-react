@@ -32,11 +32,11 @@ model Pet {
   name      String
   age       Int
   type      PetType
-  refugeId  Int
+  shelterId  Int
   picture   String?
 
   // Relations
-  refuge    Refuge   @relation(fields: [refugeId], references: [id])
+  refuge    Shelter   @relation(fields: [shelterId], references: [id])
   applications Application[]
 
   @@map("pets")
@@ -60,8 +60,9 @@ model Application {
   @@map("applications")
 }
 
-model Refuge {
+model Shelter {
   id       Int   @id @default(autoincrement())
+  name    String
   address  String
   email    String   @unique
   phone    String
@@ -69,5 +70,5 @@ model Refuge {
   // Relations
   pets Pet[]
 
-  @@map("refuges")
+  @@map("shelter")
 }
