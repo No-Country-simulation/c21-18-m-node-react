@@ -24,6 +24,7 @@ model User {
 enum Role {
   GUEST
   ADMIN
+  SUPER_ADMIN
 }
 
 model Pet {
@@ -31,7 +32,7 @@ model Pet {
   name      String
   age       Int
   type      PetType
-  refugeId  String
+  refugeId  Int
   picture   String?
 
   // Relations
@@ -47,7 +48,7 @@ enum PetType {
 }
 
 model Application {
-  id      String   @id @default(uuid())
+  id      Int   @id @default(autoincrement())
   userId  String
   petId   String
   status  Boolean  @default(false)
@@ -60,7 +61,7 @@ model Application {
 }
 
 model Refuge {
-  id       String   @id @default(uuid())
+  id       Int   @id @default(autoincrement())
   address  String
   email    String   @unique
   phone    String
