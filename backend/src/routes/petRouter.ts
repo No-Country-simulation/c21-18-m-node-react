@@ -5,7 +5,7 @@ import {
   getPetById,
   getPets,
   updatePet,
-} from "../controllers";
+} from "@/controllers";
 
 const petRouter = Router();
 
