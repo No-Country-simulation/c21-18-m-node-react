@@ -9,15 +9,17 @@ import {
 
 const petRouter = Router();
 
+
 import multer from "multer";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 petRouter.post("/mascotas", upload.single("picture"), createPet);
-petRouter.get("/api/mascotas", getPets);
-petRouter.get("/api/mascotas/:id", getPetById);
-petRouter.put("/api/mascotas/:id", updatePet);
-petRouter.delete("/api/mascotas/:id", deletePet);
+petRouter.get("/", getPets);
+petRouter.get("/:id", getPetById);
+petRouter.put("/:id", updatePet);
+petRouter.delete("/:id", deletePet);
+
 
 export default petRouter;
