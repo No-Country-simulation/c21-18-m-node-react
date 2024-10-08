@@ -2,16 +2,17 @@ import { Router } from "express";
 import {
   createPet,
   deletePet,
-  getPet,
+  getPetById,
   getPets,
   updatePet,
 } from "@/controllers";
 
 const petRouter = Router();
 
-petRouter.post("/", createPet);
-router.get("/", getPets);
-router.get("/:id", getPet);
-router.put("/:id", updatePet);
+petRouter.post("/api/mascotas", createPet);
+petRouter.get("/api/mascotas", getPets);
+petRouter.get("/api/mascotas/:id", getPetById);
+petRouter.put("/api/mascotas/:id", updatePet);
+petRouter.delete("/api/mascotas/:id", deletePet);
 
 export default petRouter;
