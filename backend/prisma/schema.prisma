@@ -36,7 +36,7 @@ model Pet {
   picture   String?
 
   // Relations
-  refuge    Shelter   @relation(fields: [shelterId], references: [id])
+  shelter    Shelter   @relation(fields: [shelterId], references: [id])
   applications Application[]
 
   @@map("pets")
