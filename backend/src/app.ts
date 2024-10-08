@@ -4,11 +4,11 @@ import compression from 'compression';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import routes from '@/routes';
 import swaggerOptions from '@/config/swagger';
 import swaggerJSDoc from 'swagger-jsdoc';
 import { serve, setup } from 'swagger-ui-express';
 import { envs } from './config/plugins/env.plugin';
+import { userRouter } from './routes';
 
 // Create Express server
 const app = express();
@@ -36,6 +36,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Api routes
-app.use('/api', routes);
+app.use('/api/user', userRouter);
 
 export default app;
