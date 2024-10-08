@@ -5,7 +5,9 @@ export const createUser = async (req: Request, res: Response) => {
 	try {
 		const { name, email, password, role, phone } = req.body;
 		if (!name || !email || !password || !role || !phone)
-			throw { message: ' Missing Information' };
+			throw {
+				message: ' Missing Information',
+			};
 		const newUser = await prisma.user.create({
 			data: {
 				name,
