@@ -1,18 +1,35 @@
+import cloudinary from "@/config/cloudinary";
 import { prisma } from "@/data/postgres";
 import { Request, Response } from "express";
 
 export const createPet = async (req: Request, res: Response) => {
   try {
-    const { name, age, type, refugeId, picture } = req.body;
-    if (!name || !age || !type || !refugeId || !picture)
+    const { name, age, type, refugeId } = req.body;
+    const pictureBuffer = req.file?.buffer;
+
+    if (!name || !age || !type || !refugeId || !pictureBuffer)
       throw { message: "Missing Information" };
+
+    // Sube la imagen a Cloudinary
+    const uploadResult = await new Promise<any>((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          { resource_type: "image" }, // Puedes agregar más opciones aquí si es necesario
+          (error, result) => {
+            if (error) return reject(error); // Manejo de errores
+            resolve(result);
+          }
+        )
+        .end(pictureBuffer); // Finaliza el stream con el buffer de la imagen
+    });
+
     const newPet = await prisma.pet.create({
       data: {
         name,
         age,
         type,
         refugeId,
-        picture,
+        picture: uploadResult.secure_url,
       },
     });
     res.status(201).send({
