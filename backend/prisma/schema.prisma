@@ -24,6 +24,7 @@ model User {
 enum Role {
   GUEST
   ADMIN
+  SUPER_ADMIN
 }
 
 model Pet {
