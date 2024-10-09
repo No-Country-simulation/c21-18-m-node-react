@@ -6,10 +6,12 @@ import {
   getPets,
   updatePet,
 } from "@/controllers";
+import {uploadPhoto , resizeAndUploadImage} from "@/middleware/imageUploadMiddleware";
+
 
 const petRouter = Router();
 
-petRouter.post("/create-pet", createPet);
+petRouter.post("/create-pet",uploadPhoto.single("picture"),resizeAndUploadImage, createPet);
 petRouter.get("/", getPets);
 petRouter.get("/:id", getPetById);
 petRouter.put("/:id", updatePet);
