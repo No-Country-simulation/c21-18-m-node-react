@@ -1,3 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Carrousel, Pet, Footer}  from './components';
+import PetCard from '../components/PetCard/PetCard';
+
+function Home(){
+    return (
+        <>
+            <PetCard />
+        </>
+    );
+}
+
+export default Home;
