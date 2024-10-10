@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Snoopy",
+    "age": 2,
+    "type": "DOG",
+    "shelterId": 1,
+    "description": "Snoopy perro de 2 años, le encanta jugar con la pelota",
+    "gender": "MALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728573927/v0rutkm3xbjyv7ti2pxz.jpg"
+  },
+  {
+    "name": "Scooby-Doo",
+    "age": 8,
+    "type": "DOG",
+    "shelterId": 1,
+    "description": "Scooby-Doo perro de 8 años, le encanta jugar con la pelota y jugar con otros perros,es muy guardian",
+    "gender": "MALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728574705/sp0hqe2u0eeopy0mk1c4.jpg"
+  },
+  {
+    "name": "FirulaisJr",
+    "age": 3,
+    "type": "DOG",
+    "shelterId": 1,
+    "description": "FirulaisJr perro de 3 años, le encanta jugar con la pelota y pasear",
+    "gender": "MALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728574851/dpkw3bufdxmcwgrg39ri.jpg"
+  },
+  {
+    "name": "Lassie",
+    "age": 12,
+    "type": "DOG",
+    "shelterId": 1,
+    "description": "Lassie perra de 12 años,madre de FirulaisJr,le encanta pasear y tomar sol",
+    "gender": "FEMALE",
+    "status": false,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728574927/mwdtwxvnaeoca50sertk.avif"
+  },
+  {
+    "name": "Beethoven",
+    "age": 9,
+    "type": "DOG",
+    "shelterId": 1,
+    "description": "Beethoven perro de 9 años, le encanta estar en lugares frios",
+    "gender": "MALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728575022/dkmvqmv0guowvybterhg.avif"
+  },
+  {
+    "name": "Garfield",
+    "age": 4,
+    "type": "CAT",
+    "shelterId": 1,
+    "description": "Garfield es un gato de 4 años",
+    "gender": "MALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728575218/pguiwahw705reymugqd0.jpg"
+  },
+  {
+    "name": "Cheshire",
+    "age": 2,
+    "type": "CAT",
+    "shelterId": 1,
+    "description": "Cheshire es un gato de 2 años",
+    "gender": "FEMALE",
+    "status": false,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728575256/cmiwif8zkvfqulveeecd.jpg"
+  },
+  {
+    "name": "Félix",
+    "age": 5,
+    "type": "CAT",
+    "shelterId": 1,
+    "description": "Félix es un gato de 5 años",
+    "gender": "MALE",
+    "status": false,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728575450/sxs9rdpqll0zcwu3qkhi.jpg"
+  },
+  {
+    "name": "Salem",
+    "age": 7,
+    "type": "CAT",
+    "shelterId": 1,
+    "description": "Salem es un gato de 7 años",
+    "gender": "FEMALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728575673/pgpkoe5dh1lt7tq5vhgi.jpg"
+  },
+  {
+    "name": "Silvester",
+    "age": 8,
+    "type": "CAT",
+    "shelterId": 1,
+    "description": "Silvester es un gato de 8 años",
+    "gender": "MALE",
+    "status": true,
+    "picture": "http://res.cloudinary.com/dfqu4tv25/image/upload/v1728575810/cmnt8zu5a6dra1fhykql.jpg"
+  }
+]
