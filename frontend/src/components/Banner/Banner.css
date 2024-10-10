@@ -1,7 +1,6 @@
 .banner{
     width: 100%;
     position: relative;
-    margin-bottom: 2vw;
     height: 60vh;
 }
 .banner img{
@@ -16,7 +15,8 @@
     left: 30%;
     width: 50%;
     text-align: center;
-    font-size: 7vw;
+    font-size: 230%;
+    /* font-size: 7vw; */
     text-shadow: #ffffff 1px 0 10px;
     /*border: solid  1px black; */
 }
@@ -27,7 +27,8 @@
     left: 40%;
     text-align: right;
     width: 50%;
-    font-size: 4vw;
+    font-size: 150%;
+    /* font-size: 4vw; */
     margin-top: 5vw;
     color: #fff;
     font-weight: 600;
