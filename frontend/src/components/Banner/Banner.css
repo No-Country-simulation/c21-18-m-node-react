@@ -1,0 +1,35 @@
+.banner{
+    width: 100%;
+    position: relative;
+    margin-bottom: 2vw;
+    height: 60vh;
+}
+.banner img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+.banner h1{
+    position: absolute;
+    z-index: 1;
+    top: 13%;
+    left: 30%;
+    width: 50%;
+    text-align: center;
+    font-size: 7vw;
+    text-shadow: #ffffff 1px 0 10px;
+    /*border: solid  1px black; */
+}
+.banner h3{
+    position: absolute;
+    z-index: 1;
+    top: 70%;
+    left: 40%;
+    text-align: right;
+    width: 50%;
+    font-size: 4vw;
+    margin-top: 5vw;
+    color: #fff;
+    font-weight: 600;
+    text-shadow: #000000 1px 0 10px;
+}
