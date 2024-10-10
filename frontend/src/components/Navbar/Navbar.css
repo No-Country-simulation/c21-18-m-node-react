@@ -1,10 +1,11 @@
 .nav-container{
     display: flex;
     background-color: #ff928b;
-    height: 15vw;
-    padding: 1vw;
+    max-height: 15vw;
+    padding: 1%;
     justify-content: space-between;
     align-items: center;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 .logo{
     width: 30px;
