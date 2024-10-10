@@ -1,0 +1,16 @@
+.nav-container{
+    display: flex;
+    background-color: #ff928b;
+    height: 15vw;
+    padding: 1vw;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    width: 30px;
+    margin: 3vw;
+}
+.burgerMenu{
+    width: 30px;
+    margin: 0 3vw 0 0;
+}
