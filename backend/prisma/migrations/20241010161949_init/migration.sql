@@ -2,6 +2,9 @@
 CREATE TYPE "Role" AS ENUM ('GUEST', 'ADMIN', 'SUPER_ADMIN');
 
 -- CreateEnum
+CREATE TYPE "PetGender" AS ENUM ('MALE', 'FEMALE');
+
+-- CreateEnum
 CREATE TYPE "PetType" AS ENUM ('DOG', 'CAT');
 
 -- CreateTable
@@ -24,6 +27,9 @@ CREATE TABLE "pets" (
     "type" "PetType" NOT NULL,
     "shelterId" INTEGER NOT NULL,
     "picture" TEXT,
+    "description" TEXT NOT NULL,
+    "gender" "PetGender" NOT NULL,
+    "status" BOOLEAN NOT NULL,
 
     CONSTRAINT "pets_pkey" PRIMARY KEY ("id")
 );

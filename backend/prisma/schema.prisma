@@ -34,12 +34,20 @@ model Pet {
   type      PetType
   shelterId  Int
   picture   String?
+  description String
+  gender    PetGender
+  status    Boolean
 
   // Relations
   shelter    Shelter   @relation(fields: [shelterId], references: [id])
   applications Application[]
 
   @@map("pets")
+}
+
+enum PetGender {
+  MALE
+  FEMALE
 }
 
 enum PetType {
