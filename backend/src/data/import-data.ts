@@ -51,7 +51,7 @@ const deleteShelterData = async () => {
 };
 
 deletePetData();
-deletePetData();
+deleteShelterData();
 
 setTimeout(() => {
 	loadPetData();
