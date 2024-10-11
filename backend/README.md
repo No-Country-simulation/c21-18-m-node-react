@@ -35,7 +35,23 @@ git clone [LINK DEL REPOSITORIO]
 ## Intalación
 
 Ya clonado el proyecto es necesario instalar :
--Crear el archivo .env para poder ingresar con las respectivas credenciales utilizadas en la base de datos y en claudinary(Los datos estan pineados)
+-Crear el archivo .env para poder ingresar con las respectivas credenciales utilizadas en la base de datos y en claudinary(Los datos estan pineados). Template del .env:
+```bash
+PORT=3000
+PUBLIC_PATH=public
+
+POSTGRES_URL=postgresql:
+POSTGRES_USER=
+POSTGRES_DB=
+POSTGRES_PORT=
+POSTGRES_PASSWORD=
+  
+  
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
 -El contenedor de docker con el comando docker-compose up -d (Verificar si estamos en la carpeta raiz del backend c21-18m-node-react/backend/)
 -Instalar las dependencias
 
