@@ -65,7 +65,7 @@ npm -i
 - Ejecutar el comando npm run dev
 
 ### Rutas
-
+(Para ingresar mascotas se debe crear el refugio )
 ## Mascotas
 Post:
 -http://localhost:3000/api/pet/create-pet
