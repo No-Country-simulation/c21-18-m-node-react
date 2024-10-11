@@ -53,7 +53,7 @@ CLOUDINARY_API_SECRET=
 ```
 
 -El contenedor de docker con el comando docker-compose up -d (Verificar si estamos en la carpeta raiz del backend c21-18m-node-react/backend/)
--Instalar las dependenciashttp://localhost:3000/api/pet/
+-Instalar las dependenciashttp:
 
 
 ```bash
