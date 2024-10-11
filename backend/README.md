@@ -81,5 +81,5 @@ Get all Shelter:
 -http://localhost:3000/api/shelter/
 
 ## Recomendaciones 
--Verificar si posees contenedores activos, si es asi bajarlos con el comando docker-compose down(utilizar como super usuario si estas en linux(Especificamente Ubuntu 24.04.1 LTS) -sudo docker-compose down)
--No es necesario tener postgresql, ya que este puede interferir con la instalacion del servidor
+ -Verificar si posees contenedores activos, si es asi bajarlos con el comando docker-compose down(utilizar como super usuario si estas en linux(Especificamente Ubuntu 24.04.1 LTS) -sudo docker-compose down)
+ -No es necesario tener postgresql, ya que este puede interferir con la instalacion del servidor
