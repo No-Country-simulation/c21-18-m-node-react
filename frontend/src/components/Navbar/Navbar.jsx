@@ -1,15 +1,17 @@
 import React from "react";
-import Paw from '../../assets/paw-solid.svg'
-import BurgerMenu from '../../assets/bars-solid.svg'
 import './Navbar.css'
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container'
+import PetsIcon from '@mui/icons-material/Pets';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Navbar() {
     return (
-        <div className="nav-container">
-            <img className="logo" src={Paw} />
-            <nav>
-                <img className="burgerMenu" src={BurgerMenu} />
-            </nav>
-        </div>
+        <Container disableGutters>
+            <Box disableGutters className="box" sx={{ bgcolor: '#ff928b', height: '7vh', width: '100%' }}>
+                <PetsIcon />
+                <MenuIcon />
+            </Box>
+        </Container>
     );
 }

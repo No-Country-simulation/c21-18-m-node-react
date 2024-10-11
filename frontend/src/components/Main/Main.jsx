@@ -2,6 +2,7 @@ import React from "react";
 import './Main.css';
 import PetCard from "../PetCard/PetCard";
 import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 export default function  Main() {
     return (
@@ -9,7 +10,7 @@ export default function  Main() {
             <h3 className="subtitle"> Conocelos! </h3>
             <PetCard />
             <PetCard />
-            <a href="/pets" className="btn"> Ver todos </a>
+            <Button variant="contained" sx={{bgcolor:'#ffac81'}}>Ver todos</Button>
         </div>
     );
 }

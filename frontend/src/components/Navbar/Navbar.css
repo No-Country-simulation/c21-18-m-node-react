@@ -1,7 +1,7 @@
 .nav-container{
     display: flex;
     background-color: #ff928b;
-    max-height: 15vw;
+    max-height: 15vh;
     padding: 1%;
     justify-content: space-between;
     align-items: center;
@@ -14,4 +14,10 @@
 .burgerMenu{
     width: 30px;
     margin: 0 3vw 0 0;
+}
+
+.box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
