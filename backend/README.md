@@ -60,10 +60,26 @@ CLOUDINARY_API_SECRET=
 npm -i
 ```
 
-### Run en LocalHost:
+## Run en LocalHost:
 
 - Ejecutar el comando npm run dev
 
-### Recomendaciones 
--Verificar si posees contenedores activos, si es asi bajarlos con el comando docker-compose down(utilizar como super usuario si estas en linux -sudo docker-compose down)
+###Rutas
+
+##Mascotas
+Post:
+-http://localhost:3000/api/pet/create-pet
+Get All Pets:
+-http://localhost:3000/api/pet/
+
+
+
+##Refugios
+Post:
+-http://localhost:3000/api/shelter/create-shelter
+Get all Shelter:
+-http://localhost:3000/api/shelter/
+
+## Recomendaciones 
+-Verificar si posees contenedores activos, si es asi bajarlos con el comando docker-compose down(utilizar como super usuario si estas en linux(Especificamente Ubuntu 24.04.1 LTS) -sudo docker-compose down)
 -No es necesario tener postgresql, ya que este puede interferir con la instalacion del servidor
