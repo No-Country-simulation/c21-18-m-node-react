@@ -32,7 +32,7 @@ git clone [LINK DEL REPOSITORIO]
 
 ```
 
-## Intalación
+## Instalación
 
 Ya clonado el proyecto es necesario instalar :
 -Crear el archivo .env para poder ingresar con las respectivas credenciales utilizadas en la base de datos y en claudinary(Los datos estan pineados). Template del .env:
@@ -53,7 +53,7 @@ CLOUDINARY_API_SECRET=
 ```
 
 -El contenedor de docker con el comando docker-compose up -d (Verificar si estamos en la carpeta raiz del backend c21-18m-node-react/backend/)
--Instalar las dependencias
+-Instalar las dependenciashttp://localhost:3000/api/pet/
 
 
 ```bash
@@ -64,9 +64,9 @@ npm -i
 
 - Ejecutar el comando npm run dev
 
-###Rutas
+### Rutas
 
-##Mascotas
+## Mascotas
 Post:
 -http://localhost:3000/api/pet/create-pet
 Get All Pets:
@@ -74,7 +74,7 @@ Get All Pets:
 
 
 
-##Refugios
+## Refugios
 Post:
 -http://localhost:3000/api/shelter/create-shelter
 Get all Shelter:
