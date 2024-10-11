@@ -1,16 +1,83 @@
-.nav-container{
+.nav-container {
+  display: flex;
+  background-color: #ff928b;
+  padding: 1%;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.logo {
+  width: 40px;
+  margin: 3vw;
+  transition: width 0.3s ease;
+}
+
+.burgerMenu {
+  width: 30px;
+  margin-right: 3vw;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.burgerMenu:hover {
+  transform: scale(1.1);
+}
+
+.desktop-menu {
+  display: flex;
+  gap: 2rem;
+}
+
+.desktop-menu a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.desktop-menu a:hover {
+  background-color: #ff7465;
+  color: #fff;
+}
+
+.desktop-menu a.login {
+  background-color: white;
+  color: #ff928b;
+  border: 1px solid #ff928b;
+}
+
+.desktop-menu a.login:hover {
+  background-color: #ff928b;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .nav-container {
+    max-height: 8vw;
+  }
+
+  .logo {
+    width: 60px;
+    margin: 1vw;
+  }
+
+  .burgerMenu {
+    display: none;
+  }
+
+  .desktop-menu {
     display: flex;
-    background-color: #ff928b;
-    height: 15vw;
-    padding: 1vw;
-    justify-content: space-between;
-    align-items: center;
-}
-.logo{
-    width: 30px;
-    margin: 3vw;
-}
-.burgerMenu{
-    width: 30px;
-    margin: 0 3vw 0 0;
+    gap: 2rem;
+  }
+
+  .desktop-menu a {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.2rem;
+  }
 }
