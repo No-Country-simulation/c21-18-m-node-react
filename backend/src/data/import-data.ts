@@ -50,10 +50,15 @@ const deleteShelterData = async () => {
 	}
 };
 
-deletePetData();
-deleteShelterData();
+(async () => {
+	await deletePetData();
+	await deleteShelterData();
 
-setTimeout(() => {
-	loadShelterData();
-	loadPetData();
-}, 1000);
+	await loadShelterData();
+	await loadPetData();
+})();
+// deletePetData();
+// deleteShelterData();
+
+// loadShelterData();
+// loadPetData();
