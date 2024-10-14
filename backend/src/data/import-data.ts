@@ -54,6 +54,6 @@ deletePetData();
 deleteShelterData();
 
 setTimeout(() => {
-	loadPetData();
 	loadShelterData();
+	loadPetData();
 }, 1000);
