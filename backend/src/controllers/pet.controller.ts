@@ -3,14 +3,23 @@ import { Request, Response } from "express";
 
 export const createPet = async (req: Request, res: Response) => {
   try {
-    const { name, age, type, shelterId } = req.body;
+    const { name, age, type, shelterId, description, gender, status } =
+      req.body;
     const picture = req.imageUrls ? req.imageUrls[0] : null;
-    console.log("Image URLs:", req.imageUrls);
-
     const ageInt = parseInt(age, 10);
     const shelterIdInt = parseInt(shelterId, 10);
+    const statusBoolean = status === "true";
 
-    if (!name || !age || !type || !shelterId || !picture)
+    if (
+      !name ||
+      !age ||
+      !type ||
+      !shelterId ||
+      !picture ||
+      !description ||
+      !gender ||
+      !status
+    )
       throw { message: "Missing Information" };
     const newPet = await prisma.pet.create({
       data: {
@@ -19,6 +28,9 @@ export const createPet = async (req: Request, res: Response) => {
         type,
         shelterId: shelterIdInt,
         picture,
+        description,
+        gender,
+        status: statusBoolean,
       },
     });
     res.status(201).send({
@@ -69,10 +81,20 @@ export const getPetById = async (req: Request, res: Response) => {
 export const updatePet = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, age, type, shelterId, picture } = req.body;
+    const { name, age, type, shelterId, picture, description, gender, status } =
+      req.body;
     const updatedPet = await prisma.pet.update({
       where: { id },
-      data: { name, age, type, shelterId, picture },
+      data: {
+        name,
+        age,
+        type,
+        shelterId,
+        picture,
+        description,
+        gender,
+        status,
+      },
     });
     res.status(200).send({
       status: "success",

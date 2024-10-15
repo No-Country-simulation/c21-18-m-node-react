@@ -1,12 +1,16 @@
 import React from 'react';
-import PetCard from '../components/PetCard/PetCard';
 import NavBar  from '../components/Navbar/Navbar';
+import Banner  from '../components/Banner/Banner';
+import Main from '../components/Main/Main';
+import Footer from '../components/Footer/Footer';
 
 function Home(){
     return (
         <>
             <NavBar />
-            <PetCard />
+            <Banner  />
+            <Main />
+            <Footer />
         </>
     );
 }

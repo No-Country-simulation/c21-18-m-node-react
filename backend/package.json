@@ -5,7 +5,8 @@
 	"scripts": {
 		"start": "node ./dist/server.js",
 		"dev": "tsx watch --clear-screen=false src/server.ts",
-		"build": "rimraf ./dist && npx tsc && tsc-alias"
+		"build": "rimraf ./dist && npx tsc && tsc-alias",
+		"restartData": "ts-node  src/data/import-data.ts "
 	},
 	"repository": {
 		"type": "git",
@@ -27,7 +28,9 @@
 		"morgan": "^1.10.0",
 		"multer": "^1.4.5-lts.1",
 		"swagger-jsdoc": "^6.2.8",
-		"swagger-ui-express": "^4.6.3"
+		"swagger-ui-express": "^4.6.3",
+		"ts-node": "^10.9.2",
+		"ts-node-dev": "^2.0.0"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.7.5",
