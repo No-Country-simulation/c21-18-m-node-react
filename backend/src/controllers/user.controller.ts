@@ -1,4 +1,4 @@
-import { prisma } from "@/data/postgres";
+import { prisma } from "../data/postgres";
 import { Request, Response } from "express";
 
 export const createUser = async (req: Request, res: Response) => {
