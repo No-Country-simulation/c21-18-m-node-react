@@ -21,7 +21,7 @@ app.use(compression());
 app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
-// hola
+
 //documentación --->
 app.use(
   "/api-doc",
