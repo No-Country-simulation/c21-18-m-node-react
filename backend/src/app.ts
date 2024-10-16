@@ -5,11 +5,12 @@ import compression from 'compression';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import swaggerJSDoc from 'swagger-jsdoc';
-import { serve, setup } from 'swagger-ui-express';
 import { envs } from './config/plugins/env.plugin';
 import { userRouter, petRouter, shelterRouter, authRouter } from './routes';
-import swaggerOptions from './config/swagger';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from "swagger-ui-express"
+import swaggerConfig from "./config/swagger"
+
 import passport from './config/passport'; // Import Passport configuration
 import sessionMiddleware from './config/session'; // Import session middleware
 import session from 'express-session';
