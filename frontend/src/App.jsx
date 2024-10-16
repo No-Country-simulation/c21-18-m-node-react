@@ -1,12 +1,13 @@
-import Home from './pages/Home';
-import './App.css';
+import Home from "./pages/Home";
+import { ShelterForm } from "./components/ShelterForm/ShelterForm";
+import "./App.css";
 
 function App() {
   return (
     <>
-      <Home />
+      <ShelterForm />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
