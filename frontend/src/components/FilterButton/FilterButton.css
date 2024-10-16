@@ -1,0 +1,24 @@
+
+#filters {
+    display: flex;
+    background-color: rgb(48, 221, 134);
+    color: white;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    
+}
+
+.div-filters {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border: #DDDD solid 1px;
+}
+
+#aplicar-btn {
+    display: flex;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
