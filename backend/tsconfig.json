@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2016",
     "module": "commonjs",
-    "rootDir": "./src",
-    "typeRoots": ["./src/types", "./node_modules/@types"],
-    "outDir": "./dist",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
     "strict": true,
-    "skipLibCheck": true,
-    "baseUrl": ".",  // Add this line
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]  // Add this line
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
