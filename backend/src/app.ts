@@ -1,3 +1,4 @@
+
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import compression from 'compression';
@@ -13,18 +14,21 @@ import passport from './config/passport'; // Import Passport configuration
 import sessionMiddleware from './config/session'; // Import session middleware
 import session from 'express-session';
 
+
 // Create Express server
 const app = express();
 
 // Express configuration
 
+
 app.set('port', envs.PORT ?? 3001);
 
 // Middleware
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 
@@ -51,21 +55,26 @@ app.use(
 );
 
 //documentación --->
-const specs = swaggerJSDoc(swaggerOptions);
-app.use('/api/docs', serve, setup(specs));
+app.use(
+  "/api-doc",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJSDoc(swaggerConfig))
+);
 //<---- documentación
 
 // Root endpoint
-app.get('/', (req: Request, res: Response) => {
-	res.send({
-		name: 'API adopción de mascotas',
-		environment: app.get('env'),
-	});
+app.get("/", (req: Request, res: Response) => {
+  res.send({
+    name: "API adopción de mascotas",
+    environment: app.get("env"),
+  });
 });
 
 // Api routes
+
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/pet', petRouter);
 app.use('/api/shelter', shelterRouter);
+
 export default app;

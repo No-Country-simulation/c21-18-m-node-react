@@ -1,5 +1,7 @@
+
 import { prisma } from '@/data/postgres';
 import { Request, Response } from 'express';
+
 
 export const createPet = async (req: Request, res: Response) => {
 	try {
@@ -9,6 +11,7 @@ export const createPet = async (req: Request, res: Response) => {
 		const ageInt = parseInt(age, 10);
 		const shelterIdInt = parseInt(shelterId, 10);
 		const statusBoolean = status === 'true';
+
 
 		if (
 			!name ||
@@ -126,4 +129,5 @@ export const deletePet = async (req: Request, res: Response) => {
 			data: error,
 		});
 	}
+
 };
