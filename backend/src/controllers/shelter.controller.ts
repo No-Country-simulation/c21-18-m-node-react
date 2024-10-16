@@ -107,7 +107,7 @@ export const deleteShelter = async (req: Request, res: Response) => {
     if (shelters.length === 0) {
       res
         .status(400)
-        .send("There is no refugies available to reassign pets to.");
+        .send("There are no refugies available to reassign pets to.");
       return;
     }
     const randomShelterId =
