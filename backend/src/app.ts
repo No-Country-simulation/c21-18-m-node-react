@@ -1,26 +1,58 @@
-import "dotenv/config";
-import express, { Request, Response } from "express";
-import compression from "compression";
-import morgan from "morgan";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import swaggerUi from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
-import swaggerConfig from "./config/swagger";
-import { envs } from "./config/plugins/env.plugin";
-import { userRouter, petRouter, shelterRouter } from "./routes";
+
+import 'dotenv/config';
+import express, { Request, Response } from 'express';
+import compression from 'compression';
+import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import swaggerJSDoc from 'swagger-jsdoc';
+import { serve, setup } from 'swagger-ui-express';
+import { envs } from './config/plugins/env.plugin';
+import { userRouter, petRouter, shelterRouter, authRouter } from './routes';
+import swaggerOptions from './config/swagger';
+import passport from './config/passport'; // Import Passport configuration
+import sessionMiddleware from './config/session'; // Import session middleware
+import session from 'express-session';
+
 
 // Create Express server
 const app = express();
 
 // Express configuration
-app.set("port", envs.PORT ?? 3001);
+
+
+app.set('port', envs.PORT ?? 3001);
+
+// Middleware
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
+
+// Passport & session middleware
+app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(
+// 	session({
+// 		secret: envs.SESSION_SECRET as string,
+// 		resave: true,
+// 		saveUninitialized: true,
+// 		cookie: { maxAge: 1000 * 60 * 60 },
+// 	})
+// );
+
+app.use(
+	session({
+		secret: 'your_secret_key',
+		resave: false,
+		saveUninitialized: false,
+		cookie: { secure: false },
+	})
+);
 
 //documentación --->
 app.use(
@@ -39,8 +71,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Api routes
-app.use("/api/user", userRouter);
-app.use("/api/pet", petRouter);
-app.use("/api/shelter", shelterRouter);
+
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use('/api/pet', petRouter);
+app.use('/api/shelter', shelterRouter);
 
 export default app;
