@@ -9,8 +9,9 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
+    "baseUrl": ".",  // Add this line
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]  // Add this line
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
