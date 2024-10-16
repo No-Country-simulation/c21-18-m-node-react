@@ -1,7 +1,4 @@
 import React from "react";
-import Paw from '../../assets/paw-solid.svg'
-import BurgerMenu from '../../assets/bars-solid.svg'
-import '../../../src/output.css'
 import './Navbar.css'
 
 export default function Navbar() {
