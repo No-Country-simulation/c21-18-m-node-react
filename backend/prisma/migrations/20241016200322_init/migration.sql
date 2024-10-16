@@ -27,7 +27,7 @@ CREATE TABLE "users" (
 CREATE TABLE "pets" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "size" "PetType" NOT NULL,
+    "size" "petSize" NOT NULL,
     "age" INTEGER NOT NULL,
     "type" "PetType" NOT NULL,
     "shelterId" INTEGER NOT NULL,
