@@ -35,7 +35,7 @@ span{
     margin: 1px;
     border-radius: 10px;
     padding: 0.5vw;
-    font-size: 1.5vw;
+    font-size: 0.7rem;
     font-weight: bold;
     color: white;
     display: flex;
@@ -48,16 +48,11 @@ span{
     margin-bottom: 15px;
 }
 
-
-
-
-
-
-
-
-
-
-
+@media(min-width: 768px) {
+    span{
+        font-size: 1rem;
+    }
+}
 /****************************************/
 .new-card {
     background-color: rgb(255, 255, 255);
