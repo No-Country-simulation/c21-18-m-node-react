@@ -11,9 +11,10 @@ model User {
   id       String   @id @default(uuid())
   name     String
   email    String   @unique
-  password String
+  password String?
   role     Role     @default(GUEST)
   phone    String?
+  picture  String?
   
   // Relations
   applications Application[]
@@ -30,6 +31,7 @@ enum Role {
 model Pet {
   id        String   @id @default(uuid())
   name      String
+  size      petSize
   age       Int
   type      PetType
   shelterId  Int
@@ -48,6 +50,11 @@ model Pet {
 enum PetGender {
   MALE
   FEMALE
+}
+enum petSize {
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum PetType {
