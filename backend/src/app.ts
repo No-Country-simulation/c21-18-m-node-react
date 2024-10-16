@@ -51,8 +51,11 @@ app.use(
 );
 
 //documentación --->
-const specs = swaggerJSDoc(swaggerOptions);
-app.use('/api/docs', serve, setup(specs));
+app.use(
+	'/api-doc',
+	swaggerUi.serve,
+	swaggerUi.setup(swaggerJSDoc(swaggerConfig))
+);
 //<---- documentación
 
 // Root endpoint

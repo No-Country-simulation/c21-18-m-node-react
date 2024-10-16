@@ -17,33 +17,30 @@ passport.use(
 			done: Function
 		) => {
 			try {
-				// Make sure to check for the email in the profile
 				const email = await profile.emails?.[0]?.value;
 
 				if (!email) {
 					return done(new Error('Email not provided by Google'), null);
 				}
 
-				// Check if the user exists in the database by email
 				let user = await prisma.user.findUnique({
 					where: { email: profile.emails[0].value },
 				});
 
 				if (!user) {
-					// If the user doesn't exist, create a new user
 					user = await prisma.user.create({
 						data: {
 							name:
 								profile.displayName ||
 								`${profile.name.givenName} ${profile.name.familyName}`,
-							email: profile.emails?.[0]?.value, // Store the user's email
-							picture: profile.photos?.[0]?.value, // Store the user's Google profile picture
+							email: profile.emails?.[0]?.value,
+							picture: profile.photos?.[0]?.value,
 						},
 					});
 				}
 
 				// Sign the user in (existing or newly created)
-				return done(null, user); // Pass the user object to `serializeUser`
+				return done(null, user);
 			} catch (err) {
 				return done(err, null);
 			}
