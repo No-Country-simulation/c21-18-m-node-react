@@ -11,6 +11,7 @@ export const ShelterForm = () => {
   const [shelterPhoneNumber, setShelterPhoneNumber] = React.useState("");
   const [shelterEmail, setShelterEmail] = React.useState("");
   const [feedback, setFeedback] = React.useState({ message: "", type: "" });
+  const [loading, setLoading] = React.useState(false);
 
   const validateForm = () => {
     if (
@@ -22,41 +23,45 @@ export const ShelterForm = () => {
       setFeedback({ message: "All fields are required", type: "error" });
       return false;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(shelterEmail)) {
       setFeedback({ message: "Invalid email format", type: "error" });
       return false;
     }
+
+    const phoneRegex = /^\d{10}$/; // Adjust this regex according to your needs
+    if (!phoneRegex.test(shelterPhoneNumber)) {
+      setFeedback({ message: "Phone number must be 10 digits", type: "error" });
+      return false;
+    }
+
     return true;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) return;
-    console.log("Form submitted");
-    console.log(shelterName, shelterAddress, shelterPhoneNumber, shelterEmail);
 
+    setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/shelter/create-shelter",
+        "http://localhost:3000/api/shelter/create-shelter",
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          data: JSON.stringify({
-            name: shelterName,
-            address: shelterAddress,
-            phone: shelterPhoneNumber,
-            email: shelterEmail,
-          }),
-        }
+          name: shelterName,
+          address: shelterAddress,
+          phone: shelterPhoneNumber,
+          email: shelterEmail,
+        },
+        { withCredentials: true }
       );
-      console.log(response);
 
-      if (response.ok) {
+      if (response.status >= 200 && response.status < 300) {
         setFeedback({
           message: "Shelter created successfully",
           type: "success",
         });
+        // Reset form fields
         setShelterName("");
         setShelterAddress("");
         setShelterPhoneNumber("");
@@ -66,7 +71,16 @@ export const ShelterForm = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      setFeedback({ message: "Network error", type: "error" });
+      setFeedback({
+        message: error.response?.data?.message || "Network error",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+      // Clear feedback after a timeout
+      setTimeout(() => {
+        setFeedback({ message: "", type: "" });
+      }, 3000);
     }
   };
 
@@ -82,7 +96,7 @@ export const ShelterForm = () => {
         justifyContent: "center",
         height: "80vh",
         width: "80%",
-        bgcolor: "#fec3a6",
+        bgcolor: "#cdeac0",
       }}
     >
       {feedback.message && (
@@ -119,8 +133,15 @@ export const ShelterForm = () => {
         onChange={(e) => setShelterEmail(e.target.value)}
         sx={{ width: "50%", marginBottom: "20px" }}
       />
-      <Button type="submit" variant="contained" sx={{ width: "50%" }}>
-        Submit
+
+      <Button
+        type="submit"
+        variant="contained"
+        color="#cdeac0"
+        sx={{ width: "50%" }}
+        disabled={loading}
+      >
+        {loading ? "Submitting..." : "Submit"}
       </Button>
     </Box>
   );
