@@ -2,7 +2,6 @@ import React from 'react';
 import './PetCard.css';
 
 export default function PetCard({ name, age, size, gender, image }) {
-    console.log("Rendering PetCard with props:", { name, age, size, gender, image });
     return (
         <div className="card">
             <article className='pet-article'>
