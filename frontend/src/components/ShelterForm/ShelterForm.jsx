@@ -95,7 +95,7 @@ export const ShelterForm = () => {
         alignItems: "center",
         justifyContent: "center",
         height: "80vh",
-        width: "80%",
+        width: "100%",
         bgcolor: "#cdeac0",
       }}
     >
