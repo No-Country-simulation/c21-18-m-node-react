@@ -1,6 +1,8 @@
 import multer, { FileFilterCallback } from "multer";
 import { Request, Response, NextFunction } from "express";
-import { cloudinary } from "@/config/cloudinaryConfig";
+import { cloudinary } from "../config/cloudinaryConfig";
+
+// import { cloudinary } from "@/config/cloudinaryConfig";
 
 // Configurar multer para la carga de fotos
 const uploadPhoto = multer({
