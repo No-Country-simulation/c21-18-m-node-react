@@ -22,7 +22,7 @@ export default function Main() {
     }, []);
     return (
         <div className="main-container">
-            <h3 className="subtitle"> Conocelos! </h3>
+            <h3 className="subtitle"> Conócelos! </h3>
             <div className="pet-container">
             {pets.length > 0 ? (
                 pets.slice(0,4).map((pet) => (
