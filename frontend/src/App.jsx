@@ -11,7 +11,6 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-
           <Route path="/" element={<Home />} />
           <Route path="/AllPets" element={<AllPets />} />
         </Routes>

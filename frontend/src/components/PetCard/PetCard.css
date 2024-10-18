@@ -62,7 +62,7 @@ span{
 .new-card {
     background-color: rgb(255, 255, 255);
     padding: 0.5rem;
-    border: rgb(103, 224, 168) solid 2px;
+    border: #cdeac0 solid 2px;
     height: 16rem;
     width: 14rem;
     display: flex;
@@ -80,6 +80,7 @@ span{
     width: 100%;
     opacity: 90%;
     transition: transform 0.3s ease; /* Agrega una transición suave */
+    border-radius: 5%;
 }
 
 .new-card .span-name{
@@ -87,10 +88,10 @@ span{
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(34, 243, 83, 0.5); /* Fondo semi-transparente opcional */
+    background-color: #fec3a683;
     padding: 5px;
     font-size: 14px;
-    color: white;
+    color: rgb(58, 58, 58)
 }
 
 .new-card:hover img {
@@ -110,10 +111,10 @@ span{
 
 .new-card .text-container span {
     margin-bottom: 5px; /* Espacio entre los spans */
-    background-color: rgba(34, 243, 83, 0.5); /* Fondo semi-transparente opcional */
+    background-color: #cdeac08c; /* Fondo semi-transparente opcional */
     padding: 5px;
     font-size: 14px;
-    color: rgb(32, 30, 30);
+    color: rgb(48, 47, 47);
 }
 
 .card-container{
