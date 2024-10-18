@@ -3,6 +3,7 @@ import './Main.css';
 import PetCard from "../PetCard/PetCard";
 import * as API from '../../services/apiPetService';
 import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 function randomArray(array) {
     return array.sort(() => Math.random() - 0.5);

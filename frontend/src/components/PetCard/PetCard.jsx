@@ -11,7 +11,7 @@ export default function PetCard({ name, age, size, gender, image }) {
                     <span>{size ?? 'Unknown'}</span>
                     <span>{age ?? 'Unknown'}</span>
                 </div>
-                <p>{name}</p>
+                <p className='name'>{name}</p>
             </article>
         </div>
     );
