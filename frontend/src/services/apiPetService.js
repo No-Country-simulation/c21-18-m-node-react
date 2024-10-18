@@ -18,8 +18,12 @@ export async function newPet() {
     }
 }
 
-// export const fetchService = async('http://localhost:3000/api/pet/', method = 'GET', body = null) => {
-//     const headers = {
-//         'Content-Type': 'application/json',
-//     };
-// }
+export async function getPet(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/pet/${id}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}

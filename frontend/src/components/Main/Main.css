@@ -1,3 +1,8 @@
+a{
+    text-decoration: none;
+    color: #fec3a6;
+}
+
 .main-container {
   background-color: #efe9ae;
   display: flex;
@@ -39,6 +44,7 @@
   background-color: #ffac81;
   text-decoration: none;
   color: #000;
+  font-family: "Lato", serif;
 }
 
 .subtitle {
