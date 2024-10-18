@@ -8,11 +8,8 @@ export const envs = {
 	POSTGRES_DB: env.get('POSTGRES_DB').required().asString(),
 	POSTGRES_PORT: env.get('POSTGRES_PORT').required().asPortNumber(),
 	POSTGRES_PASSWORD: env.get('POSTGRES_PASSWORD').required().asString(),
+	GOOGLE_CLIENT_ID: env.get('GOOGLE_CLIENT_ID').asString(),
+	GOOGLE_SECRET_ID: env.get('GOOGLE_SECRET_ID').asString(),
+	REDIRECT_URL: env.get('REDIRECT_URL').asString(),
+	SESSION_SECRET: env.get('SESSION_SECRET').asString(),
 };
-// PUBLIC_PATH=public
-
-// POSTGRES_URL=postgresql://postgres:123456@localhost:5432/TODO
-// POSTGRES_USER=postgres
-// POSTGRES_DB=TODO
-// POSTGRES_PORT=5432
-// POSTGRES_PASSWORD=123456

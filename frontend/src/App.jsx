@@ -1,23 +1,18 @@
-import Home from './pages/Home';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AllPets from './pages/AllPets';
+import { Outlet } from 'react-router-dom';
 import './App.css';
-import CssBaseline from '@mui/material/CssBaseline'; // Importa CssBaseline
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 
 
 function App() {
   return (
-    <>
-      <CssBaseline />
-      <Router>
-        <Routes>
-
-          <Route path="/" element={<Home />} />
-          <Route path="/AllPets" element={<AllPets />} />
-        </Routes>
-      </Router>
-    </>
+    <div>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
   )
 }
 
 export default App
+

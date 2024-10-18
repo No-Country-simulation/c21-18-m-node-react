@@ -3,18 +3,16 @@ import { Request, Response } from "express";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { name, email, password, role, phone } = req.body;
-    if (!name || !email || !password || !role || !phone)
+    const { name, email, picture } = req.body;
+    if (!name || !email || !picture)
       throw {
         message: " Missing Information",
       };
     const newUser = await prisma.user.create({
       data: {
-        name,
-        email,
-        password,
-        role,
-        phone,
+        name: name as string,
+        email: email as string,
+        picture: picture as string,
       },
     });
     res.status(201).send({

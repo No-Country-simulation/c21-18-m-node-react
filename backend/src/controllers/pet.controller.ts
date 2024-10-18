@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 export const createPet = async (req: Request, res: Response) => {
   try {
-    const { name, age, type, shelterId, description, gender, status } =
+    const { name, age, type, shelterId, description, gender, status, size } =
       req.body;
     const picture = req.imageUrls ? req.imageUrls[0] : null;
     const ageInt = parseInt(age, 10);
@@ -18,12 +18,10 @@ export const createPet = async (req: Request, res: Response) => {
       !picture ||
       !description ||
       !gender ||
-      !status
-    ) {
-      res.status(400).send({ message: "Missing Information" });
-      return;
-    }
-
+      !status ||
+      !size
+    )
+      throw { message: "Missing Information" };
     const newPet = await prisma.pet.create({
       data: {
         name,
@@ -34,6 +32,7 @@ export const createPet = async (req: Request, res: Response) => {
         description,
         gender,
         status: statusBoolean,
+        size,
       },
     });
     res.status(201).send({
@@ -41,7 +40,7 @@ export const createPet = async (req: Request, res: Response) => {
       data: newPet,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(400).send({
       status: "fail",
       data: error,
     });
@@ -56,7 +55,7 @@ export const getPets = async (req: Request, res: Response) => {
       data: pets,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(400).send({
       status: "fail",
       data: error,
     });
@@ -69,16 +68,12 @@ export const getPetById = async (req: Request, res: Response) => {
     const pet = await prisma.pet.findUnique({
       where: { id },
     });
-    if (!pet) {
-      res.status(404).send({ message: "The pet does not exist" });
-      return;
-    }
     res.status(200).send({
       status: "success",
       data: pet,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(400).send({
       status: "fail",
       data: error,
     });
@@ -108,7 +103,7 @@ export const updatePet = async (req: Request, res: Response) => {
       data: updatedPet,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(400).send({
       status: "fail",
       data: error,
     });
@@ -121,12 +116,12 @@ export const deletePet = async (req: Request, res: Response) => {
     await prisma.pet.delete({
       where: { id },
     });
-    res.status(204).send({
+    res.status(200).send({
       status: "success",
       message: "Pet deleted successfully",
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(400).send({
       status: "fail",
       data: error,
     });
