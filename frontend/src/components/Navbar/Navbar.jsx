@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <div className="nav-container">
-      <NavLink exact to="/" className="logo-link">
+      <NavLink to="/" className="logo-link">
         <img className="logo" src={Paw} alt="Logo" />
       </NavLink>
       <nav>
@@ -29,13 +29,22 @@ export default function Navbar() {
           <img className="burgerMenu" src={BurgerMenu} alt="Menú de hamburguesa" />
         ) : (
           <div className="desktop-menu">
-            <NavLink to="/detailPet" activeClassName="active" className="adopt">
+            <NavLink 
+              to="/AllPets" 
+              className={({ isActive }) => isActive ? "adopt active" : "adopt"}
+            >
               Adoptar
             </NavLink>
-            <NavLink to="/AboutUs" activeClassName="active" className="contact">
+            <NavLink 
+              to="/AboutUs" 
+              className={({ isActive }) => isActive ? "contact active" : "contact"}
+            >
               Conócenos
             </NavLink>
-            <NavLink to="/LogIn" activeClassName="active" className="login">
+            <NavLink 
+              to="/logIn" 
+              className={({ isActive }) => isActive ? "login active" : "login"}
+            >
               Log in
             </NavLink>
           </div>
