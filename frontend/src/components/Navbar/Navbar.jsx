@@ -33,7 +33,7 @@ export default function Navbar() {
               to="/AllPets" 
               className={({ isActive }) => isActive ? "adopt active" : "adopt"}
             >
-              Adoptar
+              Mascotas
             </NavLink>
             <NavLink 
               to="/AboutUs" 
