@@ -49,7 +49,11 @@ export const createPet = async (req: Request, res: Response) => {
 
 export const getPets = async (req: Request, res: Response) => {
   try {
-    const pets = await prisma.pet.findMany();
+    const pets = await prisma.pet.findMany({
+      include: {
+        shelter: true,
+      },
+    });
     res.status(200).send({
       status: "success",
       data: pets,
