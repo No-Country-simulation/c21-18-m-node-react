@@ -11,11 +11,29 @@ a{
   flex-direction: column;
 }
 
+.subtitle{
+  font-family: "Amatic SC", serif;
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 25px;
+}
+
 .pet-container {
   display: grid;
   gap: 20px;
   width: 100%;
   padding: 20px;
+}
+
+.btn {
+  margin: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffac81;
+  text-decoration: none;
+  color: #000;
+  font-family: "Lato", serif;
 }
 
 @media (min-width: 1024px) {
@@ -36,18 +54,5 @@ a{
   }
 }
 
-.btn {
-  margin: 20px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ffac81;
-  text-decoration: none;
-  color: #000;
-  font-family: "Lato", serif;
-}
 
-.subtitle {
-  font-size: 1.5rem;
-  margin: 30px 0px;
-}
+
