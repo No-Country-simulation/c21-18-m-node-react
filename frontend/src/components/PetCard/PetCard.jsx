@@ -2,7 +2,6 @@ import React from 'react';
 import './PetCard.css';
 
 export default function PetCard({ name, age, size, gender, image }) {
-    console.log("Rendering PetCard with props:", { name, age, size, gender, image });
     return (
         <div className="card">
             <article className='pet-article'>
@@ -12,7 +11,7 @@ export default function PetCard({ name, age, size, gender, image }) {
                     <span>{size ?? 'Unknown'}</span>
                     <span>{age ?? 'Unknown'}</span>
                 </div>
-                <p>{name}</p>
+                <p className='name'>{name}</p>
             </article>
         </div>
     );

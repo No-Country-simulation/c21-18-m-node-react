@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import './Main.css';
 import PetCard from "../PetCard/PetCard";
 import * as API from '../../services/apiPetService';
+import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 function randomArray(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -22,18 +24,19 @@ export default function Main() {
     }, []);
     return (
         <div className="main-container">
-            <h3 className="subtitle"> Conocelos! </h3>
+            <h3 className="subtitle"> Conócelos! </h3>
             <div className="pet-container">
             {pets.length > 0 ? (
                 pets.slice(0,4).map((pet) => (
+                    <Link to={`/api/pet/${pet.id}`} key={pet.id}>
                     <PetCard
-                        key={pet.id}
                         name={pet.name}
                         age={pet.age}
                         gender={pet.gender}
                         size={pet.size}
                         image={pet.picture}
                     />
+                    </Link>
                 ))
                 ) : (
                     <p>No hay mascotas disponibles.</p>
