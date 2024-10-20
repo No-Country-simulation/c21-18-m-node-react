@@ -72,7 +72,6 @@ export const getPets = async (req: Request, res: Response) => {
 		const filters: any = {};
 		let orderBy: any = {};
 
-		// Add filters based on query parameters
 		if (size) filters.size = size;
 		if (gender) filters.gender = gender;
 		if (type) filters.type = type;
@@ -82,7 +81,6 @@ export const getPets = async (req: Request, res: Response) => {
 			if (maxAge) filters.age.lte = parseInt(maxAge as string, 10);
 		}
 
-		// Add sorting by age
 		if (sortByAge === 'asc') {
 			orderBy.age = 'asc';
 		} else if (sortByAge === 'desc') {
