@@ -1,5 +1,5 @@
 import Paw from '../../assets/paw-solid.svg';
-import BurgerMenu from '../../assets/bars-solid.svg';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import './Navbar.css';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -26,7 +26,7 @@ export default function Navbar() {
       </NavLink>
       <nav>
         {isMobile ? (
-          <img className="burgerMenu" src={BurgerMenu} alt="Menú de hamburguesa" />
+          <BurgerMenu></BurgerMenu>
         ) : (
           <div className="desktop-menu">
             <NavLink 
