@@ -67,10 +67,12 @@ export const createPet = async (req: Request, res: Response) => {
 // };
 export const getPets = async (req: Request, res: Response) => {
 	try {
-		const { size, gender, type, minAge, maxAge } = req.query;
+		const { size, gender, type, minAge, maxAge, sortByAge } = req.query;
 
 		const filters: any = {};
+		let orderBy: any = {};
 
+		// Add filters based on query parameters
 		if (size) filters.size = size;
 		if (gender) filters.gender = gender;
 		if (type) filters.type = type;
@@ -80,8 +82,16 @@ export const getPets = async (req: Request, res: Response) => {
 			if (maxAge) filters.age.lte = parseInt(maxAge as string, 10);
 		}
 
+		// Add sorting by age
+		if (sortByAge === 'asc') {
+			orderBy.age = 'asc';
+		} else if (sortByAge === 'desc') {
+			orderBy.age = 'desc';
+		}
+
 		const pets = await prisma.pet.findMany({
 			where: filters,
+			orderBy: Object.keys(orderBy).length ? orderBy : undefined,
 			include: {
 				shelter: true,
 			},
@@ -89,7 +99,6 @@ export const getPets = async (req: Request, res: Response) => {
 
 		res.status(200).send({
 			status: 'success',
-			count: pets.length,
 			data: pets,
 		});
 	} catch (error) {
