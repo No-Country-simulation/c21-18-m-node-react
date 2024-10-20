@@ -1,15 +1,17 @@
-import * as shelterController from "../controllers/shelter.controller";
+import * as shelterController from '../controllers/shelter.controller';
 // import { Router } from "express";
-import express from "express";
+import express from 'express';
+import { roleCheck } from '../middleware/roleCheck';
+import { isAuthenticated } from '../middleware/isAuthenticate';
 
 // const shelterRouter = Router();
 const shelterRouter = express.Router();
 
-shelterRouter.post("/create-shelter", shelterController.createShelter);
-shelterRouter.get("/", shelterController.getAllShelters);
-shelterRouter.get("/:id", shelterController.getAshelter);
-shelterRouter.put("/:id", shelterController.updateShelter);
-shelterRouter.delete("/:id", shelterController.deleteShelter);
+shelterRouter.post('/create-shelter', shelterController.createShelter);
+shelterRouter.get('/', shelterController.getAllShelters);
+shelterRouter.get('/:id', shelterController.getAshelter);
+shelterRouter.put('/:id', shelterController.updateShelter);
+shelterRouter.delete('/:id', shelterController.deleteShelter);
 
 /**
  * @swagger

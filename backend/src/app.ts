@@ -1,4 +1,3 @@
-
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import compression from 'compression';
@@ -8,19 +7,19 @@ import cookieParser from 'cookie-parser';
 import { envs } from './config/plugins/env.plugin';
 import { userRouter, petRouter, shelterRouter, authRouter } from './routes';
 import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUi from "swagger-ui-express"
-import swaggerConfig from "./config/swagger"
+import swaggerUi from 'swagger-ui-express';
+import swaggerConfig from './config/swagger';
 
 import passport from './config/passport'; // Import Passport configuration
 import sessionMiddleware from './config/session'; // Import session middleware
 import session from 'express-session';
-
+import { isAuthenticated } from './middleware/isAuthenticate';
+import { roleCheck } from './middleware/roleCheck';
 
 // Create Express server
 const app = express();
 
 // Express configuration
-
 
 app.set('port', envs.PORT ?? 3001);
 
@@ -29,7 +28,7 @@ app.set('port', envs.PORT ?? 3001);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 
@@ -57,18 +56,18 @@ app.use(
 
 //documentación --->
 app.use(
-  "/api-doc",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerJSDoc(swaggerConfig))
+	'/api-doc',
+	swaggerUi.serve,
+	swaggerUi.setup(swaggerJSDoc(swaggerConfig))
 );
 //<---- documentación
 
 // Root endpoint
-app.get("/", (req: Request, res: Response) => {
-  res.send({
-    name: "API adopción de mascotas",
-    environment: app.get("env"),
-  });
+app.get('/', (req: Request, res: Response) => {
+	res.send({
+		name: 'API adopción de mascotas',
+		environment: app.get('env'),
+	});
 });
 
 // Api routes
@@ -76,6 +75,6 @@ app.get("/", (req: Request, res: Response) => {
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/pet', petRouter);
-app.use('/api/shelter', shelterRouter);
+app.use('/api/shelter', isAuthenticated, roleCheck(['ADMIN']), shelterRouter);
 
 export default app;
