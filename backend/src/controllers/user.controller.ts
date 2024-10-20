@@ -44,17 +44,21 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 // Find User by ID
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const { id } = req.params;
 		const user = await prisma.user.findUnique({
-			where: { id: id },
+			where: { id },
 		});
 		if (!user) {
-			return res.status(404).send({
+			res.status(404).send({
 				status: 'fail',
 				message: 'User not found',
 			});
+			return;
 		}
 		res.status(200).send({
 			status: 'success',
@@ -67,7 +71,6 @@ export const getUserById = async (req: Request, res: Response) => {
 		});
 	}
 };
-
 export const updateUser = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
