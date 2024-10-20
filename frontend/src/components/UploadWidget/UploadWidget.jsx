@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useEffect, useRef } from "react";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export const UploadWidget = () => {
   const cloudinaryRef = useRef();
@@ -28,6 +29,9 @@ export const UploadWidget = () => {
   // Retornar el JSX con el botón.
   return (
     <Button
+      sx={{ mt: 2 }}
+      variant="contained"
+      startIcon={<CloudUploadIcon />}
       onClick={() => {
         widgetRef.current.open();
       }}
