@@ -1,20 +1,14 @@
-const pet = {
-  name: "Chuleta",
-  edad: '6 años',
-  tamanio: "grande",
-  sexo: "macho",
-  picture: "/dog.png",
-};
 
-const Card = () => {
+
+const Card = ({ name, age, size, gender, image }) => {
   return (
     <div className="new-card">
-      <img src={pet.picture} />
-      <span className="span-name">"{pet.name}"</span>
+      <img src={image} alt='picture-pet' />
+      <span className="span-name">"{name}"</span>
       <div className="text-container">
-        <span>{pet.sexo}</span>
-        <span>{pet.tamanio}</span>
-        <span>{pet.edad}</span>
+        <span>{gender}</span>
+        <span>{size}</span>
+        <span>{age} years</span>
       </div>
     </div>
   );
