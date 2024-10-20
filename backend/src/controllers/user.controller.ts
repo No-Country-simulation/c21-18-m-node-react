@@ -1,28 +1,117 @@
-import { prisma } from "../data/postgres";
-import { Request, Response } from "express";
+import { prisma } from '../data/postgres';
+import { Request, Response } from 'express';
 
 export const createUser = async (req: Request, res: Response) => {
-  try {
-    const { name, email, picture } = req.body;
-    if (!name || !email || !picture)
-      throw {
-        message: " Missing Information",
-      };
-    const newUser = await prisma.user.create({
-      data: {
-        name: name as string,
-        email: email as string,
-        picture: picture as string,
-      },
-    });
-    res.status(201).send({
-      status: "success",
-      data: newUser,
-    });
-  } catch (error) {
-    res.status(400).send({
-      status: "fail",
-      data: error,
-    });
-  }
+	try {
+		const { name, email, picture } = req.body;
+		if (!name || !email || !picture)
+			throw {
+				message: ' Missing Information',
+			};
+		const newUser = await prisma.user.create({
+			data: {
+				name: name as string,
+				email: email as string,
+				picture: picture as string,
+			},
+		});
+		res.status(201).send({
+			status: 'success',
+			data: newUser,
+		});
+	} catch (error) {
+		res.status(400).send({
+			status: 'fail',
+			data: error,
+		});
+	}
+};
+
+// Get All Users
+export const getAllUsers = async (req: Request, res: Response) => {
+	try {
+		const users = await prisma.user.findMany();
+		res.status(200).send({
+			status: 'success',
+			data: users,
+		});
+	} catch (error) {
+		res.status(400).send({
+			status: 'fail',
+			data: error,
+		});
+	}
+};
+
+// Find User by ID
+export const getUserById = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const user = await prisma.user.findUnique({
+			where: { id: id },
+		});
+		if (!user) {
+			return res.status(404).send({
+				status: 'fail',
+				message: 'User not found',
+			});
+		}
+		res.status(200).send({
+			status: 'success',
+			data: user,
+		});
+	} catch (error) {
+		res.status(400).send({
+			status: 'fail',
+			data: error,
+		});
+	}
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const { name, email, phone, picture, role } = req.body;
+
+		const updatedUser = await prisma.user.update({
+			where: { id: id as string },
+			data: {
+				name: name as string,
+				email: email as string,
+				phone: phone as string,
+				picture: picture as string,
+				role: role, // Update role if provided
+			},
+		});
+
+		res.status(200).send({
+			status: 'success',
+			data: updatedUser,
+		});
+	} catch (error) {
+		res.status(400).send({
+			status: 'fail',
+			message: error,
+			data: error,
+		});
+	}
+};
+// Delete User
+export const deleteUser = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		await prisma.user.delete({
+			where: { id: id },
+		});
+		res.status(204).send({
+			status: 'success',
+			message: 'user deleted successfully',
+			data: null,
+		});
+	} catch (error) {
+		res.status(400).send({
+			status: 'fail',
+			data: error,
+		});
+	}
 };
