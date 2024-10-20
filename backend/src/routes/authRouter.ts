@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
+import { roleCheck } from '../middleware/roleCheck';
 
 const authRouter = express.Router();
 
