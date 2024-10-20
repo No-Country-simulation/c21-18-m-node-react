@@ -2,15 +2,15 @@ import Btn from "./Btn";
 import "./FilterButton.css";
 import { useState } from "react";
 
+// constante
 const filtros = {
-  gender: ["macho", "hembra"], 
-  size: ["pequeño", "mediano", "grande"],
-  age: ["cachorro", "adulto"]
+  gender: ["MALE", "FEMALE"], 
+  size: ["SMALL", "MEDIUM", "LARGE"],
+  age: ["PUPPY", "ADULT"]
 };
 
-
-// main  component
-const FilterButton = () => {
+///////// main  component
+const FilterButton = ({setActive, sendFilters}) => {
   
   // Manejamos los estados de los filtros
   const [selectedFilters, setSelecterFilters] = useState({
@@ -19,11 +19,17 @@ const FilterButton = () => {
     age: [],
   });
 
-  //Verificamos si el state de filtros está vacios
-  const isFiltersEmpty = Object.values(selectedFilters).every(
-    (filters) => filters.length === 0
-  );
+  // aply btn function
+  const handleClick = () => {
+    toggleActive();
+    handleApply();
+  }
 
+  const toggleActive = () => {
+    // cambia el estado activo/no activo en el padre
+    setActive((prevStatus) => !prevStatus)
+  }
+  
 
   // Manejamos los click en los dif filtros
   const handleFilterClick = (category, filtro) => {
@@ -50,8 +56,15 @@ const FilterButton = () => {
       },
       {}
     );
-  
+
+    // Enviar los filtros seleccionados al padre
+    sendFilters(selectedFilters);
     console.log("Filtros seleccionados: ", selectedCategories);
+    setSelecterFilters({
+      gender: [],
+      size: [],
+      age: [],
+    })
   };
 
   return (
@@ -60,27 +73,23 @@ const FilterButton = () => {
         <div id="filters">
           {
             Object.entries(filtros).map(([key, values]) => (
-            <div key={key}>
-              <h3>{key}</h3>
-              {values.map((value) => (
-                <Btn
+            <div id="div-category" key={key}>
+              <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+              <div id="span-container">
+                {values.map((value) => (
+                  <Btn
                   key={value}
                   text={value}
                   onClick={() => handleFilterClick(key, value)}
-                />
-              ))}
+                  />
+                ))}
+              </div>
             </div>
-          ))}
+          ))
+          }
         </div>
         <div id="aplicar-btn">
-          <button onClick={handleApply}>Aplicar</button>
-          {
-          isFiltersEmpty? (
-            <p>filtros vacios</p>
-          ) : (
-            <p>Hay filtros seleccionados</p>
-          )
-          }
+          <button onClick={handleClick}>Aplicar</button>
         </div>
       </div>
     </>
