@@ -9,11 +9,10 @@ export default function PetCard({ name, age, size, gender, image }) {
                 <div className="pet-info">
                     <span>{gender}</span>
                     <span>{size ?? 'Unknown'}</span>
-                    <span>{age ?? 'Unknown'}</span>
+                    <span>{age ?? 'Unknown'} años</span>
                 </div>
                 <p className='name'>{name}</p>
             </article>
         </div>
     );
 }
-
