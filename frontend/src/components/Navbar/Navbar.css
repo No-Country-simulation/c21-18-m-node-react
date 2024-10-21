@@ -16,7 +16,7 @@
 }
 
 .burgerMenu {
-  width: 30px;
+  width: 35px;
   margin-right: 3vw;
   cursor: pointer;
   transition: transform 0.3s ease;
