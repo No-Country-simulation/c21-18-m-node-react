@@ -39,6 +39,9 @@ model Pet {
   description String
   gender    PetGender
   status    Boolean
+  address   String?
+  localidad String?
+  provincia String?
 
   // Relations
   shelter    Shelter   @relation(fields: [shelterId], references: [id])
@@ -48,18 +51,18 @@ model Pet {
 }
 
 enum PetGender {
-  MALE
-  FEMALE
+  MACHO
+  HEMBRA
 }
 enum petSize {
-  SMALL
-  MEDIUM
-  LARGE
+  CHICO
+  MEDIANO
+  GRANDE
 }
 
 enum PetType {
-  DOG
-  CAT
+  PERRO
+  GATO
 }
 enum ApplicationStatus {
   APPROVED
