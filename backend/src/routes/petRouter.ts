@@ -1,23 +1,24 @@
-import { Router } from "express";
-import * as petController from "../controllers/pet.controller";
+import { Router } from 'express';
+import * as petController from '../controllers/pet.controller';
 
 import {
-  uploadPhoto,
-  resizeAndUploadImage,
-} from "../middleware/imageUploadMiddleware";
+	uploadPhoto,
+	resizeAndUploadImage,
+} from '../middleware/imageUploadMiddleware';
+import { roleCheck } from '../middleware/roleCheck';
 
 const petRouter = Router();
 
 petRouter.post(
-  "/create-pet",
-  uploadPhoto.single("picture"),
-  resizeAndUploadImage,
-  petController.createPet
+	'/create-pet',
+	uploadPhoto.single('picture'),
+	resizeAndUploadImage,
+	petController.createPet
 );
-petRouter.get("/", petController.getPets);
-petRouter.get("/:id", petController.getPetById);
-petRouter.put("/:id", petController.updatePet);
-petRouter.delete("/:id", petController.deletePet);
+petRouter.get('/', petController.getPets);
+petRouter.get('/:id', petController.getPetById);
+petRouter.put('/:id', roleCheck(['ADMIN']), petController.updatePet);
+petRouter.delete('/:id', roleCheck(['ADMIN']), petController.deletePet);
 
 /**
  * @swagger

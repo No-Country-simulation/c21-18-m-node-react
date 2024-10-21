@@ -6,11 +6,13 @@ import {
 	getUserById,
 	updateUser,
 } from '../controllers';
+import { isAuthenticated } from '../middleware/isAuthenticate';
+import { roleCheck } from '../middleware/roleCheck';
 const usersRouter = Router();
 
 usersRouter.route('/create-user').post(createUser);
-
-usersRouter.get('/users', getAllUsers);
+usersRouter.use(isAuthenticated);
+usersRouter.get('/users', roleCheck(['ADMIN']), getAllUsers);
 
 usersRouter
 	.route('/users/:id')
