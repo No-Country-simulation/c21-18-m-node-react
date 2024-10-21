@@ -4,6 +4,7 @@
 import path from "path";
 import petSchemaDefinition from "../swagger/pets-swagger";
 import shelterSchemaDefinition from "../swagger/shelter-swagger";
+import userSquemaDefinition from "../swagger/user-swagger";
 
 const swaggerOptions = {
   definition: {
@@ -23,11 +24,11 @@ const swaggerOptions = {
       schemas: {
         Pets: petSchemaDefinition,
         Shelters: shelterSchemaDefinition,
+        Users: userSquemaDefinition,
       },
     },
   },
   apis: [`${path.join(__dirname, "../routes/*.ts")}`],
-  // apis: ["./src/routes/*.yaml"],
 };
 
 export default swaggerOptions;
