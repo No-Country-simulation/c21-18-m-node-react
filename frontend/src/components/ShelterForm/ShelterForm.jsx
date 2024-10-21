@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
-import axios from "axios";
+import * as API from "../../services/apiShelterService";
 
 export const ShelterForm = () => {
   const [shelterName, setShelterName] = React.useState("");
@@ -41,46 +41,35 @@ export const ShelterForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!validateForm()) return;
 
-    setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/shelter/create-shelter",
-        {
-          name: shelterName,
-          address: shelterAddress,
-          phone: shelterPhoneNumber,
-          email: shelterEmail,
-        },
-        { withCredentials: true }
+      setLoading(true);
+      const response = await API.createShelter(
+        shelterName,
+        shelterAddress,
+        shelterPhoneNumber,
+        shelterEmail
       );
 
-      if (response.status >= 200 && response.status < 300) {
+      if (response && response.status === "success") {
         setFeedback({
           message: "Shelter created successfully",
           type: "success",
         });
-        // Reset form fields
+        // Resetear campos
         setShelterName("");
         setShelterAddress("");
         setShelterPhoneNumber("");
         setShelterEmail("");
       } else {
-        setFeedback({ message: "Failed to create shelter", type: "error" });
+        throw new Error(response.message || "Failed to create shelter");
       }
     } catch (error) {
-      console.error("Error:", error);
-      setFeedback({
-        message: error.response?.data?.message || "Network error",
-        type: "error",
-      });
+      setFeedback({ message: error.message, type: "error" });
     } finally {
       setLoading(false);
-      // Clear feedback after a timeout
-      setTimeout(() => {
-        setFeedback({ message: "", type: "" });
-      }, 3000);
     }
   };
 
