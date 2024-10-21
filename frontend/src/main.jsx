@@ -7,6 +7,7 @@ import LogIn from "./pages/LogIn.jsx";
 import PetDetail from "./pages/petDetail/PetDetail.jsx";
 import { ShelterForm } from "./components/ShelterForm/ShelterForm.jsx";
 import { PetForm } from "./components/PetForm/PetForm.jsx";
+import { PetTable } from "./components/PetTable/PetTable.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")).render(
         {/* <Route path='/PetDetail' element={<PetDetail />} />  */}
         <Route path="/ShelterForm" element={<ShelterForm />} />
         <Route path="/PetForm" element={<PetForm />} />
+        <Route path="/PetTable" element={<PetTable />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/api/pet/:id" element={<PetDetail />} />
