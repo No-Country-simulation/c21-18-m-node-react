@@ -5,9 +5,7 @@ import Home from "./pages/Home.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import LogIn from "./pages/LogIn.jsx";
 import PetDetail from "./pages/petDetail/PetDetail.jsx";
-import { ShelterForm } from "./components/ShelterForm/ShelterForm.jsx";
-import { PetForm } from "./components/PetForm/PetForm.jsx";
-import { PetTable } from "./components/PetTable/PetTable.jsx";
+import { PetForm, ShelterForm, PetTable } from "./components/index.js";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
