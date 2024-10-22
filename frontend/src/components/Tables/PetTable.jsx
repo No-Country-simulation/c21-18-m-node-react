@@ -29,14 +29,7 @@ export const PetTable = () => {
   }, []);
 
   return (
-    <TableContainer
-      sx={{
-        backgroundColor: "#efe9ae",
-        borderRadius: "10px",
-        padding: "10px",
-        marginTop: "10px",
-      }}
-    >
+    <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
@@ -69,7 +62,7 @@ export const PetTable = () => {
               <TableCell>
                 <Switch
                   checked={pet.status}
-                  onChange={() => API.togglePetStatus(pet.id)}
+                  onChange={() => API.toggleStatus(pet.id)}
                 />
               </TableCell>
               <TableCell>

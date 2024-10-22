@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
@@ -90,42 +90,30 @@ export const PetForm = () => {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-        borderRadius: 2,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "90vh",
-        width: "100%",
-        bgcolor: "#cdeac0",
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-    >
+    <Grid container spacing={2}>
       <TextField
         name="name"
         label="Name"
         value={formData.name}
         onChange={handleChange}
       />
-      <TextField
-        name="age"
-        label="Age"
-        type="number"
-        value={formData.age}
-        onChange={handleChange}
-      />
-      <TextField
-        name="type"
-        label="Type (PERRO o GATO)"
-        value={formData.type}
-        onChange={handleChange}
-      />
+      <Grid xs={4}>
+        <TextField
+          name="age"
+          label="Age"
+          type="number"
+          value={formData.age}
+          onChange={handleChange}
+        />
+      </Grid>
+      <Grid xs={4}>
+        <TextField
+          name="type"
+          label="Type (PERRO o GATO)"
+          value={formData.type}
+          onChange={handleChange}
+        />
+      </Grid>
       <TextField
         name="shelterId"
         label="Shelter ID"
@@ -137,7 +125,6 @@ export const PetForm = () => {
         name="description"
         label="Description"
         multiline
-        rows={4}
         value={formData.description}
         onChange={handleChange}
       />
@@ -185,6 +172,6 @@ export const PetForm = () => {
       {feedback.message && (
         <Alert severity={feedback.type}>{feedback.message}</Alert>
       )}
-    </Box>
+    </Grid>
   );
 };

@@ -40,7 +40,7 @@ export async function toggleStatus(id) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ status: newStatus }),
+      body: JSON.stringify({ status: { newStatus } }),
     });
 
     if (!updateResponse.ok) {
