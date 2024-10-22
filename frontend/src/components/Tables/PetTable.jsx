@@ -40,13 +40,13 @@ export const PetTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Age</TableCell>
-            <TableCell>Gender</TableCell>
-            <TableCell>Size</TableCell>
-            <TableCell>View</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Edit</TableCell>
+            <TableCell>Nombre</TableCell>
+            <TableCell>Edad</TableCell>
+            <TableCell>Genero</TableCell>
+            <TableCell>Tamaño</TableCell>
+            <TableCell>Vista</TableCell>
+            <TableCell>Estado</TableCell>
+            <TableCell>Editar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
