@@ -15,6 +15,9 @@ model User {
   role     Role     @default(GUEST)
   phone    String?
   picture  String?
+  address   String?
+  localidad String?
+  provincia String?
   
   // Relations
   applications Application[]
@@ -40,6 +43,7 @@ model Pet {
   gender    PetGender
   status    Boolean
 
+
   // Relations
   shelter    Shelter   @relation(fields: [shelterId], references: [id])
   applications Application[]
@@ -48,25 +52,29 @@ model Pet {
 }
 
 enum PetGender {
-  MALE
-  FEMALE
+  MACHO
+  HEMBRA
 }
 enum petSize {
-  SMALL
-  MEDIUM
-  LARGE
+  CHICO
+  MEDIANO
+  GRANDE
 }
 
 enum PetType {
-  DOG
-  CAT
+  PERRO
+  GATO
 }
-
+enum ApplicationStatus {
+  APPROVED
+  DENIED
+  PENDING
+}
 model Application {
   id      Int   @id @default(autoincrement())
   userId  String
   petId   String
-  status  Boolean  @default(false)
+  status  ApplicationStatus @default(PENDING)  
 
   // Relations
   user  User  @relation(fields: [userId], references: [id])
