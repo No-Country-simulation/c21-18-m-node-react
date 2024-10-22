@@ -18,13 +18,25 @@ const userSquemaDefinition = {
       description: "role description",
     },
     phone: {
-      type: "strinh",
+      type: "string",
       description: "user phone",
     },
     picture: {
       type: "string",
       description: "user picture",
     },
+    address: {
+      type: "string",
+      description: "user address"
+    },
+    localidad: {
+      type: "string",
+      description: "user localidad"
+    },
+    provincia: {
+      type: "string",
+      description: "user provincia"
+    }
   },
   required: ["name", "email", "password", "role"],
   example: {
@@ -33,7 +45,10 @@ const userSquemaDefinition = {
     password: "asdf",
     role: "GUEST",
     phone: "12345",
-    picture: "asdf"
+    picture: "asdf",
+    address: "calle 123",
+    locailidad: "Puerto Iguazú",
+    provincia: "Misiones"
   },
 };
 
