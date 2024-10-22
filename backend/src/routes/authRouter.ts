@@ -39,7 +39,12 @@ authRouter.get(
 
 		res.cookie(
 			'user',
-			JSON.stringify({ name: user.name, email: user.email, role: user.role }),
+			JSON.stringify({
+				name: user.name,
+				email: user.email,
+				role: user.role,
+				picture: user.picture,
+			}),
 			{
 				httpOnly: false,
 				maxAge: 24 * 60 * 60 * 1000, // 1 day expiry

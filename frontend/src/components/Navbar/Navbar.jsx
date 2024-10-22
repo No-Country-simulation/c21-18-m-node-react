@@ -3,6 +3,7 @@ import BurgerMenu from '../../assets/bars-solid.svg';
 import './Navbar.css';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { extractUserDetails, logged } from '../../services/auth';
 
 export default function Navbar() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -49,14 +50,28 @@ export default function Navbar() {
 						>
 							Conócenos
 						</NavLink>
-						<NavLink
-							to='http://localhost:3000/api/auth/google'
-							className={({ isActive }) =>
-								isActive ? 'login active' : 'login'
-							}
-						>
-							Log in
-						</NavLink>
+						{!logged() ? (
+							<NavLink
+								to='http://localhost:3000/api/auth/google'
+								className={({ isActive }) =>
+									isActive ? 'login active' : 'login'
+								}
+							>
+								Log in
+							</NavLink>
+						) : (
+							<NavLink
+								to='http://localhost:3000/api/auth/logout'
+								className={({ isActive }) =>
+									isActive ? 'login active' : 'logout'
+								}
+							>
+								<div className='flex'>
+									<div>{extractUserDetails().name}</div>
+									<div>Log Out</div>
+								</div>
+							</NavLink>
+						)}
 					</div>
 				)}
 			</nav>
