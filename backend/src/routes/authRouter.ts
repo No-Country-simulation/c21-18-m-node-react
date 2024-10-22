@@ -37,10 +37,14 @@ authRouter.get(
 			maxAge: 24 * 60 * 60 * 1000, // 1 day expiry
 		});
 
-		res.cookie('user', JSON.stringify({ name: user.name, email: user.email }), {
-			httpOnly: false,
-			maxAge: 24 * 60 * 60 * 1000, // 1 day expiry
-		});
+		res.cookie(
+			'user',
+			JSON.stringify({ name: user.name, email: user.email, role: user.role }),
+			{
+				httpOnly: false,
+				maxAge: 24 * 60 * 60 * 1000, // 1 day expiry
+			}
+		);
 
 		res.redirect('http://localhost:5173');
 	}
