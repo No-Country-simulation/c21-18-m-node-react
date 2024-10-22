@@ -11,13 +11,38 @@ authRouter.get(
 );
 
 // Google OAuth callback route
+// authRouter.get(
+// 	'/google/callback',
+// 	passport.authenticate('google', {
+// 		failureMessage: 'authentication failed :(',
+// 	}),
+// 	(req: Request, res: Response) => {
+// 		res.redirect('/api/auth/profile');
+// 	}
+// );
 authRouter.get(
 	'/google/callback',
 	passport.authenticate('google', {
 		failureMessage: 'authentication failed :(',
 	}),
 	(req: Request, res: Response) => {
-		res.redirect('/api/auth/profile');
+		// Assuming accessToken is available in req.authInfo or req.user
+		const user = req.user as any;
+		const accessToken = req.authInfo as string; // You should pass this from the Google strategy as explained before
+
+		// Set cookies
+		res.cookie('access_token', accessToken, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production', // Set to true in production for HTTPS
+			maxAge: 24 * 60 * 60 * 1000, // 1 day expiry
+		});
+
+		res.cookie('user', JSON.stringify({ name: user.name, email: user.email }), {
+			httpOnly: false,
+			maxAge: 24 * 60 * 60 * 1000, // 1 day expiry
+		});
+
+		res.redirect('http://localhost:5173');
 	}
 );
 
@@ -37,11 +62,22 @@ authRouter.get('/profile', (req: Request, res: Response) => {
 });
 
 // Logout user
+// authRouter.get('/logout', (req: Request, res: Response, next: NextFunction) => {
+// 	req.logout((err) => {
+// 		if (err) {
+// 			return next(err);
+// 		}
+// 		res.redirect('http://localhost:5173'); // Redirect after logout
+// 	});
+// });
 authRouter.get('/logout', (req: Request, res: Response, next: NextFunction) => {
 	req.logout((err) => {
 		if (err) {
 			return next(err);
 		}
+		// Clear cookies when user logs out
+		res.clearCookie('access_token');
+		res.clearCookie('user');
 		res.redirect('http://localhost:5173'); // Redirect after logout
 	});
 });
