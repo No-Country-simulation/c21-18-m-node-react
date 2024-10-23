@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { envs } from './config/plugins/env.plugin';
-import { userRouter, petRouter, shelterRouter, authRouter } from './routes';
+import { userRouter, petRouter, shelterRouter, authRouter,applicationRouter } from './routes';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerConfig from './config/swagger';
@@ -24,12 +24,18 @@ const app = express();
 app.set('port', envs.PORT ?? 3001);
 
 // Middleware
-
+app.use(
+	cors({
+		origin: 'http://localhost:5173',
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		credentials: true,
+	})
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 app.use(morgan('dev'));
-app.use(cors({ origin: true, credentials: true }));
+// app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 
 // Passport & session middleware
@@ -75,6 +81,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/pet', petRouter);
-app.use('/api/shelter', isAuthenticated, roleCheck(['ADMIN']), shelterRouter);
+app.use('/api/shelter', shelterRouter);
+app.use('/api/application-form/',applicationRouter)
 
 export default app;

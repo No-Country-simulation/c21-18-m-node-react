@@ -6,7 +6,7 @@ import { isAuthenticated } from '../middleware/isAuthenticate';
 
 // const shelterRouter = Router();
 const shelterRouter = express.Router();
-shelterRouter.use(isAuthenticated, roleCheck(['ADMIN']));
+
 shelterRouter.post('/create-shelter', shelterController.createShelter);
 shelterRouter.get('/', shelterController.getAllShelters);
 shelterRouter.get('/:id', shelterController.getAshelter);

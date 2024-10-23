@@ -1,0 +1,50 @@
+.burger-menu-container {
+  position: relative;
+}
+
+.burger-menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 3vw;
+  transition: transform 0.3s ease;
+}
+
+.burger-menu-button:hover {
+  transform: scale(1.1);
+}
+
+.burger-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ff928b;
+  border-radius: 5px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  overflow: hidden;
+  z-index: 1000;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.burger-menu-dropdown a {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #ff928b;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.burger-menu-dropdown a:hover {
+  background-color: #ff7465;
+}
+
+@media (min-width: 768px) {
+  .burger-menu-container {
+    display: none;
+  }
+}

@@ -17,8 +17,8 @@ petRouter.post(
 );
 petRouter.get('/', petController.getPets);
 petRouter.get('/:id', petController.getPetById);
-petRouter.put('/:id', roleCheck(['ADMIN']), petController.updatePet);
-petRouter.delete('/:id', roleCheck(['ADMIN']), petController.deletePet);
+petRouter.put('/:id', petController.updatePet);
+petRouter.delete('/:id', petController.deletePet);
 
 /**
  * @swagger

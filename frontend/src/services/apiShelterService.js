@@ -1,9 +1,9 @@
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 export async function createShelter(
-  shelterName,
-  shelterAddress,
-  shelterPhoneNumber,
-  shelterEmail
+	shelterName,
+	shelterAddress,
+	shelterPhoneNumber,
+	shelterEmail
 ) {
   const userCredentials = Cookies.get("user");
   console.log(userCredentials);
@@ -39,4 +39,5 @@ export async function createShelter(
     console.error(error);
     return error;
   }
+
 }
