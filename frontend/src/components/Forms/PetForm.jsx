@@ -3,9 +3,11 @@ import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import Cookies from "js-cookie";
 import { Select, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
 
 export const PetForm = () => {
+  const userCredentials = Cookies.get("user");
   const [formData, setFormData] = React.useState({
     name: "",
     size: "",
@@ -57,6 +59,8 @@ export const PetForm = () => {
       const response = await fetch("http://localhost:3000/api/pet/create-pet", {
         method: "POST",
         body: formDataToSend,
+        credentials: "include",
+        userCredentials: userCredentials,
       });
 
       if (response.ok) {
@@ -84,6 +88,7 @@ export const PetForm = () => {
       }
     } catch (error) {
       setFeedback({ message: "Failed to create pet", type: "error" });
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -166,7 +171,12 @@ export const PetForm = () => {
       />
       <TextField name="picture" type="file" onChange={handleChange} />
 
-      <Button type="submit" variant="contained" disabled={loading}>
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={loading}
+        onClick={handleSubmit}
+      >
         Create Pet
       </Button>
       {feedback.message && (

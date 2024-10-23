@@ -28,6 +28,21 @@ export const PetTable = () => {
     fetchPets();
   }, []);
 
+  const handleStatusChange = async (petId) => {
+    try {
+      const updatedStatus = await API.toggleStatus(petId);
+
+      // Asegúrate de que el estado se actualiza correctamente
+      setPets((prevPets) =>
+        prevPets.map((pet) =>
+          pet.id === petId ? { ...pet, status: updatedStatus } : pet
+        )
+      );
+    } catch (error) {
+      console.error("Error updating pet status:", error);
+    }
+  };
+
   return (
     <TableContainer>
       <Table>
@@ -62,7 +77,7 @@ export const PetTable = () => {
               <TableCell>
                 <Switch
                   checked={pet.status}
-                  onChange={() => API.toggleStatus(pet.id)}
+                  onChange={() => handleStatusChange(pet.id)}
                 />
               </TableCell>
               <TableCell>
