@@ -1,6 +1,7 @@
-export { default as authRouter } from './authRouter';
+export { default as authRouter } from "./authRouter";
 
-export { default as petRouter } from './petRouter';
-export { default as shelterRouter } from './shelterRouter';
+export { default as petRouter } from "./petRouter";
+export { default as shelterRouter } from "./shelterRouter";
 
-export { default as userRouter } from './userRouter';
+export { default as userRouter } from "./userRouter";
+export { default as applicationRouter } from "./applicationRouter";
