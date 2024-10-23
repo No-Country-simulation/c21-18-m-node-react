@@ -1,21 +1,20 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
-  createUser,
-  deleteUser,
-  getAllUsers,
-  getUserById,
-  updateUser,
-} from "../controllers";
-import { isAuthenticated } from "../middleware/isAuthenticate";
-import { roleCheck } from "../middleware/roleCheck";
+	createUser,
+	deleteUser,
+	getAllUsers,
+	getUserById,
+	updateUser,
+} from '../controllers';
+
 const usersRouter = Router();
 
-usersRouter.route("/create-user").post(createUser);
-usersRouter.use(isAuthenticated);
-usersRouter.get("/users", roleCheck(["ADMIN"]), getAllUsers);
-usersRouter.route("/users/:id").get(getUserById);
-usersRouter.route("/users/:id").put(updateUser);
-usersRouter.route("/users/:id").delete(deleteUser);
+usersRouter.route('/create-user').post(createUser);
+
+usersRouter.get('/users', getAllUsers);
+usersRouter.route('/users/:id').get(getUserById);
+usersRouter.route('/users/:id').put(updateUser);
+usersRouter.route('/users/:id').delete(deleteUser);
 
 /**
  * @swagger
@@ -215,13 +214,13 @@ usersRouter.route("/users/:id").delete(deleteUser);
  *   delete:
  *     summary: delete a user by ID (Authenticated access required)
  *     tags: [Users]
- *     security: 
+ *     security:
  *       - cookie: []
  *     parameters:
  *       - in: path
- *         name: id    
+ *         name: id
  *         schema:
- *           type: string   
+ *           type: string
  *         required: true
  *         description: The user ID
  *     responses:
@@ -238,11 +237,11 @@ usersRouter.route("/users/:id").delete(deleteUser);
  *               message:
  *                 type: string
  *                 example: user deleted successfully
- *               data: 
+ *               data:
  *                 type: object
  *                 example: null
  *       400:
- *         description: Bad request   
+ *         description: Bad request
  *         content:
  *           application/json:
  *             schema:
