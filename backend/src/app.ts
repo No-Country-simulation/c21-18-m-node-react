@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { envs } from './config/plugins/env.plugin';
-import { userRouter, petRouter, shelterRouter, authRouter } from './routes';
+import { userRouter, petRouter, shelterRouter, authRouter,applicationRouter } from './routes';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerConfig from './config/swagger';
@@ -82,5 +82,6 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/pet', petRouter);
 app.use('/api/shelter', shelterRouter);
+app.use('/api/application-form/',applicationRouter)
 
 export default app;
