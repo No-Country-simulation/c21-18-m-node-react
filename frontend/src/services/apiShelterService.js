@@ -25,7 +25,6 @@ export async function createShelter(
         },
         credentials: "include",
         body: JSON.stringify({
-          user: userCredentials,
           name: shelterName,
           address: shelterAddress,
           phone: shelterPhoneNumber,
