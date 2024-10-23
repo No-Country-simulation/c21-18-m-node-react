@@ -2,15 +2,17 @@ import { Outlet } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import { extractUserDetails } from './services/auth';
-const userSession = extractUserDetails();
+// import { isAdmin } from './services/auth';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
 	return (
 		<div>
 			<Navbar />
-			{userSession.role === 'ADMIN' ? <h1>hola</h1> : null}
-			{/* Muestra para conditional routing*/}
+			<ProtectedRoute>
+				<Footer />
+			</ProtectedRoute>
+
 			<Outlet />
 			<Footer />
 		</div>
