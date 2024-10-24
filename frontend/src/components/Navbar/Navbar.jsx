@@ -63,8 +63,11 @@ export default function Navbar() {
 								}
 							>
 								<div className='flex'>
+									<img src={extractUserDetails().picture} alt="foto perfil" />
+									<div className='flex-name'>
 									<div>{extractUserDetails().name}</div>
 									<div>Log Out</div>
+									</div>
 								</div>
 							</NavLink>
 						)}

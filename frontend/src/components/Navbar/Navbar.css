@@ -28,6 +28,7 @@
 
 .desktop-menu {
   display: flex;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -39,6 +40,19 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.flex img {
+  max-width: 50px;
+  border-radius: 100px;
+  align-items: center;
 }
 
 .desktop-menu a:hover {
