@@ -30,16 +30,20 @@ h1 {
 .info p{
     font-family: "Lato", serif;
     font-weight: 300;
+    font-size: 1.2rem;
 }
 
 .info b{
     font-family: "Amatic SC", serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
+    color: #ffac81 ;
+    text-shadow: #000000 1px 0 1px;
 }
 .items, .description{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .a{
