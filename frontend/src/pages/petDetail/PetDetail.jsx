@@ -39,7 +39,7 @@ function PetDetail() {
                 </div>
                 <section className='info'>
                     <div className='items'>
-                        <p><b>Edad:</b> {pet.data.age}</p>
+                        <p><b>Edad:</b> {pet.data.age} años</p>
                         <p><b>Tamaño:</b> {pet.data.size}</p>
                         <p><b>Género:</b> {pet.data.gender}</p>
                     </div>
@@ -49,7 +49,7 @@ function PetDetail() {
                     </div>
                 </section>
                 <Link to={'/adoptPet/:id'} className='a'>
-                    <button>Adoptame</button>
+                    <button>Adóptame</button>
                 </Link>
             </div>
         </>
