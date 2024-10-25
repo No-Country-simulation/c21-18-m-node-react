@@ -20,6 +20,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/Admin" element={<Admin />} />
           <Route path="/ShelterForm" element={<ShelterForm />} />
           <Route path="/PetForm" element={<PetForm />} />
+          <Route path="/PetForm/:id" element={<PetForm />} />
           <Route path="/PetTable" element={<PetTable />} />
         </Route>
         {/* ========Protected Routes======== */}

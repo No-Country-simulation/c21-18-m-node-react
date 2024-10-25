@@ -1,11 +1,14 @@
-import { Container, Button, Card } from "@mui/material";
+import { Container, Button, Card, Icon } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const Admin = () => {
   return (
     <>
-      <Container>
-        <Card>
+      <Container
+        sx={{ display: "grid", flexDirection: "column", alignItems: "center" }}
+      >
+        <h1>Panel de administración</h1>
+        <Card sx={{ display: "flex", flexDirection: "row" }}>
           <Button variant="contained" color="success">
             <Link to="/ShelterForm">Añadir Refugios</Link>
           </Button>
@@ -17,16 +20,16 @@ export const Admin = () => {
           </Button>
         </Card>
 
-        <Card>
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
           <Button variant="contained" color="success">
             <Link to="/PetTable">Mascotas</Link>
           </Button>
         </Card>
-
-
-
-
-
         <Card>
           <Button variant="contained" color="success">
             <Link to="/UserTable">Usuarios</Link>

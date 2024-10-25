@@ -4,9 +4,12 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
 import { Select, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
+import * as API from "../../services/apiPetService";
 
 export const PetForm = () => {
+  const { id } = useParams();
   const userCredentials = Cookies.get("user");
   const [formData, setFormData] = React.useState({
     name: "",
@@ -19,6 +22,11 @@ export const PetForm = () => {
     status: false,
     picture: null,
   });
+  if (id) {
+    API.getPet(id).then((pet) => {
+      setFormData(pet.data);
+    });
+  }
   const [feedback, setFeedback] = React.useState({ message: "", type: "" });
   const [loading, setLoading] = React.useState(false);
 
@@ -177,7 +185,7 @@ export const PetForm = () => {
         disabled={loading}
         onClick={handleSubmit}
       >
-        Create Pet
+        {(id ? "Actualizar" : "Crear") + " Mascota"}
       </Button>
       {feedback.message && (
         <Alert severity={feedback.type}>{feedback.message}</Alert>
