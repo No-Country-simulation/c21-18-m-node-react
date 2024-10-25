@@ -1,4 +1,4 @@
-.container {
+.container-title {
   padding: 40px;
   width: 100vw;
   display: flex;
@@ -6,8 +6,13 @@
   min-height: 85vh;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 h1 {
-  font-size: 3rem;
+  font-size: 5rem;
   margin-bottom: 5%;
   font-family: 'Amatic SC', serif;
   font-weight: 700;
@@ -23,7 +28,10 @@ h1 {
 .info {
   margin-top: 25px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  gap: 10px;
 }
 
 .info p {
@@ -39,6 +47,7 @@ h1 {
   color: #ffac81;
   text-shadow: #000000 1px 0 1px;
 }
+
 .items,
 .description {
   display: flex;
@@ -64,6 +73,94 @@ button {
   font-weight: 400;
   font-size: large;
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container-title {
+    padding: 30px;
+    width: 90vw;
+  }
+
+  h1 {
+    font-size: 5rem;
+    text-align: center;
+  }
+
+  .image img {
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8%;
+  }
+
+  .info {
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .items,
+  .description {
+    gap: 10px;
+    width: 100%;
+  }
+
+  .a {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-title {
+    padding: 20px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 10%;
+  }
+
+  .image img {
+    width: 90%;
+    border-radius: 10%;
+  }
+
+  .info {
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .items,
+  .description {
+    gap: 5px;
+  }
+
+  .a {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: auto;
+  }
+}
+
 @media (min-width: 1025px) {
   .image {
     display: flex;
@@ -77,6 +174,7 @@ button {
     border-radius: 5%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 8px, rgb(51, 51, 51) 0px 0px 0px 4px;
   }
+
   button {
     padding: 15px 30px;
     max-width: 300px;
@@ -87,23 +185,33 @@ button {
 
   .items,
   .container {
-    padding: 10px;
-    width: 70vw;
+    padding: 1px;
+    max-width: 60vw;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
+
   h1 {
-    font-size: 4rem;
     margin-bottom: 2%;
+    margin-top: 1%;
+    font-size: 4rem;
     text-align: center;
   }
+
   .info {
     gap: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  .info p {
+    font-family: 'Lato', serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    white-space: nowrap;
   }
 }
