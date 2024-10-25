@@ -35,6 +35,7 @@ const loadShelterData = async () => {
 
 const deletePetData = async () => {
 	try {
+		await prisma.application.deleteMany();
 		await prisma.pet.deleteMany();
 		console.log('Pet Data Successfully Deleted!🙀');
 	} catch (error) {
