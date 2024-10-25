@@ -20,13 +20,16 @@ export const ShelterForm = () => {
       !shelterPhoneNumber ||
       !shelterEmail
     ) {
-      setFeedback({ message: "All fields are required", type: "error" });
+      setFeedback({
+        message: "Todos los campos son requeridos",
+        type: "error",
+      });
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(shelterEmail)) {
-      setFeedback({ message: "Invalid email format", type: "error" });
+      setFeedback({ message: "Formato de email incorrecto", type: "error" });
       return false;
     }
 
@@ -55,7 +58,7 @@ export const ShelterForm = () => {
 
       if (response && response.status === "success") {
         setFeedback({
-          message: "Shelter created successfully",
+          message: "El refugio se ha creado correctamente",
           type: "success",
         });
         // Resetear campos
@@ -64,7 +67,7 @@ export const ShelterForm = () => {
         setShelterPhoneNumber("");
         setShelterEmail("");
       } else {
-        throw new Error(response.message || "Failed to create shelter");
+        throw new Error(response.message || "Error al crear el refugio");
       }
     } catch (error) {
       setFeedback({ message: error.message, type: "error" });
@@ -95,28 +98,28 @@ export const ShelterForm = () => {
       )}
 
       <TextField
-        label="Shelter Name"
+        label="Nombre del Refugio"
         variant="outlined"
         value={shelterName}
         onChange={(e) => setShelterName(e.target.value)}
         sx={{ width: "50%", marginBottom: "20px" }}
       />
       <TextField
-        label="Shelter Address"
+        label="Dirección"
         variant="outlined"
         value={shelterAddress}
         onChange={(e) => setShelterAddress(e.target.value)}
         sx={{ width: "50%", marginBottom: "20px" }}
       />
       <TextField
-        label="Shelter Phone Number"
+        label="Numero de Telefono"
         variant="outlined"
         value={shelterPhoneNumber}
         onChange={(e) => setShelterPhoneNumber(e.target.value)}
         sx={{ width: "50%", marginBottom: "20px" }}
       />
       <TextField
-        label="Shelter Email"
+        label="Email"
         variant="outlined"
         value={shelterEmail}
         onChange={(e) => setShelterEmail(e.target.value)}
@@ -130,7 +133,7 @@ export const ShelterForm = () => {
         sx={{ width: "50%" }}
         disabled={loading}
       >
-        {loading ? "Submitting..." : "Submit"}
+        {loading ? "Enviando..." : "Enviado "}
       </Button>
     </Box>
   );
