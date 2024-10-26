@@ -1,26 +1,26 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
-	createUser,
-	deleteUser,
-	getAllUsers,
-	getUserById,
-	updateUser,
-} from '../controllers';
+  createUser,
+  deleteUser,
+  getAllUsers,
+  getUserById,
+  updateUser,
+} from "../controllers";
 
 const usersRouter = Router();
 
-usersRouter.route('/create-user').post(createUser);
+usersRouter.route("/create-user").post(createUser);
 
-usersRouter.get('/users', getAllUsers);
-usersRouter.route('/users/:id').get(getUserById);
-usersRouter.route('/users/:id').put(updateUser);
-usersRouter.route('/users/:id').delete(deleteUser);
+usersRouter.get("/users", getAllUsers);
+usersRouter.route("/users/:id").get(getUserById);
+usersRouter.route("/users/:id").put(updateUser);
+usersRouter.route("/users/:id").delete(deleteUser);
 
 /**
  * @swagger
  * /api/user/create-user:
  *   post:
- *     summary: Create (No authentication required)
+ *     summary: Create a user
  *     tags: [Users]
  *     description: This endpoint creates a new user.
  *     requestBody:
@@ -65,7 +65,7 @@ usersRouter.route('/users/:id').delete(deleteUser);
  * @swagger
  * /api/user/users:
  *   get:
- *     summary: Get all users (Admin access required)
+ *     summary: Get all users
  *     tags: [Users]
  *     security:
  *       - cookie: []
@@ -103,7 +103,7 @@ usersRouter.route('/users/:id').delete(deleteUser);
  * @swagger
  * /api/user/users/{id}:
  *   get:
- *     summary: get a user by ID (Authenticated access required)
+ *     summary: get a user by ID 
  *     tags: [Users]
  *     security:
  *       - cookie: []
@@ -159,7 +159,7 @@ usersRouter.route('/users/:id').delete(deleteUser);
  * @swagger
  * /api/user/users/{id}:
  *   put:
- *     summary: update a user by ID (Authenticated access required)
+ *     summary: update a user by ID 
  *     tags: [Users]
  *     security:
  *        - cookie: []
@@ -212,7 +212,7 @@ usersRouter.route('/users/:id').delete(deleteUser);
  * @swagger
  * /api/user/users/{id}:
  *   delete:
- *     summary: delete a user by ID (Authenticated access required)
+ *     summary: delete a user by ID 
  *     tags: [Users]
  *     security:
  *       - cookie: []

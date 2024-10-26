@@ -6,16 +6,21 @@ const petSchemaDefinition = {
       description: "Pet name",
     },
     age: {
-      type: "number",
+      type: "integer",
       description: "pet age",
+    },
+    size: {
+      type: "string",
+      description: "CHICO, MEDIANO, GRANDE",
+      enum: ["CHICO","MEDIANO","GRANDE"]
     },
     type: {
       type: "string",
-      description: "DOG or CAT",
-      enum: ["DOG", "CAT"],
+      description: "PERRO o GATO",
+      enum: ["PERRO", "GATO"],
     },
     shelterId: {
-      type: "number",
+      type: "integer",
       description: "shelter id",
     },
     picture: {
@@ -30,7 +35,7 @@ const petSchemaDefinition = {
     gender: {
       type: "string",
       description: "pet gender",
-      enum: ["MALE", "FEMALE"],
+      enum: ["MACHO", "HEMBRA"],
     },
     status: {
       type: "boolean",
@@ -40,17 +45,18 @@ const petSchemaDefinition = {
   required: [
     "name",
     "age",
+    "size",
     "type",
     "shelterId",
-    "picture",
     "description",
     "gender",
     "status",
   ],
   example: {
-    name: "snoopy",
-    age: 2,
-    type: "DOG",
+    name: "Spike",
+    age: 4,
+    size: "GRANDE",
+    type: "PERRO",
     shelterId: 1,
     picture: "binary",
     description: "Le gusta pasear",
