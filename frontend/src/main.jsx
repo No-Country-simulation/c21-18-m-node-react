@@ -5,7 +5,13 @@ import Home from "./pages/Home.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import LogIn from "./pages/LogIn.jsx";
 import PetDetail from "./pages/petDetail/PetDetail.jsx";
-import { PetForm, ShelterForm, PetTable } from "./components/index.js";
+import {
+  PetForm,
+  ShelterForm,
+  PetTable,
+  UserTable,
+  ShelterTable,
+} from "./components/index.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/index.jsx";
 import { Admin } from "./pages/Admin/Admin.jsx";
 
@@ -22,6 +28,8 @@ createRoot(document.getElementById("root")).render(
           <Route path="/PetForm" element={<PetForm />} />
           <Route path="/PetForm/:id" element={<PetForm />} />
           <Route path="/PetTable" element={<PetTable />} />
+          <Route path="/UserTable" element={<UserTable />} />
+          <Route path="/ShelterTable" element={<ShelterTable />} />
         </Route>
         {/* ========Protected Routes======== */}
         <Route path="/AboutUs" element={<AboutUs />} />

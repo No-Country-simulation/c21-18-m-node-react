@@ -1,9 +1,9 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 export async function createShelter(
-	shelterName,
-	shelterAddress,
-	shelterPhoneNumber,
-	shelterEmail
+  shelterName,
+  shelterAddress,
+  shelterPhoneNumber,
+  shelterEmail
 ) {
   const userCredentials = Cookies.get("user");
   console.log(userCredentials);
@@ -39,5 +39,14 @@ export async function createShelter(
     console.error(error);
     return error;
   }
+}
 
+export async function getAllShelters() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/shelter`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }
