@@ -40,3 +40,31 @@
   line-height: 1.5;
   margin-bottom: 15px;
 }
+
+.donation-message {
+  background-color: #fff3e0;
+  border: 2px solid #ffac81;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 30px 0;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.donation-message h2 {
+  color: #ff5722;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-family: 'Amatic SC', serif;
+}
+
+.donation-message p {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.donation-message strong {
+  color: #d84315;
+  font-weight: bold;
+}
