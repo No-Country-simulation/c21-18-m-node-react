@@ -48,8 +48,9 @@ function PetDetail() {
                         <p><b>Descripción:</b> </p>
                         <p>{pet.data.description}</p>
                     </div>
-                    <Link to={'/adoptPet/:id'} className='a'>
-                    <button>Adóptame</button>
+                </section>
+                <Link to={`/ApplyForm/${id}`} className='a'>
+                    <button>Adoptame</button>
                 </Link>
                 </section>
                 </div>

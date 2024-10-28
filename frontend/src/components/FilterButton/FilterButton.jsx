@@ -1,13 +1,13 @@
 
-import Btn from "./Btn";
+import Btn from "../Btn/Btn";
 import "./FilterButton.css";
 import { useState } from "react";
 
 // constante
 const filtros = {
-  gender: ["MALE", "FEMALE"], 
-  size: ["SMALL", "MEDIUM", "LARGE"],
-  age: ["PUPPY", "ADULT"]
+  gender: ["MACHO", "HEMBRA"], 
+  size: ["CHICO", "MEDIANO", "GRANDE"],
+  age: ["CACHORRO", "ADULTO"]
 };
 
 ///////// main  component
@@ -90,7 +90,7 @@ const FilterButton = ({setActive, sendFilters}) => {
           }
         </div>
         <div id="aplicar-btn">
-          <button onClick={handleClick}>Aplicar</button>
+          <button onClick={handleClick}>Buscar</button>
         </div>
       </div>
     </>
