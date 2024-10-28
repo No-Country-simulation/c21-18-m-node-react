@@ -7,6 +7,8 @@ import LogIn from './pages/LogIn.jsx';
 import PetDetail from './pages/petDetail/PetDetail.jsx';
 import { PetForm, ShelterForm, PetTable } from './components/index.js';
 import { ProtectedRoute } from './components/ProtectedRoute/index.jsx';
+import AllPets from './pages/AllPets/AllPets.jsx';
+import ApplyForm from './pages/ApplyForm/ApplyForm.jsx'
 
 createRoot(document.getElementById('root')).render(
 	<BrowserRouter>
@@ -24,6 +26,8 @@ createRoot(document.getElementById('root')).render(
 				<Route path='/AboutUs' element={<AboutUs />} />
 				<Route path='/logIn' element={<LogIn />} />
 				<Route path='/api/pet/:id' element={<PetDetail />} />
+				<Route path='/AllPets' element={<AllPets />} />
+				<Route path='/ApplyForm/:id' element={<ApplyForm />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>
