@@ -3,23 +3,17 @@ import shelter1 from '../../assets/shelter1.jpg';
 import shelter2 from '../../assets/shelter2.jpg';
 import shelter3 from '../../assets/shelter-3.jpg';
 import shelter4 from '../../assets/shelter-4.jpg';
-import shelter5 from '../../assets/shelter-5.jpg';
-import shelter6 from '../../assets/shelter-6.jpg';
 
 function AboutUs() {
   return (
     <div className='about-container'>
       <article className='images-aboutUs'>
         <div>
-          <img src={shelter1} alt="mujer con perro" />
-          <img src={shelter2} alt="mujeres con gato" />
+          <img src={shelter1} alt="mujer con perro" loading="lazy" />
+          <img src={shelter2} alt="mujeres con gato" loading="lazy" />
         </div>
-        <div>
-          <img src={shelter5} alt="mujer con perro" />
-          <img src={shelter6} alt="niña con gato" />
-        </div>
-        <img src={shelter3} alt="mujer lavando a un perro" />
-        <img src={shelter4} alt="voluntarios con perro" />
+        <img src={shelter3} alt="mujer lavando a un perro" loading="lazy" />
+        <img src={shelter4} alt="voluntarios con perro" loading="lazy" />
       </article>
       <div className='description-about'>
         <p>
@@ -46,5 +40,4 @@ function AboutUs() {
 }
 
 export default AboutUs;
-
 

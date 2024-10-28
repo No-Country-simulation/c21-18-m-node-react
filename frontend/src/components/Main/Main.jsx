@@ -43,7 +43,7 @@ export default function Main() {
                 )}
             </div>
 
-            <a href="/pets" className="btn"> Ver todos </a>
+            <a href="/AllPets" className="btn"> Ver todos </a>
         </div>
     );
 }
