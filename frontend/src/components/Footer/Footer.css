@@ -7,7 +7,9 @@ footer{
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+    font-family: "Lato", serif;
 }
+
 section{
     display: flex;
     justify-content: center;
@@ -15,4 +17,54 @@ section{
 
 section img{
     width: 10%;
+}
+
+.copyright{
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.social{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.social h4{
+    margin: 10px;
+}
+
+.social-links{
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    justify-content: space-around;
+}
+.logo-footer{
+    margin: 10px;
+}
+
+@media (min-width: 768px){
+    .footer-content{
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1024px){
+    .footer-content{
+        width: 100%;
+        justify-content: space-around;
+    }
 }
