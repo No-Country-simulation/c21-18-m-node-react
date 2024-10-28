@@ -43,8 +43,6 @@ export const Admin = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              maxWidth: 200,
-              minHeight: 200,
             }}
           >
             <Button variant="contained" color="success">
@@ -55,8 +53,7 @@ export const Admin = () => {
           <Card
             sx={{
               display: "flex",
-              maxWidth: 200,
-              minHeight: 200,
+              flexDirection: "row",
             }}
           >
             <Button variant="contained" color="success">
