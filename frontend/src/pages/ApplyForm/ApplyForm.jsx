@@ -13,7 +13,8 @@ const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
   const userCredentials = JSON.parse(Cookies.get("user") || "{}");
-  userCredentials.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
+  const userId = userCredentials.userId || "034fe29a-d1cc-4856-97df-0f6d9afe03da"; // Asignar userId si no existe en las cookies
+  // userCredentials.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
   // console.log('los datos: ', userCredentials)
 
   useEffect(() => {
@@ -86,10 +87,10 @@ const ApplyForm = () => {
     setLoading(true);
 
     // Asignar userId a userCredentials
-    userCredentials.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
+    // userCredentials.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
 
     try {
-      const userId = userCredentials.userId; // Obtener userId modificado
+      // const userId = userCredentials.userId; // Obtener userId modificado
 
       // formData para user
       const userFormData = new FormData();
@@ -111,7 +112,7 @@ const ApplyForm = () => {
         method: "PUT",
         body: userFormData,
         credentials: "include",
-        userCredentials: userCredentials,
+        // userCredentials: userCredentials,
       })
 
       if (!userResponse.ok) {
@@ -132,7 +133,7 @@ const ApplyForm = () => {
         method: "POST",
         body: applyFormData,
         credentials: "include",
-        userCredentials: userCredentials,
+        // userCredentials: userCredentials,
       });
 
       if (!applyResponse.ok) {
