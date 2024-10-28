@@ -71,10 +71,48 @@ export const getUserById = async (
 		});
 	}
 };
+// Find User by email
+export const getUserByEmail = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		const { email } = req.params;
+		const user = await prisma.user.findUnique({
+			where: { email },
+		});
+		if (!user) {
+			res.status(404).send({
+				status: 'fail',
+				message: 'User not found',
+			});
+			return;
+		}
+		res.status(200).send({
+			status: 'success',
+			data: user,
+		});
+	} catch (error) {
+		res.status(400).send({
+			status: 'fail',
+			data: error,
+		});
+	}
+};
 export const updateUser = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
-		const { name, email, phone, picture, password, role, address, localidad, provincia } = req.body;
+		const {
+			name,
+			email,
+			phone,
+			picture,
+			password,
+			role,
+			address,
+			localidad,
+			provincia,
+		} = req.body;
 
 		const updatedUser = await prisma.user.update({
 			where: { id: id as string },
