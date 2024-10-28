@@ -5,26 +5,39 @@ export async function createShelter(
 	shelterPhoneNumber,
 	shelterEmail
 ) {
-	const userToken = Cookies.get('connect.sid');
-	console.log(Cookies.get('connect.sid'));
-	console.log('userToken', userToken);
-	const response = await fetch(
-		'http://localhost:3000/api/shelter/create-shelter',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${userToken}`,
-			},
-			body: JSON.stringify({
-				name: shelterName,
-				address: shelterAddress,
-				phone: shelterPhoneNumber,
-				email: shelterEmail,
-			}),
-			credentials: 'include', // Include credentials like cookies
-		}
-	);
-	console.log(response);
-	return response.json();
+  const userCredentials = Cookies.get("user");
+  console.log(userCredentials);
+  if (!shelterName || !shelterAddress || !shelterPhoneNumber || !shelterEmail) {
+    throw new Error("All fields are required");
+  }
+
+  if (!userCredentials) {
+    throw new Error("User credentials not found");
+  }
+  try {
+    const response = await fetch(
+      "http://localhost:3000/api/shelter/create-shelter",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-Credentials": userCredentials,
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name: shelterName,
+          address: shelterAddress,
+          phone: shelterPhoneNumber,
+          email: shelterEmail,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+
 }

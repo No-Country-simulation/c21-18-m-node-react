@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as API from "../../services/apiPetService";
+import { PetForm } from "../Forms/PetForm";
 
 export const PetTable = () => {
   const [pets, setPets] = useState([]);
@@ -28,15 +29,23 @@ export const PetTable = () => {
     fetchPets();
   }, []);
 
+  const handleStatusChange = async (petId) => {
+    try {
+      const updatedStatus = await API.toggleStatus(petId);
+
+      // Asegúrate de que el estado se actualiza correctamente
+      setPets((prevPets) =>
+        prevPets.map((pet) =>
+          pet.id === petId ? { ...pet, status: updatedStatus } : pet
+        )
+      );
+    } catch (error) {
+      console.error("Error updating pet status:", error);
+    }
+  };
+
   return (
-    <TableContainer
-      sx={{
-        backgroundColor: "#efe9ae",
-        borderRadius: "10px",
-        padding: "10px",
-        marginTop: "10px",
-      }}
-    >
+    <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
@@ -69,7 +78,7 @@ export const PetTable = () => {
               <TableCell>
                 <Switch
                   checked={pet.status}
-                  onChange={() => API.togglePetStatus(pet.id)}
+                  onChange={() => handleStatusChange(pet.id)}
                 />
               </TableCell>
               <TableCell>
@@ -77,9 +86,9 @@ export const PetTable = () => {
                   variant="contained"
                   color="primary"
                   component={Link}
-                  to={`/api/pet/${pet.id}/edit`}
+                  to={() => <Link to={<PetForm pet={pet} />} />}
                 >
-                  Edit
+                  Editar
                 </Button>
               </TableCell>
             </TableRow>

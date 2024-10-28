@@ -32,16 +32,17 @@ function PetDetail() {
 
     return (
         <>
-            <div className="container">
+            <div className="container-title">
                 <h1>{pet.data.name}</h1>
+                <div className='container'>
                 <div className='image'>
                     <img src={pet.data.picture} alt={pet.name} />
                 </div>
                 <section className='info'>
                     <div className='items'>
-                        <p><b>Edad:</b> {pet.data.age}</p>
-                        <p><b>Tamaño:</b> {pet.data.size}</p>
-                        <p><b>Género:</b> {pet.data.gender}</p>
+                        <p><b>Edad:</b> {pet.data.age} años</p>
+                        <p><b>Tamaño:</b> {pet.data.size.toLowerCase()}</p>
+                        <p><b>Género:</b> {pet.data.gender.toLowerCase()}</p>
                     </div>
                     <div className='description'>
                         <p><b>Descripción:</b> </p>
@@ -51,6 +52,8 @@ function PetDetail() {
                 <Link to={`/ApplyForm/${id}`} className='a'>
                     <button>Adoptame</button>
                 </Link>
+                </section>
+                </div>
             </div>
         </>
     );

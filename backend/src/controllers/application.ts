@@ -14,7 +14,7 @@ dotenv.config();
 // }
 
 export const createApplication: RequestHandler = async (req, res) => {
-  const { userId, petId, email, userName, age, address, city } = req.body;
+  const { userId, petId, email, userName, age, address, province, locality, phoneNumber, message } = req.body;
   try {
     const newApplication = await prisma.application.create({
       data: {
@@ -33,7 +33,10 @@ export const createApplication: RequestHandler = async (req, res) => {
       <h1>Solicitud de adopción de ${userName}<h1/>
       <p><strong> Edad del solicitante: </strong> ${age}</p>
       <p><strong>Dirección del solicitante: </strong>${address}</p>
-      <p><strong>Localidad del solicitante: </strong>${city}</p>
+      <p><strong>Provincia del solicitante: </strong>${province}</p>
+      <p><strong>Localidad del solicitante: </strong>${locality}</p>
+      <p><strong>Número de teléfono del solicitante: </strong>${phoneNumber}</p>
+      <p><strong>Mensaje del solicitante: </strong>${message}</p>
       <p><strong>User ID: </strong>${userId}</p>
       <p><strong>Pet ID: </strong>${petId}</p>
       <p><strong>Status: </strong>PENDING</p>`,
