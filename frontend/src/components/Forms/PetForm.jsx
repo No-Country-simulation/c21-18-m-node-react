@@ -4,7 +4,14 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { Select, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  Checkbox,
+  FormControlLabel,
+  Box,
+  Container,
+} from "@mui/material";
 import * as API from "../../services/apiPetService";
 
 export const PetForm = () => {
@@ -130,10 +137,6 @@ export const PetForm = () => {
           gap: "10px",
           justifyContent: "center",
           alignItems: "center",
-
-          "& .MuiButton-root": {
-            maxWidth: "80%",
-          },
         }}
       >
         <TextField
@@ -207,18 +210,18 @@ export const PetForm = () => {
         />
         <TextField name="picture" type="file" onChange={handleChange} />
 
-      <Button
-        type="submit"
-        variant="contained"
-        disabled={loading}
-        onClick={handleSubmit}
-      >
-        {(id ? "Actualizar" : "Crear") + " Mascota"}
-      </Button>
-      {feedback.message && (
-        <Alert severity={feedback.type}>{feedback.message}</Alert>
-      )}
-    </Grid>
-
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={loading}
+          onClick={handleSubmit}
+        >
+          {(id ? "Actualizar" : "Crear") + " Mascota"}
+        </Button>
+        {feedback.message && (
+          <Alert severity={feedback.type}>{feedback.message}</Alert>
+        )}
+      </Box>
+    </Container>
   );
 };
