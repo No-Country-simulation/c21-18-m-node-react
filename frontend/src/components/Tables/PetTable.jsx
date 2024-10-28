@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as API from "../../services/apiPetService";
+import { PetForm } from "../Forms/PetForm";
 
 export const PetTable = () => {
   const [pets, setPets] = useState([]);
@@ -86,8 +87,9 @@ export const PetTable = () => {
                   color="primary"
                   component={Link}
                   to={`/petForm/${pet.id}`}
+
                 >
-                  Edit
+                  Editar
                 </Button>
               </TableCell>
             </TableRow>

@@ -1,6 +1,3 @@
-// import petSchemaDefinition from "@/swagger/pets-swagger";
-// import shelterSchemaDefinition from "@/swagger/shelter-swagger";
-
 import path from "path";
 import petSchemaDefinition from "../swagger/pets-swagger";
 import shelterSchemaDefinition from "../swagger/shelter-swagger";
@@ -12,7 +9,7 @@ const swaggerOptions = {
     info: {
       title: "Adopción de mascotas",
       description:
-        "Documentación del Backend de la aplicación para adopción de mascotas",
+        "Documentación API para adopción de mascotas",
       version: "1.0",
     },
     servers: [

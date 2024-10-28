@@ -1,5 +1,4 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
@@ -33,11 +32,14 @@ export const PetForm = () => {
   const validateForm = () => {
     const { name, age, type, shelterId, description } = formData;
     if (!name || !type || !age || !shelterId || !description) {
-      setFeedback({ message: "All fields are required", type: "error" });
+      setFeedback({
+        message: "Todos los campos son requeridos",
+        type: "error",
+      });
       return false;
     }
     if (isNaN(age)) {
-      setFeedback({ message: "Age must be a number", type: "error" });
+      setFeedback({ message: "La edad solo puede ser numeros", type: "error" });
       return false;
     }
     return true;
@@ -73,7 +75,7 @@ export const PetForm = () => {
 
       if (response.ok) {
         setFeedback({
-          message: "Pet created successfully",
+          message: "Mascota creada",
           type: "success",
         });
         setFormData({
@@ -90,12 +92,12 @@ export const PetForm = () => {
       } else {
         const errorData = await response.json();
         setFeedback({
-          message: errorData.message || "Failed to create pet",
+          message: errorData.message || "Error al crear mascota",
           type: "error",
         });
       }
     } catch (error) {
-      setFeedback({ message: "Failed to create pet", type: "error" });
+      setFeedback({ message: "Error al crear mascota", type: "error" });
       console.error(error);
     } finally {
       setLoading(false);
@@ -103,81 +105,107 @@ export const PetForm = () => {
   };
 
   return (
-    <Grid container spacing={2}>
-      <TextField
-        name="name"
-        label="Name"
-        value={formData.name}
-        onChange={handleChange}
-      />
-      <Grid xs={4}>
+    <Container
+      maxWidth=""
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+
+        height: "80vh",
+        width: "100%",
+
+        bgcolor: "#cdeac0",
+      }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete="off"
+        sx={{
+          padding: "10px",
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "10px",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "& .MuiButton-root": {
+            maxWidth: "80%",
+          },
+        }}
+      >
+        <TextField
+          name="name"
+          label="Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
         <TextField
           name="age"
-          label="Age"
+          label="Edad"
           type="number"
           value={formData.age}
           onChange={handleChange}
         />
-      </Grid>
-      <Grid xs={4}>
         <TextField
           name="type"
-          label="Type (PERRO o GATO)"
+          label="Tipo (PERRO o GATO)"
           value={formData.type}
           onChange={handleChange}
         />
-      </Grid>
-      <TextField
-        name="shelterId"
-        label="Shelter ID"
-        type="number"
-        value={formData.shelterId}
-        onChange={handleChange}
-      />
-      <TextField
-        name="description"
-        label="Description"
-        multiline
-        value={formData.description}
-        onChange={handleChange}
-      />
-      <Select
-        name="gender"
-        value={formData.gender}
-        onChange={handleChange}
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          Select Gender
-        </MenuItem>
-        <MenuItem value="MACHO">MACHO</MenuItem>
-        <MenuItem value="HEMBRA">HEMBRA</MenuItem>
-      </Select>
-      <Select
-        name="size"
-        value={formData.size}
-        onChange={handleChange}
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          Select Size
-        </MenuItem>
-        <MenuItem value="CHICO">Chico</MenuItem>
-        <MenuItem value="MEDIANO">Mediano</MenuItem>
-        <MenuItem value="GRANDE">Grande</MenuItem>
-      </Select>
+        <TextField
+          name="shelterId"
+          label="Id del refugio"
+          type="number"
+          value={formData.shelterId}
+          onChange={handleChange}
+        />
+        <TextField
+          name="description"
+          label="Descripcion"
+          multiline
+          value={formData.description}
+          onChange={handleChange}
+        />
+        <Select
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            Seleccionar Genero
+          </MenuItem>
+          <MenuItem value="MACHO">MACHO</MenuItem>
+          <MenuItem value="HEMBRA">HEMBRA</MenuItem>
+        </Select>
+        <Select
+          name="size"
+          value={formData.size}
+          onChange={handleChange}
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            Seleccionar Tamaño
+          </MenuItem>
+          <MenuItem value="CHICO">Chico</MenuItem>
+          <MenuItem value="MEDIANO">Mediano</MenuItem>
+          <MenuItem value="GRANDE">Grande</MenuItem>
+        </Select>
 
-      <FormControlLabel
-        control={
-          <Checkbox
-            name="status"
-            checked={formData.status}
-            onChange={handleChange}
-          />
-        }
-        label="Available for Adoption"
-      />
-      <TextField name="picture" type="file" onChange={handleChange} />
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="status"
+              checked={formData.status}
+              onChange={handleChange}
+            />
+          }
+          label="Disponible para adopcion"
+        />
+        <TextField name="picture" type="file" onChange={handleChange} />
 
       <Button
         type="submit"
@@ -191,5 +219,6 @@ export const PetForm = () => {
         <Alert severity={feedback.type}>{feedback.message}</Alert>
       )}
     </Grid>
+
   );
 };

@@ -43,8 +43,22 @@
   background-color: #ff7465;
 }
 
+.flex img {
+  display: none;
+}
+
+.flex-name p {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .burger-menu-container {
     display: none;
+  }
+  .flex-name p {
+    display: flex;
+  }
+  .flex img {
+    display: flex;
   }
 }
