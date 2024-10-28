@@ -12,4 +12,7 @@ export const envs = {
 	GOOGLE_SECRET_ID: env.get('GOOGLE_SECRET_ID').asString(),
 	REDIRECT_URL: env.get('REDIRECT_URL').asString(),
 	SESSION_SECRET: env.get('SESSION_SECRET').asString(),
+	NODEMAILER_HOST: env.get('NODEMAILER_HOST').asString(),
+	NODEMAILER_EMAIL: env.get('NODEMAILER_EMAIL').asString(),
+	NODEMAILER_PASS: env.get('NODEMAILER_PASS').asString()
 };

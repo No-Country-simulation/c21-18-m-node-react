@@ -1,30 +1,88 @@
-import { RequestHandler } from "express";
+import { application, RequestHandler } from "express";
 import { prisma } from "../data/postgres";
-// import { Resend } from "resend";
-import dotenv from "dotenv";
 import transporter from "../config/mailer";
-dotenv.config();
-// const apiKey = process.env.RESEND_API_KEY;
-// const fromEmail = process.env.FROM_EMAIL;
-
-// const resend = new Resend(apiKey);
-
-// if (!apiKey || !fromEmail) {
-//   throw new Error("RESEND_API_KEY and FROM_EMAIL must be defined");
-// }
 
 export const createApplication: RequestHandler = async (req, res) => {
-  const { userId, petId, email, userName, age, address, province, locality, phoneNumber, message } = req.body;
+  const {
+    userId,
+    petId,
+    email,
+    userName,
+    age,
+    address,
+    province,
+    locality,
+    phoneNumber,
+    message,
+  } = req.body;
+
+  if (!userId || !petId) {
+    res.status(404).send("Missing information from applicationForm");
+    return;
+  }
+
+  let newApplication;
   try {
-    const newApplication = await prisma.application.create({
+    //Verificamos que la application exista
+    const existingApplication = await prisma.application.findUnique({
+      where: {
+        userId_petId: {
+          userId: userId,
+          petId: petId,
+        },
+      },
+    });
+
+    if (existingApplication) {
+      res
+        .status(404)
+        .send({ success: false, message: "Application already exists" });
+      return;
+    }
+    //Buscamos al usuario
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      res.status(404).send({
+        success: false,
+        message: "The user does not exist in your database",
+      });
+      return;
+    }
+    //Buscamos la mascota
+    const pet = await prisma.pet.findUnique({
+      where: { id: petId },
+    });
+    if (!pet) {
+      res.status(404).send({
+        success: false,
+        message: "The pet does not exist in your database",
+      });
+      return;
+    }
+    //crear aplicación
+    newApplication = await prisma.application.create({
       data: {
         userId,
         petId,
         status: "PENDING",
       },
     });
-
-    const emailResponseToAdmin = await transporter.sendMail({
+    if (
+      !email ||
+      !userName ||
+      !age ||
+      !address ||
+      !province ||
+      !locality ||
+      !phoneNumber ||
+      !message
+    ) {
+      res.status(404).send("Missing information from email");
+      return;
+    }
+    await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: process.env.NODEMAILER_EMAIL,
       subject: "Solicitud de adopción",
@@ -42,7 +100,7 @@ export const createApplication: RequestHandler = async (req, res) => {
       <p><strong>Status: </strong>PENDING</p>`,
     });
 
-    const emailResponseToApplicant = await transporter.sendMail({
+    await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
       subject: "Confirmación de solicitud de adopción",
@@ -60,10 +118,12 @@ export const createApplication: RequestHandler = async (req, res) => {
       success: true,
       message: "Application submitted and email sent",
       data: newApplication,
-      emailResponseToAdmin,
-      emailResponseToApplicant,
     });
+    return;
   } catch (error) {
-    res.status(500).send({ success: false, message: `error: ${error}` });
+    res.status(500).send({
+      success: false,
+      message: `Application created, but failed to send emails: ${error}`,
+    });
   }
 };

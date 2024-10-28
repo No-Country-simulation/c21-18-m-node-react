@@ -80,6 +80,7 @@ model Application {
   user  User  @relation(fields: [userId], references: [id])
   pet   Pet   @relation(fields: [petId], references: [id])
 
+  @@unique([userId,petId])
   @@map("applications")
 }
 
