@@ -12,10 +12,16 @@ import { useParams } from 'react-router-dom';
 const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
-  const userCredentials = JSON.parse(Cookies.get("user") || "{}");
-  const userId = userCredentials.userId || "034fe29a-d1cc-4856-97df-0f6d9afe03da"; // Asignar userId si no existe en las cookies
-  // userCredentials.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
-  // console.log('los datos: ', userCredentials)
+
+  let userCredentials = Cookies.get("user") || "{}"
+  let userCredentialsObj = JSON.parse(userCredentials);
+  userCredentialsObj.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
+  console.log (`Datos de usuario: ${JSON.stringify(userCredentialsObj)}`)
+
+  // const  = {...user, userId: "034fe29a-d1cc-4856-97df-0f6d9afe03da"}
+  // console.log(`cookie puro ${user} TIPO: ${typeof(user)}`)
+  // console.log(`los datos: ${userCredentials} TIPO: ${typeof(userCredentials)} `)
+
 
   useEffect(() => {
     const fetchPetData = async () => {
@@ -86,34 +92,41 @@ const ApplyForm = () => {
     if (!validateForm()) return;
     setLoading(true);
 
-    // Asignar userId a userCredentials
-    // userCredentials.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
 
     try {
-      // const userId = userCredentials.userId; // Obtener userId modificado
 
       // formData para user
       const userFormData = new FormData();
-      Object.entries(userCredentials).forEach(([key, value]) => {
+
+      Object.entries(userCredentialsObj).forEach(([key, value]) => {
         userFormData.append(key, value);
       });
-      Object.entries(formData).forEach( ([key, value]) => {
-        if(key !== "message") {
-          userFormData.append(key, value);
-        }
-      });
-      console.log("userFormData:", userFormData);
 
-      // Obtén el id del usuario de userCredentials
-      //const userId = userCredentials.userId;
+      Object.entries(formData).forEach( ([key, value]) => {
+        userFormData.append(key, value);
+      });
+
+      // Agregar petId
+      userFormData.append("petId", id);
 
       // userFormData al endpoint de update
-      const userResponse = await fetch(`http://localhost:3000/api/user/users/${userId}`, {
+      const userResponse = await fetch(`http://localhost:3000/api/user/users/${userCredentialsObj.userId}`, {
         method: "PUT",
         body: userFormData,
         credentials: "include",
         // userCredentials: userCredentials,
       })
+
+      // Crear un objeto desde FormData 
+      const formDataObject = {};
+      userFormData.forEach((value, key) => {
+        formDataObject[key] = value;
+      });
+
+      // Convertir el objeto a JSON (string)
+      const formDataJSON = JSON.stringify(formDataObject);
+
+      console.log('USER DATA ===>', formDataJSON);
 
       if (!userResponse.ok) {
         throw new Error("Error al enviar la solicitud update");
@@ -121,17 +134,47 @@ const ApplyForm = () => {
 
       setFeedback({ message: "Solicitud update enviada exitosamente", type: "success" });
 
-      // formData para Apply
-      const applyFormData = new FormData();
-      applyFormData.append("userId", userCredentials.id);
-      applyFormData.append("petId", id);
-      applyFormData.append("message", formData.message);
-      console.log("applyFormData:", applyFormData);
+      /////////////////////////////////////////////////
+      /////////////////////////////////////////////////
+      
+      // const applyFormData = {
+      //   "userId": userCredentialsObj.userId,
+      //   "petId": id,
+      // }
+
+      // Copiar userFormData a un objeto temporal y eliminar los atributos innecesarios
+      const applyFormData = {};
+      userFormData.forEach((value, key) => {
+        applyFormData[key] = value;
+      });
+      delete applyFormData.role; // Eliminar atributos como 'role'
+      delete applyFormData.picture; // Eliminar otros atributos si es necesario
+
+      // Reconstruir userFormData sin los atributos eliminados
+      const filteredUserFormData = new FormData();
+      Object.entries(applyFormData).forEach(([key, value]) => {
+        filteredUserFormData.append(key, value);
+      });
+
+      // Verificar contenido de filteredUserFormData como JSON
+      const formDataObject2 = {};
+      filteredUserFormData.forEach((value, key) => {
+        formDataObject2[key] = value;
+      });
+      const formDataJSON2 = JSON.stringify(formDataObject2);
+      console.log("filteredUserFormData:", formDataJSON2);      
+
+
+      //console.log('Esto va en ApplyForm: ', applyFormData)
 
       // applyFormData al endpoint de create form
       const applyResponse = await fetch("http://localhost:3000/api/application-form/create", {
         method: "POST",
-        body: applyFormData,
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(applyFormData),
+        body: formDataObject2,
         credentials: "include",
         // userCredentials: userCredentials,
       });
@@ -186,14 +229,14 @@ const ApplyForm = () => {
           disabled
           id="petName"
           label="Nombre de la mascota"
-          value={`"${pet?.data?.name || ""}"`}
+          value={pet?.data?.name || ""}
           onChange={handleChange}
         />
         <TextField
           disabled
           id="userName"
           label="Nombre Completo"
-          value={userCredentials.name || ""}
+          value={userCredentialsObj.name || ""}
           onChange={handleChange}
         />
         <TextField
