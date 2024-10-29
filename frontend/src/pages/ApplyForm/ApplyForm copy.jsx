@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { getPet } from '../../services/apiPetService';
 import { useParams } from 'react-router-dom';
 
-
+// const ApplyForm = ({petId, petName }) => {
 const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
@@ -17,6 +17,10 @@ const ApplyForm = () => {
   let userCredentialsObj = JSON.parse(userCredentials);
   userCredentialsObj.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
   console.log (`Datos de usuario: ${JSON.stringify(userCredentialsObj)}`)
+
+  // const  = {...user, userId: "034fe29a-d1cc-4856-97df-0f6d9afe03da"}
+  // console.log(`cookie puro ${user} TIPO: ${typeof(user)}`)
+  // console.log(`los datos: ${userCredentials} TIPO: ${typeof(userCredentials)} `)
 
 
   useEffect(() => {
@@ -88,6 +92,7 @@ const ApplyForm = () => {
     if (!validateForm()) return;
     setLoading(true);
 
+
     try {
 
       // formData para user
@@ -103,7 +108,14 @@ const ApplyForm = () => {
 
       // Agregar petId
       userFormData.append("petId", id);
-      console.log('tipo de userformdata', typeof(userFormData))
+
+      // userFormData al endpoint de update
+      const userResponse = await fetch(`http://localhost:3000/api/user/users/${userCredentialsObj.userId}`, {
+        method: "PUT",
+        body: userFormData,
+        credentials: "include",
+        // userCredentials: userCredentials,
+      })
 
       // Crear un objeto desde FormData 
       const formDataObject = {};
@@ -115,15 +127,6 @@ const ApplyForm = () => {
       const formDataJSON = JSON.stringify(formDataObject);
 
       console.log('USER DATA ===>', formDataJSON);
-      console.log('Tipo de USER DATA: ', typeof(formDataJSON))
-
-      // userFormData al endpoint de update
-      const userResponse = await fetch(`http://localhost:3000/api/user/users/${userCredentialsObj.userId}`, {
-        method: "PUT",
-        body: formDataJSON,
-        credentials: "include",
-        userCredentials: userCredentials,
-      })
 
       if (!userResponse.ok) {
         throw new Error("Error al enviar la solicitud update");
@@ -133,6 +136,11 @@ const ApplyForm = () => {
 
       /////////////////////////////////////////////////
       /////////////////////////////////////////////////
+      
+      // const applyFormData = {
+      //   "userId": userCredentialsObj.userId,
+      //   "petId": id,
+      // }
 
       // Copiar userFormData a un objeto temporal y eliminar los atributos innecesarios
       const applyFormData = {};
@@ -157,15 +165,18 @@ const ApplyForm = () => {
       console.log("filteredUserFormData:", formDataJSON2);      
 
 
+      //console.log('Esto va en ApplyForm: ', applyFormData)
+
       // applyFormData al endpoint de create form
       const applyResponse = await fetch("http://localhost:3000/api/application-form/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        // body: JSON.stringify(applyFormData),
         body: formDataObject2,
         credentials: "include",
-        userCredentials: userCredentials,
+        // userCredentials: userCredentials,
       });
 
       if (!applyResponse.ok) {
