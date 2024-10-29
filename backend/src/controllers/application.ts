@@ -15,9 +15,25 @@ export const createApplication: RequestHandler = async (req, res) => {
     phone,
     message,
   } = req.body;
-
+  //Chequeo si existe userId y petId
   if (!userId || !petId) {
-    res.status(404).send("Missing information from applicationForm");
+    res
+      .status(400)
+      .json({ message: "Missing information from applicationForm" });
+    return;
+  }
+  //Chequeo si existe los datos para el email antes de crear el formulario y enviar el email.
+  if (
+    !email ||
+    !name ||
+    !age ||
+    !address ||
+    !provincia ||
+    !localidad ||
+    !phone ||
+    !message
+  ) {
+    res.status(400).json({ message: "Missing information from email" });
     return;
   }
 
@@ -35,8 +51,8 @@ export const createApplication: RequestHandler = async (req, res) => {
 
     if (existingApplication) {
       res
-        .status(404)
-        .send({ success: false, message: "Application already exists" });
+        .status(400)
+        .json({ success: false, message: "Application already exists" });
       return;
     }
     //Buscamos al usuario
@@ -44,7 +60,7 @@ export const createApplication: RequestHandler = async (req, res) => {
       where: { id: userId },
     });
     if (!user) {
-      res.status(404).send({
+      res.status(404).json({
         success: false,
         message: "The user does not exist in your database",
       });
@@ -55,7 +71,7 @@ export const createApplication: RequestHandler = async (req, res) => {
       where: { id: petId },
     });
     if (!pet) {
-      res.status(404).send({
+      res.status(404).json({
         success: false,
         message: "The pet does not exist in your database",
       });
@@ -69,19 +85,7 @@ export const createApplication: RequestHandler = async (req, res) => {
         status: "PENDING",
       },
     });
-    if (
-      !email ||
-      !name ||
-      !age ||
-      !address ||
-      !provincia ||
-      !localidad ||
-      !phone ||
-      !message
-    ) {
-      res.status(404).send("Missing information from email");
-      return;
-    }
+
     await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: process.env.NODEMAILER_EMAIL,
@@ -103,7 +107,7 @@ export const createApplication: RequestHandler = async (req, res) => {
     await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: "Confirmación de solicitud de adopción",
+      subject: "Solicitud de adopción",
       html: `<p>Estimado usuario</p>
       <p>¡Gracias por su interés en adoptar una mascota! Hemos recibido su solicitud para la mascota con ID ${petId}</p>
       <p>Su solicitud se encuentra en estado: <string>PENDIENTE</strong>.<p/>
@@ -114,14 +118,14 @@ export const createApplication: RequestHandler = async (req, res) => {
       `,
     });
 
-    res.status(200).send({
+    res.status(200).json({
       success: true,
-      message: "Application submitted and email sent",
+      message: "Application submitted and email sent successfully",
       data: newApplication,
     });
     return;
   } catch (error) {
-    res.status(500).send({
+    res.status(500).json({
       success: false,
       message: `Application created, but failed to send emails: ${error}`,
     });
