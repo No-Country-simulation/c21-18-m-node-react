@@ -10,9 +10,9 @@ export const createApplication: RequestHandler = async (req, res) => {
     name,
     age,
     address,
-    province,
-    locality,
-    phoneNumber,
+    provincia,
+    localidad,
+    phone,
     message,
   } = req.body;
 
@@ -74,9 +74,9 @@ export const createApplication: RequestHandler = async (req, res) => {
       !name ||
       !age ||
       !address ||
-      !province ||
-      !locality ||
-      !phoneNumber ||
+      !provincia ||
+      !localidad ||
+      !phone ||
       !message
     ) {
       res.status(404).send("Missing information from email");
@@ -91,9 +91,9 @@ export const createApplication: RequestHandler = async (req, res) => {
       <h1>Solicitud de adopción de ${name}<h1/>
       <p><strong> Edad del solicitante: </strong> ${age}</p>
       <p><strong>Dirección del solicitante: </strong>${address}</p>
-      <p><strong>Provincia del solicitante: </strong>${province}</p>
-      <p><strong>Localidad del solicitante: </strong>${locality}</p>
-      <p><strong>Número de teléfono del solicitante: </strong>${phoneNumber}</p>
+      <p><strong>Provincia del solicitante: </strong>${provincia}</p>
+      <p><strong>Localidad del solicitante: </strong>${localidad}</p>
+      <p><strong>Número de teléfono del solicitante: </strong>${phone}</p>
       <p><strong>Mensaje del solicitante: </strong>${message}</p>
       <p><strong>User ID: </strong>${userId}</p>
       <p><strong>Pet ID: </strong>${petId}</p>
