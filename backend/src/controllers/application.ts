@@ -15,9 +15,23 @@ export const createApplication: RequestHandler = async (req, res) => {
     phone,
     message,
   } = req.body;
-
+  //Chequeo si existe userId y petId
   if (!userId || !petId) {
     res.status(404).send("Missing information from applicationForm");
+    return;
+  }
+  //Chequeo si existe los datos para el email antes de crear el formulario y enviar el email.
+  if (
+    !email ||
+    !name ||
+    !age ||
+    !address ||
+    !provincia ||
+    !localidad ||
+    !phone ||
+    !message
+  ) {
+    res.status(404).send("Missing information from email");
     return;
   }
 
@@ -69,19 +83,7 @@ export const createApplication: RequestHandler = async (req, res) => {
         status: "PENDING",
       },
     });
-    if (
-      !email ||
-      !name ||
-      !age ||
-      !address ||
-      !provincia ||
-      !localidad ||
-      !phone ||
-      !message
-    ) {
-      res.status(404).send("Missing information from email");
-      return;
-    }
+
     await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: process.env.NODEMAILER_EMAIL,
@@ -116,7 +118,7 @@ export const createApplication: RequestHandler = async (req, res) => {
 
     res.status(200).send({
       success: true,
-      message: "Application submitted and email sent",
+      message: "Application submitted and email sent successfully",
       data: newApplication,
     });
     return;
