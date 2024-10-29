@@ -7,7 +7,7 @@ export const createApplication: RequestHandler = async (req, res) => {
     userId,
     petId,
     email,
-    userName,
+    name,
     age,
     address,
     province,
@@ -71,7 +71,7 @@ export const createApplication: RequestHandler = async (req, res) => {
     });
     if (
       !email ||
-      !userName ||
+      !name ||
       !age ||
       !address ||
       !province ||
@@ -88,7 +88,7 @@ export const createApplication: RequestHandler = async (req, res) => {
       subject: "Solicitud de adopción",
       replyTo: email,
       html: ` 
-      <h1>Solicitud de adopción de ${userName}<h1/>
+      <h1>Solicitud de adopción de ${name}<h1/>
       <p><strong> Edad del solicitante: </strong> ${age}</p>
       <p><strong>Dirección del solicitante: </strong>${address}</p>
       <p><strong>Provincia del solicitante: </strong>${province}</p>
