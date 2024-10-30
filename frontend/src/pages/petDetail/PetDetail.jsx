@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./petDetail.css";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function PetDetail() {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
+  const userCredentials = JSON.parse(Cookies.get("user") || "{}");
 
   useEffect(() => {
     getPet(id)
@@ -57,7 +59,7 @@ function PetDetail() {
             </div>
           </section>
           <Link to={`/ApplyForm/${id}`} className="a">
-            <button>Adoptame</button>
+            <button disabled={!userCredentials || Object.keys(userCredentials).length === 0} >Adoptame</button>
           </Link>
         </div>
       </div>
