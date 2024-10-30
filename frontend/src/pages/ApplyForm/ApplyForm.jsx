@@ -1,31 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { styled } from "@mui/system";
 import Cookies from "js-cookie";
-import { getPet } from '../../services/apiPetService';
-import { useParams } from 'react-router-dom';
-
+import { getPet } from "../../services/apiPetService";
+import { useParams } from "react-router-dom";
+import "./ApplyForm.css";
 
 const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
 
-  let userCredentials = Cookies.get("user") || "{}"
+  let userCredentials = Cookies.get("user") || "{}";
   let userCredentialsObj = JSON.parse(userCredentials);
   userCredentialsObj.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
-  console.log (`Datos de usuario: ${JSON.stringify(userCredentialsObj)}`)
-
+  console.log(`USER con Id: ${JSON.stringify(userCredentialsObj)}`);
 
   useEffect(() => {
     const fetchPetData = async () => {
       try {
         const data = await getPet(id);
-        setPet(data);              
+        setPet(data);
       } catch (err) {
-        setError('Error al cargar los datos de la mascota');
+        setError("Error al cargar los datos de la mascota");
       } finally {
         setLoading(false);
       }
@@ -36,23 +35,29 @@ const ApplyForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
-
   const [formData, setFormData] = useState({
     age: "",
     address: "",
-    province: "",
-    locality: "",
-    phoneNumber: "",
+    provincia: "",
+    localidad: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
     message: "",
   });
 
   const validateForm = () => {
-    const fieldsToValidate = {...formData, ...userCredentials, ...pet};
+    const fieldsToValidate = { ...formData, ...userCredentials, ...pet };
 
-    const allFieldsFilled = Object.values(fieldsToValidate).every(field => field);
+    const allFieldsFilled = Object.values(fieldsToValidate).every(
+      (field) => field
+    );
 
-    if (!allFieldsFilled) {  
-      setFeedback({ message: "Todos los campos son necesarios", type: "error" });
+    if (!allFieldsFilled) {
+      setFeedback({
+        message: "Todos los campos son necesarios",
+        type: "error",
+      });
       return false;
     }
 
@@ -88,126 +93,132 @@ const ApplyForm = () => {
     if (!validateForm()) return;
     setLoading(true);
 
+    if (formData.password !== formData.confirmPassword) {
+      setFeedback({
+        message: "Las contraseñas no coinciden.",
+        type: "error",
+      });
+      return;
+    }
+
     try {
+      // Data para user
+      const userId = userCredentialsObj.userId;
+      const data = {
+        name: userCredentialsObj.name,
+        email: userCredentialsObj.email,
+        phone: formData.phone,
+        picture: userCredentialsObj.picture,
+        password: formData.password,
+        role: userCredentialsObj.role,
+        address: formData.address,
+        localidad: formData.localidad,
+        provincia: formData.provincia,
+      };
 
-      // formData para user
-      const userFormData = new FormData();
-
-      Object.entries(userCredentialsObj).forEach(([key, value]) => {
-        userFormData.append(key, value);
-      });
-
-      Object.entries(formData).forEach( ([key, value]) => {
-        userFormData.append(key, value);
-      });
-
-      // Agregar petId
-      userFormData.append("petId", id);
-      console.log('tipo de userformdata', typeof(userFormData))
-
-      // Crear un objeto desde FormData 
-      const formDataObject = {};
-      userFormData.forEach((value, key) => {
-        formDataObject[key] = value;
-      });
-
-      // Convertir el objeto a JSON (string)
-      const formDataJSON = JSON.stringify(formDataObject);
-
-      console.log('USER DATA ===>', formDataJSON);
-      console.log('Tipo de USER DATA: ', typeof(formDataJSON))
+      console.log("USER DATA ===>", data);
 
       // userFormData al endpoint de update
-      const userResponse = await fetch(`http://localhost:3000/api/user/users/${userCredentialsObj.userId}`, {
-        method: "PUT",
-        body: formDataJSON,
-        credentials: "include",
-        userCredentials: userCredentials,
-      })
+      const userResponse = await fetch(
+        `http://localhost:3000/api/user/users/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+          credentials: "include",
+        }
+      );
 
       if (!userResponse.ok) {
         throw new Error("Error al enviar la solicitud update");
       }
 
-      setFeedback({ message: "Solicitud update enviada exitosamente", type: "success" });
-
-      /////////////////////////////////////////////////
-      /////////////////////////////////////////////////
-
-      // Copiar userFormData a un objeto temporal y eliminar los atributos innecesarios
-      const applyFormData = {};
-      userFormData.forEach((value, key) => {
-        applyFormData[key] = value;
-      });
-      delete applyFormData.role; // Eliminar atributos como 'role'
-      delete applyFormData.picture; // Eliminar otros atributos si es necesario
-
-      // Reconstruir userFormData sin los atributos eliminados
-      const filteredUserFormData = new FormData();
-      Object.entries(applyFormData).forEach(([key, value]) => {
-        filteredUserFormData.append(key, value);
+      setFeedback({
+        message: "Solicitud update enviada exitosamente",
+        type: "success",
       });
 
-      // Verificar contenido de filteredUserFormData como JSON
-      const formDataObject2 = {};
-      filteredUserFormData.forEach((value, key) => {
-        formDataObject2[key] = value;
-      });
-      const formDataJSON2 = JSON.stringify(formDataObject2);
-      console.log("filteredUserFormData:", formDataJSON2);      
+      const { password, ...formDataWithoutPassword } = formData; // Excluye 'password'
 
+      // Crear objeto para enviar el formulario de adopción
+      const applyFormData = {
+        ...formDataWithoutPassword, // Añade los datos del formulario sin 'password'
+        userId: userCredentialsObj.userId,
+        name: userCredentialsObj.name,
+        email: userCredentialsObj.email,
+        petId: pet?.data?.id,
+        message: formData.message,
+      };
+
+      console.log("Form apply", applyFormData);
 
       // applyFormData al endpoint de create form
-      const applyResponse = await fetch("http://localhost:3000/api/application-form/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: formDataObject2,
-        credentials: "include",
-        userCredentials: userCredentials,
-      });
+      const applyResponse = await fetch(
+        "http://localhost:3000/api/application-form/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(applyFormData),
+          credentials: "include",
+        }
+      );
 
       if (!applyResponse.ok) {
         const errorData = await applyResponse.json();
-        throw new Error(errorData.message || "Error al enviar la solicitud de adopción");
+        throw new Error(
+          errorData.message || "Error al enviar la solicitud de adopción"
+        );
       }
 
       // Notificación de éxito
-      setFeedback({ message: "Formulario enviado exitosamente", type: "success" });
+      setFeedback({
+        message: "Formulario enviado exitosamente",
+        type: "success",
+      });
 
       // Limpiar el formulario
       setFormData({
         age: "",
         address: "",
-        province: "",
-        locality: "",
-        phoneNumber: "",
+        provincia: "",
+        localidad: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
         message: "",
       });
-
     } catch (error) {
-      setFeedback({ message: error.message || "Formulario fallido", type: "error" });
+      setFeedback({
+        message: error.message || "Formulario fallido",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
-      <h1 style={{textAlign: 'center', marginBottom: 20}}>Formulario de solicitud de adopción</h1>
+    <div className="main-container">
+      <h1 style={{ textAlign: "center", marginBottom: 5 }}>
+        Formulario de solicitud de adopción
+      </h1>
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-          borderRadius: 2,
+          "& .MuiTextField-root": { m: 1, width: "35ch" },
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "90vh",
-          width: "100%",
+          width: "90%",
           bgcolor: "#cdeac0",
+          padding: 2,
+          maxWidth: "100%", // Limita el ancho para que no se desborde
+          margin: "auto", // Centra el formulario horizontalmente
         }}
         noValidate
         autoComplete="off"
@@ -223,7 +234,7 @@ const ApplyForm = () => {
         />
         <TextField
           disabled
-          id="userName"
+          id="name"
           label="Nombre Completo"
           value={userCredentialsObj.name || ""}
           onChange={handleChange}
@@ -251,24 +262,38 @@ const ApplyForm = () => {
           onChange={handleChange}
         />
         <TextField
-          id="province"
+          id="provincia"
           label="Provincia"
           multiline
-          value={formData.province}
+          value={formData.provincia}
           onChange={handleChange}
         />
         <TextField
-          id="locality"
+          id="localidad"
           label="Localidad"
           multiline
-          value={formData.locality}
+          value={formData.localidad}
           onChange={handleChange}
         />
         <TextField
-          id="phoneNumber"
+          id="phone"
           label="Teléfono"
           multiline
-          value={formData.phoneNumber}
+          value={formData.phone}
+          onChange={handleChange}
+        />
+        <TextField
+          id="password"
+          label="Contraseña"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <TextField
+          id="confirmPassword"
+          label="Confirmar Contraseña"
+          type="password"
+          value={formData.confirmPassword}
           onChange={handleChange}
         />
         <TextField
@@ -278,14 +303,16 @@ const ApplyForm = () => {
           value={formData.message}
           onChange={handleChange}
         />
-        <Button type="submit" variant="contained" disabled={loading}>
+        <Button type="submit" variant="contained" disabled={loading}
+        sx={{ margin: "10px", backgroundColor: "#ff928b", color: "#ffffff",
+         }}>
           Enviar Solicitud
         </Button>
         {feedback.message && (
           <Alert severity={feedback.type}>{feedback.message}</Alert>
         )}
       </Box>
-    </>
+    </div>
   );
 };
 
