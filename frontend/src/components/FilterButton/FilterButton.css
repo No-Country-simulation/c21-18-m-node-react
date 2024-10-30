@@ -13,14 +13,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0.2rem;
-    padding: 0.3rem;
-    border-right: #404040dd solid 1px;
+    /* margin: 0.2rem; */
+    padding: 0.4rem;
+    border-right: #858585dd solid 1px;
     color: #404040dd;
 }
 
 #div-category h3 {
-    font-size: medium;
+    font-size: 30px;
+    margin-bottom: 2px;
+    font-family: "Amatic SC", serif;
+    font-weight: bold;
 }
 
 #aplicar-btn {
@@ -28,6 +31,7 @@
     padding: 0.2rem;
     justify-content: center;
     align-items: center;
+    margin-left: 15px;
 }
 
 #div-key {

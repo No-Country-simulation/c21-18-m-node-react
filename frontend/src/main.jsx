@@ -14,6 +14,8 @@ import {
 } from "./components/index.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/index.jsx";
 import { Admin } from "./pages/Admin/Admin.jsx";
+import AllPets from "./pages/AllPets/AllPets.jsx";
+import ApplyForm from "./pages/ApplyForm/ApplyForm.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -35,6 +37,9 @@ createRoot(document.getElementById("root")).render(
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/api/pet/:id" element={<PetDetail />} />
+        <Route path="/AllPets" element={<AllPets />} />
+        <Route path="/ApplyForm/:id" element={<ApplyForm />} />
+        
       </Route>
     </Routes>
   </BrowserRouter>
