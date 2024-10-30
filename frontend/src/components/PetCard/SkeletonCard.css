@@ -1,18 +1,22 @@
 .skeleton__group {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  height: 350px;
-  margin: 20px 0;
+  width: 100%;
 }
 
 .skeleton__content {
-  flex-grow: 0.6;
-  max-width: 300px;
+  width: 80%;
 }
 
-.skeleton__img {
-  flex-grow: 0.8;
-  width: 200px;
-  height: 200px;
+@media  (min-width: 768px) {
+  .skeleton__content {
+    width: 50%;
+  }
+}
+
+@media  (min-width: 1024px) {
+  .skeleton__content {
+    width: 30%;
+  }
 }
