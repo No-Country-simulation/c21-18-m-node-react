@@ -5,20 +5,32 @@ import { useState } from "react";
 
 // constante
 const filtros = {
+  type: ["PERRO", "GATO"],
   gender: ["MACHO", "HEMBRA"], 
   size: ["CHICO", "MEDIANO", "GRANDE"],
   age: ["CACHORRO", "ADULTO"]
 };
+
+
 
 ///////// main  component
 const FilterButton = ({setActive, sendFilters}) => {
   
   // Manejamos los estados de los filtros
   const [selectedFilters, setSelecterFilters] = useState({
+    type: [],
     gender: [],
     size: [],
     age: [],
   });
+
+  const translations = {
+    type: 'Especie',
+    gender : 'Género',
+    size: 'Tamaño',
+    age: 'Edad',
+  }
+
 
   // aply btn function
   const handleClick = () => {
@@ -62,6 +74,7 @@ const FilterButton = ({setActive, sendFilters}) => {
     sendFilters(selectedFilters);
     console.log("Filtros seleccionados: ", selectedCategories);
     setSelecterFilters({
+      type: [],
       gender: [],
       size: [],
       age: [],
@@ -75,7 +88,7 @@ const FilterButton = ({setActive, sendFilters}) => {
           {
             Object.entries(filtros).map(([key, values]) => (
             <div id="div-category" key={key}>
-              <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+              <h3>{translations[key] || key}</h3>
               <div id="span-container">
                 {values.map((value) => (
                   <Btn

@@ -1,13 +1,15 @@
 
 #btn-span {
-    width: 40px;
-    height: 16px;
+    width: 80px;
+    height: 20px;
     display: inline-block;
     text-align: center;
     align-content: center;
     background-color: #fec3a6;
     border: #ffac81 solid 1px;
     font-weight: 800;
+    font-size: 12px;
+    cursor: pointer;
   }
   
   #aplicar-btn button {
@@ -17,6 +19,7 @@
     padding: 5px;
     color: white;
     font-weight: 700;
+    border-left: 5px;
   }
   
   #aplicar-btn button:active {
