@@ -3,16 +3,19 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Cookies from "js-cookie";
-import Container from "@mui/material/Container";
+import { useParams } from "react-router-dom";
 import {
   Select,
   MenuItem,
   Checkbox,
   FormControlLabel,
   Box,
+  Container,
 } from "@mui/material";
+import * as API from "../../services/apiPetService";
 
 export const PetForm = () => {
+  const { id } = useParams();
   const userCredentials = Cookies.get("user");
   const [formData, setFormData] = React.useState({
     name: "",
@@ -25,6 +28,11 @@ export const PetForm = () => {
     status: false,
     picture: null,
   });
+  if (id) {
+    API.getPet(id).then((pet) => {
+      setFormData(pet.data);
+    });
+  }
   const [feedback, setFeedback] = React.useState({ message: "", type: "" });
   const [loading, setLoading] = React.useState(false);
 
@@ -129,10 +137,6 @@ export const PetForm = () => {
           gap: "10px",
           justifyContent: "center",
           alignItems: "center",
-
-          "& .MuiButton-root": {
-            maxWidth: "80%",
-          },
         }}
       >
         <TextField
@@ -211,9 +215,8 @@ export const PetForm = () => {
           variant="contained"
           disabled={loading}
           onClick={handleSubmit}
-          sx={{ mt: 2, alignSelf: "center", maxWidth: "80%" }}
         >
-          Create Pet
+          {(id ? "Actualizar" : "Crear") + " Mascota"}
         </Button>
         {feedback.message && (
           <Alert severity={feedback.type}>{feedback.message}</Alert>

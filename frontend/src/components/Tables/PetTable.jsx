@@ -86,7 +86,8 @@ export const PetTable = () => {
                   variant="contained"
                   color="primary"
                   component={Link}
-                  to={() => <Link to={<PetForm pet={pet} />} />}
+                  to={`/petForm/${pet.id}`}
+
                 >
                   Editar
                 </Button>
