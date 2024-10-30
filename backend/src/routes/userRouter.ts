@@ -1,24 +1,14 @@
-import { Router } from 'express';
-import {
-	createUser,
-	deleteUser,
-	getAllUsers,
-	getUserByEmail,
-	getUserById,
-	updateUser,
-} from '../controllers';
+import express from "express";
+import * as userController from "../controllers/user.controller";
 
-const usersRouter = Router();
+const usersRouter = express.Router();
 
-usersRouter.route('/create-user').post(createUser);
-
-usersRouter.get('/users', getAllUsers);
-usersRouter.get('/users/:email', getUserByEmail);
-usersRouter
-	.route('/users/:id')
-	.get(getUserById)
-	.put(updateUser)
-	.delete(deleteUser);
+usersRouter.post("/create-user", userController.createUser);
+usersRouter.get("/users", userController.getAllUsers);
+usersRouter.get("/users/:id", userController.getUserById);
+usersRouter.put("/users/:id", userController.updateUser);
+usersRouter.delete("/users/:id", userController.deleteUser);
+usersRouter.get("/users/:email", userController.getUserByEmail);
 
 /**
  * @swagger
