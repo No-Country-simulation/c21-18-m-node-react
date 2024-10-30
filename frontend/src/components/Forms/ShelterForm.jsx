@@ -4,14 +4,25 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import * as API from "../../services/apiShelterService";
+import { useParams } from "react-router-dom";
 
 export const ShelterForm = () => {
+  const { id } = useParams();
   const [shelterName, setShelterName] = React.useState("");
   const [shelterAddress, setShelterAddress] = React.useState("");
   const [shelterPhoneNumber, setShelterPhoneNumber] = React.useState("");
   const [shelterEmail, setShelterEmail] = React.useState("");
   const [feedback, setFeedback] = React.useState({ message: "", type: "" });
   const [loading, setLoading] = React.useState(false);
+
+  if (id) {
+    API.getShelter(id).then((shelter) => {
+      setShelterName(shelter.data.name);
+      setShelterAddress(shelter.data.address);
+      setShelterPhoneNumber(shelter.data.phoneNumber);
+      setShelterEmail(shelter.data.email);
+    });
+  }
 
   const validateForm = () => {
     if (
@@ -130,10 +141,10 @@ export const ShelterForm = () => {
         type="submit"
         variant="contained"
         color="#cdeac0"
-        sx={{ width: "50%" }}
+        sx={{ width: "50%", backgroundColor: "#ffac81 ", color: "black" }}
         disabled={loading}
       >
-        {loading ? "Enviando..." : "Enviado "}
+        {loading ? "Guardar" : "Guardar"}
       </Button>
     </Box>
   );
