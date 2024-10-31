@@ -7,6 +7,8 @@ import { extractUserDetails, logged } from '../../services/auth';
 
 export default function Navbar() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const user = logged() ? extractUserDetails() : null;
+	const isAdmin = user && user.role === "ADMIN";
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -27,7 +29,7 @@ export default function Navbar() {
 			</NavLink>
 			<nav>
 				{isMobile ? (
-					 <BurgerMenu></BurgerMenu>
+					<BurgerMenu />
 				) : (
 					<div className='desktop-menu'>
 						<NavLink
@@ -46,6 +48,16 @@ export default function Navbar() {
 						>
 							Conócenos
 						</NavLink>
+						{isAdmin && (
+							<NavLink
+								to='http://localhost:5173/Admin'
+								className={({ isActive }) =>
+									isActive ? 'admin-panel active' : 'admin-panel'
+								}
+							>
+								Panel Admin
+							</NavLink>
+						)}
 						{!logged() ? (
 							<NavLink
 								to='http://localhost:3000/api/auth/google'
@@ -63,10 +75,10 @@ export default function Navbar() {
 								}
 							>
 								<div className='flex'>
-									<img src={extractUserDetails().picture} alt="foto perfil" />
+									<img src={user.picture} alt="foto perfil" />
 									<div className='flex-name'>
-									<div>{extractUserDetails().name}</div>
-									<div>Log Out</div>
+										<div>{user.name}</div>
+										<div>Log Out</div>
 									</div>
 								</div>
 							</NavLink>
