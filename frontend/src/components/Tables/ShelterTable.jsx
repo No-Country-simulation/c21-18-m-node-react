@@ -46,12 +46,7 @@ export const ShelterTable = () => {
               <TableCell>{shelter.phone}</TableCell>
               <TableCell>
                 <Link to={`/ShelterForm/${shelter.id}`}>
-                  <Button
-                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
-                    variant="contained"
-                    color="primary"
-                    to={`/ShelterForm/${shelter.id}`}
-                  >
+                  <Button variant="contained" color="primary">
                     Editar
                   </Button>
                 </Link>

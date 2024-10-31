@@ -16,6 +16,7 @@ import * as API from "../../services/apiPetService";
 
 export const PetForm = () => {
   const { id } = useParams();
+  const userCredentials = Cookies.get("user");
   const [formData, setFormData] = React.useState({
     name: "",
     size: "",
@@ -27,15 +28,11 @@ export const PetForm = () => {
     status: false,
     picture: null,
   });
-
-  React.useEffect(() => {
-    if (id) {
-      API.getPet(id).then((pet) => {
-        setFormData(pet.data);
-      });
-    }
-  }, [id]);
-
+  if (id) {
+    API.getPet(id).then((pet) => {
+      setFormData(pet.data);
+    });
+  }
   const [feedback, setFeedback] = React.useState({ message: "", type: "" });
   const [loading, setLoading] = React.useState(false);
 
@@ -49,7 +46,7 @@ export const PetForm = () => {
       return false;
     }
     if (isNaN(age)) {
-      setFeedback({ message: "La edad solo puede ser números", type: "error" });
+      setFeedback({ message: "La edad solo puede ser numeros", type: "error" });
       return false;
     }
     return true;
@@ -57,6 +54,7 @@ export const PetForm = () => {
 
   const handleChange = (event) => {
     const { name, value, type, checked, files } = event.target;
+
     setFormData((prevData) => ({
       ...prevData,
       [name]:
@@ -74,47 +72,39 @@ export const PetForm = () => {
       formDataToSend.append(key, value);
     });
 
-    const url = id
-      ? `http://localhost:3000/api/pet/update-pet/${id}`
-      : "http://localhost:3000/api/pet/create-pet";
-
     try {
-      const response = await fetch(url, {
-        method: id ? "PUT" : "POST", // Usa PUT para actualizar y POST para crear
+      const response = await fetch("http://localhost:3000/api/pet/create-pet", {
+        method: "POST",
         body: formDataToSend,
         credentials: "include",
+        userCredentials: userCredentials,
       });
 
       if (response.ok) {
         setFeedback({
-          message: id ? "Mascota actualizada" : "Mascota creada",
+          message: "Mascota creada",
           type: "success",
         });
-        if (!id) {
-          setFormData({
-            name: "",
-            size: "",
-            age: "",
-            type: "",
-            shelterId: "",
-            description: "",
-            gender: "",
-            status: false,
-            picture: null,
-          });
-        }
+        setFormData({
+          name: "",
+          size: "",
+          age: "",
+          type: "",
+          shelterId: "",
+          description: "",
+          gender: "",
+          status: false,
+          picture: null,
+        });
       } else {
         const errorData = await response.json();
         setFeedback({
-          message: errorData.message || "Error al crear/actualizar mascota",
+          message: errorData.message || "Error al crear mascota",
           type: "error",
         });
       }
     } catch (error) {
-      setFeedback({
-        message: "Error al crear/actualizar mascota",
-        type: "error",
-      });
+      setFeedback({ message: "Error al crear mascota", type: "error" });
       console.error(error);
     } finally {
       setLoading(false);
@@ -123,17 +113,15 @@ export const PetForm = () => {
 
   return (
     <Container
+      maxWidth=""
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+
+        height: "80vh",
         width: "100%",
+
         bgcolor: "#cdeac0",
-        boxSizing: "content-box",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-        gap: "10px",
       }}
     >
       <Box
@@ -153,7 +141,7 @@ export const PetForm = () => {
       >
         <TextField
           name="name"
-          label="Nombre"
+          label="Name"
           value={formData.name}
           onChange={handleChange}
         />
@@ -179,7 +167,7 @@ export const PetForm = () => {
         />
         <TextField
           name="description"
-          label="Descripción"
+          label="Descripcion"
           multiline
           value={formData.description}
           onChange={handleChange}
@@ -191,10 +179,10 @@ export const PetForm = () => {
           displayEmpty
         >
           <MenuItem value="" disabled>
-            Seleccionar Género
+            Seleccionar Genero
           </MenuItem>
-          <MenuItem value="MACHO">Macho</MenuItem>
-          <MenuItem value="HEMBRA">Hembra</MenuItem>
+          <MenuItem value="MACHO">MACHO</MenuItem>
+          <MenuItem value="HEMBRA">HEMBRA</MenuItem>
         </Select>
         <Select
           name="size"
@@ -218,23 +206,22 @@ export const PetForm = () => {
               onChange={handleChange}
             />
           }
-          label="Disponible para adopción"
+          label="Disponible para adopcion"
         />
         <TextField name="picture" type="file" onChange={handleChange} />
 
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={loading}
+          onClick={handleSubmit}
+        >
+          {(id ? "Actualizar" : "Crear") + " Mascota"}
+        </Button>
         {feedback.message && (
           <Alert severity={feedback.type}>{feedback.message}</Alert>
         )}
       </Box>
-      <Button
-        type="submit"
-        variant="contained"
-        disabled={loading}
-        onClick={handleSubmit}
-        sx={{ backgroundColor: "#ffac81 ", color: "black" }}
-      >
-        {(id ? "Actualizar" : "Crear") + " Mascota"}
-      </Button>
     </Container>
   );
 };
