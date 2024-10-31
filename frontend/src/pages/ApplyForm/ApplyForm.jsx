@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
-import { styled } from "@mui/system";
+// import { styled } from "@mui/system";
 import Cookies from "js-cookie";
 import { getPet } from "../../services/apiPetService";
 import { useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ import { getUsersByEmail } from "../../services/apiUserServices";
 const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
-  const [userDB, setUserDB ] = useState(null);
+  const [userDB, setUserDB] = useState(null);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
   const [error, setError] = useState(null);
@@ -38,9 +38,8 @@ const ApplyForm = () => {
         setPet(data);
         const userDataDB = await getUsersByEmail(userEmail);
         setUserDB(userDataDB.data.id);
-
       } catch (err) {
-        setError("Error al cargar los datos de la mascota");
+        setError(`Error al cargar los datos de la mascota:${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -49,7 +48,7 @@ const ApplyForm = () => {
     fetchPetData();
   }, [id, userEmail]);
 
-  console.log('USERDB: ', userDB)
+  console.log("USERDB: ", userDB);
 
   const validateForm = () => {
     const fieldsToValidate = { ...formData, ...userCredentials, ...pet };
@@ -70,17 +69,17 @@ const ApplyForm = () => {
   };
 
   // Clase de MUI para inputs
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
+  // const VisuallyHiddenInput = styled("input")({
+  //   clip: "rect(0 0 0 0)",
+  //   clipPath: "inset(50%)",
+  //   height: 1,
+  //   overflow: "hidden",
+  //   position: "absolute",
+  //   bottom: 0,
+  //   left: 0,
+  //   whiteSpace: "nowrap",
+  //   width: 1,
+  // });
 
   // Metodo de completado de los campos
   const handleChange = (event) => {
@@ -102,7 +101,6 @@ const ApplyForm = () => {
     event.preventDefault();
     if (!validateForm()) return;
     setLoading(true);
-
 
     try {
       // Data para user
@@ -141,7 +139,6 @@ const ApplyForm = () => {
         message: "Solicitud update enviada exitosamente",
         type: "success",
       });
-
 
       // Crear objeto para enviar el formulario de adopción
       const applyFormData = {
@@ -246,7 +243,7 @@ const ApplyForm = () => {
           onChange={handleChange}
           inputProps={{
             inputMode: "numeric", // Muestra teclado numérico en móviles
-            pattern: "[0-9]*" // Patrón que permite solo dígitos
+            pattern: "[0-9]*", // Patrón que permite solo dígitos
           }}
           InputProps={{
             sx: {
@@ -292,11 +289,19 @@ const ApplyForm = () => {
           value={formData.message}
           onChange={handleChange}
         />
-        <Button type="submit" variant="contained" disabled={loading}
-        sx={{ margin: "10px", backgroundColor: "#ff928b", color: "#ffffff",
-         }}>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={loading}
+          sx={{ margin: "10px", backgroundColor: "#ff928b", color: "#ffffff" }}
+        >
           Enviar Solicitud
         </Button>
+        {error && (
+          <Alert severity="error" sx={{ marginBottom: 2 }}>
+            {error}
+          </Alert>
+        )}
         {feedback.message && (
           <Alert severity={feedback.type}>{feedback.message}</Alert>
         )}
