@@ -8,21 +8,37 @@ import Cookies from "js-cookie";
 import { getPet } from "../../services/apiPetService";
 import { useParams } from "react-router-dom";
 import "./ApplyForm.css";
+import { getUsersByEmail } from "../../services/apiUserServices";
 
 const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
+  const [userDB, setUserDB ] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState({ message: "", type: "" });
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    age: "",
+    address: "",
+    provincia: "",
+    localidad: "",
+    phone: "",
+    message: "",
+  });
 
   let userCredentials = Cookies.get("user") || "{}";
   let userCredentialsObj = JSON.parse(userCredentials);
-  userCredentialsObj.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
-  console.log(`USER con Id: ${JSON.stringify(userCredentialsObj)}`);
+  let userEmail = userCredentialsObj.email;
 
+  // datos de la mascota y user by email
   useEffect(() => {
     const fetchPetData = async () => {
       try {
         const data = await getPet(id);
         setPet(data);
+        const userDataDB = await getUsersByEmail(userEmail);
+        setUserDB(userDataDB.data.id);
+
       } catch (err) {
         setError("Error al cargar los datos de la mascota");
       } finally {
@@ -31,20 +47,9 @@ const ApplyForm = () => {
     };
 
     fetchPetData();
-  }, [id]);
+  }, [id, userEmail]);
 
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState({ message: "", type: "" });
-  const [formData, setFormData] = useState({
-    age: "",
-    address: "",
-    provincia: "",
-    localidad: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-    message: "",
-  });
+  console.log('USERDB: ', userDB)
 
   const validateForm = () => {
     const fieldsToValidate = { ...formData, ...userCredentials, ...pet };
@@ -103,13 +108,12 @@ const ApplyForm = () => {
 
     try {
       // Data para user
-      const userId = userCredentialsObj.userId;
+      const userId = userDB;
       const data = {
         name: userCredentialsObj.name,
         email: userCredentialsObj.email,
         phone: formData.phone,
         picture: userCredentialsObj.picture,
-        password: formData.password,
         role: userCredentialsObj.role,
         address: formData.address,
         localidad: formData.localidad,
@@ -140,12 +144,11 @@ const ApplyForm = () => {
         type: "success",
       });
 
-      const { password, ...formDataWithoutPassword } = formData; // Excluye 'password'
 
       // Crear objeto para enviar el formulario de adopción
       const applyFormData = {
-        ...formDataWithoutPassword, // Añade los datos del formulario sin 'password'
-        userId: userCredentialsObj.userId,
+        ...formData,
+        userId: userId,
         name: userCredentialsObj.name,
         email: userCredentialsObj.email,
         petId: pet?.data?.id,
@@ -187,8 +190,6 @@ const ApplyForm = () => {
         provincia: "",
         localidad: "",
         phone: "",
-        password: "",
-        confirmPassword: "",
         message: "",
       });
     } catch (error) {
@@ -280,20 +281,6 @@ const ApplyForm = () => {
           label="Teléfono"
           multiline
           value={formData.phone}
-          onChange={handleChange}
-        />
-        <TextField
-          id="password"
-          label="Contraseña"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <TextField
-          id="confirmPassword"
-          label="Confirmar Contraseña"
-          type="password"
-          value={formData.confirmPassword}
           onChange={handleChange}
         />
         <TextField
