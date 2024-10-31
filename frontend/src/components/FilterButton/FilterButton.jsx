@@ -11,8 +11,6 @@ const filtros = {
   age: ["CACHORRO", "ADULTO"]
 };
 
-
-
 ///////// main  component
 const FilterButton = ({setActive, sendFilters}) => {
   
