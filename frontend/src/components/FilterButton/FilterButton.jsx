@@ -13,6 +13,8 @@ const filtros = {
 
 ///////// main  component
 const FilterButton = ({setActive, sendFilters}) => {
+  // Estado para resetear cata componente Btn
+  const [resetCounter, setResetCounter] = useState(0);
   
   // Manejamos los estados de los filtros
   const [selectedFilters, setSelecterFilters] = useState({
@@ -34,6 +36,7 @@ const FilterButton = ({setActive, sendFilters}) => {
   const handleClick = () => {
     toggleActive();
     handleApply();
+    setResetCounter((prev) => prev + 1);
   }
 
   const toggleActive = () => {
@@ -70,7 +73,9 @@ const FilterButton = ({setActive, sendFilters}) => {
 
     // Enviar los filtros seleccionados al padre
     sendFilters(selectedFilters);
+
     console.log("Filtros seleccionados: ", selectedCategories);
+
     setSelecterFilters({
       type: [],
       gender: [],
@@ -92,6 +97,7 @@ const FilterButton = ({setActive, sendFilters}) => {
                   <Btn
                   key={value}
                   text={value}
+                  reset={resetCounter}
                   onClick={() => handleFilterClick(key, value)}
                   />
                 ))}
