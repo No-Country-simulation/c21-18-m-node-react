@@ -74,7 +74,7 @@ export const getUserById = async (
 // Find User by email
 export const getUserByEmail = async (req: Request, res: Response) => {
 	try {
-		const { email } = req.body;
+		const { email } = req.params;
 		const user = await prisma.user.findFirst({
 			where: { email: email as string },
 		});
