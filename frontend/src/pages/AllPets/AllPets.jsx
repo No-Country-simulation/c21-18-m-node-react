@@ -61,12 +61,12 @@ const AllPets = () => {
   });
 
   return (
-    <>
+    <div div className="main-container">
       <FilterButton 
       setActive={handleChildActiveStatus}
       sendFilters={handleFiltersFromChild}
       />
-      <div className="card-container">
+      <div className="pet-container">
         { filteredPets.length > 0 ? (
             filteredPets.map((pet) => (
             <Link to={`/api/pet/${pet.id}`} key={pet.id}>
@@ -96,7 +96,7 @@ const AllPets = () => {
           <p>No hay mascotas disponibles.</p>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

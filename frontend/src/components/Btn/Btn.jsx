@@ -1,9 +1,9 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./Btn.css"
 
 
-const Btn = ({text, onClick}) => {
+const Btn = ({text, onClick, reset}) => {
   // Manejamos el estado del botón
   const [isPressed, setIsPressed] = useState(false);
 
@@ -12,6 +12,13 @@ const Btn = ({text, onClick}) => {
     setIsPressed(true);
     onClick();
   };
+
+  // Efecto para escuchar cambios en `reset` y restablecer `isPressed` a `false`
+  useEffect(() => {
+    if (reset) {
+      setIsPressed(false);
+    }
+  }, [reset]);
 
   return (
     <span 
