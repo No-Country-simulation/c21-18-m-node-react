@@ -201,7 +201,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container-form">
       <h1 style={{ textAlign: "center", marginBottom: 5 }}>
         Formulario de solicitud de adopción
       </h1>

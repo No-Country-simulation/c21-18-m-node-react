@@ -14,8 +14,8 @@ export const SkeletonCard = () => {
                     />
                     {/* Skeleton para el nombre */}
                     <Skeleton 
-                        width="60%" 
-                        height="35px" 
+                        width="60%"
+                        height="35px"
                         style={{ marginBottom: '15px', borderRadius: '4px' }} 
                     />
                 </article>
