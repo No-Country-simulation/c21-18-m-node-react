@@ -11,7 +11,6 @@ import {
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as API from "../../services/apiPetService";
-import { PetForm } from "../Forms/PetForm";
 
 export const PetTable = () => {
   const [pets, setPets] = useState([]);
@@ -69,6 +68,7 @@ export const PetTable = () => {
                 <Button
                   variant="contained"
                   color="primary"
+                  sx={{ backgroundColor: "#cdeac0", color: "black" }}
                   component={Link}
                   to={`/api/pet/${pet.id}`}
                 >
@@ -77,6 +77,8 @@ export const PetTable = () => {
               </TableCell>
               <TableCell>
                 <Switch
+                  color="primary"
+                  sx={{ backgroundColor: "#cdeac0" }}
                   checked={pet.status}
                   onChange={() => handleStatusChange(pet.id)}
                 />
@@ -86,8 +88,8 @@ export const PetTable = () => {
                   variant="contained"
                   color="primary"
                   component={Link}
+                  sx={{ backgroundColor: "#cdeac0", color: "black" }}
                   to={`/petForm/${pet.id}`}
-
                 >
                   Editar
                 </Button>

@@ -46,7 +46,11 @@ export const UserTable = () => {
               <TableCell>{user.email}</TableCell>
               <TableCell>
                 <Link to={`/UserForm/${user.id}`}>
-                  <Button variant="contained" color="primary">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
+                  >
                     Editar
                   </Button>
                 </Link>
