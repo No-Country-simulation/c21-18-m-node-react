@@ -4,7 +4,6 @@ import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddTaskIcon from "@mui/icons-material/AddTask";
-import "./Admin.css";
 
 import { Link } from "react-router-dom";
 
