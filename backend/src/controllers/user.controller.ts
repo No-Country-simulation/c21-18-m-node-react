@@ -72,14 +72,11 @@ export const getUserById = async (
 	}
 };
 // Find User by email
-export const getUserByEmail = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
+export const getUserByEmail = async (req: Request, res: Response) => {
 	try {
-		const { email } = req.params;
-		const user = await prisma.user.findUnique({
-			where: { email },
+		const { email } = req.body;
+		const user = await prisma.user.findFirst({
+			where: { email: email as string },
 		});
 		if (!user) {
 			res.status(404).send({
@@ -136,7 +133,7 @@ export const updateUser = async (req: Request, res: Response) => {
 	} catch (error) {
 		res.status(400).send({
 			status: 'fail',
-			message: error,
+			message: 'error',
 			data: error,
 		});
 	}
