@@ -1,14 +1,14 @@
-import express from "express";
-import * as userController from "../controllers/user.controller";
+import express from 'express';
+import * as userController from '../controllers/user.controller';
 
 const usersRouter = express.Router();
 
-usersRouter.post("/create-user", userController.createUser);
-usersRouter.get("/users", userController.getAllUsers);
-usersRouter.get("/users/:id", userController.getUserById);
-usersRouter.put("/users/:id", userController.updateUser);
-usersRouter.delete("/users/:id", userController.deleteUser);
-usersRouter.get("/users/:email", userController.getUserByEmail);
+usersRouter.post('/create-user', userController.createUser);
+usersRouter.get('/users', userController.getAllUsers);
+usersRouter.get('/users/:id', userController.getUserById);
+usersRouter.put('/users/:id', userController.updateUser);
+usersRouter.delete('/users/:id', userController.deleteUser);
+usersRouter.get('/users/mail/:email', userController.getUserByEmail);
 
 /**
  * @swagger
