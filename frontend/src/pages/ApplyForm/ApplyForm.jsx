@@ -23,26 +23,20 @@ const ApplyForm = () => {
     provincia: "",
     localidad: "",
     phone: "",
-    password: "",
-    confirmPassword: "",
     message: "",
   });
 
   let userCredentials = Cookies.get("user") || "{}";
   let userCredentialsObj = JSON.parse(userCredentials);
   let userEmail = userCredentialsObj.email;
-  // console.log(`USER con Id: ${JSON.stringify(userCredentialsObj)}`);
-  // console.log('USER EMAIL: ', userEmail);
 
-
+  // datos de la mascota y user by email
   useEffect(() => {
     const fetchPetData = async () => {
       try {
         const data = await getPet(id);
         setPet(data);
         const userDataDB = await getUsersByEmail(userEmail);
-        // const userDBJSON = await userDataDB.json();
-        // setUserDB(userDBJSON);
         setUserDB(userDataDB.data.id);
 
       } catch (err) {
@@ -120,7 +114,6 @@ const ApplyForm = () => {
         email: userCredentialsObj.email,
         phone: formData.phone,
         picture: userCredentialsObj.picture,
-        password: formData.password,
         role: userCredentialsObj.role,
         address: formData.address,
         localidad: formData.localidad,
@@ -151,11 +144,10 @@ const ApplyForm = () => {
         type: "success",
       });
 
-      const { password, ...formDataWithoutPassword } = formData; // Excluye 'password'
 
       // Crear objeto para enviar el formulario de adopción
       const applyFormData = {
-        ...formDataWithoutPassword, // Añade los datos del formulario sin 'password'
+        ...formData,
         userId: userId,
         name: userCredentialsObj.name,
         email: userCredentialsObj.email,
@@ -198,8 +190,6 @@ const ApplyForm = () => {
         provincia: "",
         localidad: "",
         phone: "",
-        password: "",
-        confirmPassword: "",
         message: "",
       });
     } catch (error) {
@@ -291,20 +281,6 @@ const ApplyForm = () => {
           label="Teléfono"
           multiline
           value={formData.phone}
-          onChange={handleChange}
-        />
-        <TextField
-          id="password"
-          label="Contraseña"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <TextField
-          id="confirmPassword"
-          label="Confirmar Contraseña"
-          type="password"
-          value={formData.confirmPassword}
           onChange={handleChange}
         />
         <TextField
