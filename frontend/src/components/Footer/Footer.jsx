@@ -14,7 +14,7 @@ export default function Footer() {
                 <section className="social">
                     <h4>Links útiles</h4>
                     <div className="links">
-                        <Link to="">Conócenos</Link>
+                        <Link to="http://localhost:5173/AboutUs">Conócenos</Link>
                         <Link to="">Contacto</Link>
                     </div>
                 </section>
