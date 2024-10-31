@@ -86,6 +86,11 @@ const ApplyForm = () => {
   const handleChange = (event) => {
     const { id, value } = event.target;
 
+    // Verifica si el campo es "age" y permite solo números
+    if (id === "age" && !/^\d*$/.test(value)) {
+      return; // No actualiza el estado si el valor contiene caracteres no numéricos
+    }
+
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
@@ -98,13 +103,6 @@ const ApplyForm = () => {
     if (!validateForm()) return;
     setLoading(true);
 
-    if (formData.password !== formData.confirmPassword) {
-      setFeedback({
-        message: "Las contraseñas no coinciden.",
-        type: "error",
-      });
-      return;
-    }
 
     try {
       // Data para user
@@ -243,9 +241,13 @@ const ApplyForm = () => {
         <TextField
           id="age"
           label="Edad"
-          type="number"
+          type="text"
           value={formData.age}
           onChange={handleChange}
+          inputProps={{
+            inputMode: "numeric", // Muestra teclado numérico en móviles
+            pattern: "[0-9]*" // Patrón que permite solo dígitos
+          }}
           InputProps={{
             sx: {
               width: "80px",
