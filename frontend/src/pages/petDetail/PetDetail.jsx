@@ -2,7 +2,6 @@ import { getPet } from "../../services/apiPetService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./petDetail.css";
-import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function PetDetail() {
@@ -14,14 +13,22 @@ function PetDetail() {
   useEffect(() => {
     getPet(id)
       .then((data) => {
-        setPet(data); // Guardar la mascota recibida
-        setLoading(false); // Dejar de mostrar el estado de carga
+        setPet(data); 
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error al obtener la mascota:", error);
         setLoading(false);
       });
   }, [id]);
+
+  const handleAdoptClick = () => {
+    if (!userCredentials || Object.keys(userCredentials).length === 0) {
+      alert("Debes estar logueado para adoptar una mascota.");
+    } else {
+      window.location.href = `/ApplyForm/${id}`;
+    }
+  };
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -58,9 +65,7 @@ function PetDetail() {
               <p>{pet.data.description}</p>
             </div>
           </section>
-          <Link to={`/ApplyForm/${id}`} className="a">
-            <button disabled={!userCredentials || Object.keys(userCredentials).length === 0} >Adoptame</button>
-          </Link>
+          <button onClick={handleAdoptClick}>Adoptame</button>
         </div>
       </div>
     </>
