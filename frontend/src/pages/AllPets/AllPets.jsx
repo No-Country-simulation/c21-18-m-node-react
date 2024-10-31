@@ -14,6 +14,7 @@ const AllPets = () => {
   const [isChildActive, setIsChildActive] = useState(false);
   // Manejamos el estado de los filtros del child
   const [selectedFilters, setSelectedFilters] = useState({
+    type: [],
     gender: [],
     size: [],
     age: [],
@@ -45,6 +46,8 @@ const AllPets = () => {
   // Filtrar las mascotas que cumplan con los filtros
   const filteredPets = pets.filter((pet) => {
     return (
+      (selectedFilters.type.length === 0 ||
+        selectedFilters.type.includes(pet.type)) &&
       (selectedFilters.gender.length === 0 ||
         selectedFilters.gender.includes(pet.gender)) &&
       (selectedFilters.size.length === 0 ||
