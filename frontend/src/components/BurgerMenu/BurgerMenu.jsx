@@ -11,6 +11,8 @@ export default function BurgerMenu() {
     setIsOpen((prev) => !prev);
   };
 
+  const user = logged() ? extractUserDetails() : null;
+  const isAdmin = user && user.role === "ADMIN";
   return (
     <div className="burger-menu-container">
       <button className="burger-menu-button" onClick={toggleMenu}>
@@ -35,15 +37,26 @@ export default function BurgerMenu() {
             Conócenos
           </NavLink>
 
+          {isAdmin && (
+            <NavLink
+              to="http://localhost:5173/Admin"
+              className={({ isActive }) => (isActive ? 'admin-panel active' : 'admin-panel')}
+              onClick={toggleMenu}
+            >
+              Panel Admin
+            </NavLink>
+          )}
+
           {logged() ? (
             <NavLink
               to="http://localhost:3000/api/auth/logout"
               className={({ isActive }) => (isActive ? 'logout active' : 'logout')}
+              onClick={toggleMenu}
             >
               <div className="flex">
-                <img src={extractUserDetails().picture} alt="Foto de perfil" />
+                <img src={user.picture} alt="Foto de perfil" />
                 <div className="flex-name">
-                  <p>{extractUserDetails().name}</p>
+                  <p>{user.name}</p>
                   <div>Log Out</div>
                 </div>
               </div>
@@ -52,6 +65,7 @@ export default function BurgerMenu() {
             <NavLink
               to="http://localhost:3000/api/auth/google"
               className={({ isActive }) => (isActive ? 'login active' : 'login')}
+              onClick={toggleMenu}
             >
               Log in
             </NavLink>
