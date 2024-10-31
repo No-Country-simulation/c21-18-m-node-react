@@ -8,33 +8,15 @@ import Cookies from "js-cookie";
 import { getPet } from "../../services/apiPetService";
 import { useParams } from "react-router-dom";
 import "./ApplyForm.css";
+import { getUsersByEmail } from "../../services/apiUserServices";
 
 const ApplyForm = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
-
-  let userCredentials = Cookies.get("user") || "{}";
-  let userCredentialsObj = JSON.parse(userCredentials);
-  userCredentialsObj.userId = "034fe29a-d1cc-4856-97df-0f6d9afe03da";
-  console.log(`USER con Id: ${JSON.stringify(userCredentialsObj)}`);
-
-  useEffect(() => {
-    const fetchPetData = async () => {
-      try {
-        const data = await getPet(id);
-        setPet(data);
-      } catch (err) {
-        setError("Error al cargar los datos de la mascota");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPetData();
-  }, [id]);
-
+  const [userDB, setUserDB ] = useState(null);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     age: "",
     address: "",
@@ -45,6 +27,35 @@ const ApplyForm = () => {
     confirmPassword: "",
     message: "",
   });
+
+  let userCredentials = Cookies.get("user") || "{}";
+  let userCredentialsObj = JSON.parse(userCredentials);
+  let userEmail = userCredentialsObj.email;
+  // console.log(`USER con Id: ${JSON.stringify(userCredentialsObj)}`);
+  // console.log('USER EMAIL: ', userEmail);
+
+
+  useEffect(() => {
+    const fetchPetData = async () => {
+      try {
+        const data = await getPet(id);
+        setPet(data);
+        const userDataDB = await getUsersByEmail(userEmail);
+        // const userDBJSON = await userDataDB.json();
+        // setUserDB(userDBJSON);
+        setUserDB(userDataDB.data.id);
+
+      } catch (err) {
+        setError("Error al cargar los datos de la mascota");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPetData();
+  }, [id, userEmail]);
+
+  console.log('USERDB: ', userDB)
 
   const validateForm = () => {
     const fieldsToValidate = { ...formData, ...userCredentials, ...pet };
@@ -103,7 +114,7 @@ const ApplyForm = () => {
 
     try {
       // Data para user
-      const userId = userCredentialsObj.userId;
+      const userId = userDB;
       const data = {
         name: userCredentialsObj.name,
         email: userCredentialsObj.email,
@@ -145,7 +156,7 @@ const ApplyForm = () => {
       // Crear objeto para enviar el formulario de adopción
       const applyFormData = {
         ...formDataWithoutPassword, // Añade los datos del formulario sin 'password'
-        userId: userCredentialsObj.userId,
+        userId: userId,
         name: userCredentialsObj.name,
         email: userCredentialsObj.email,
         petId: pet?.data?.id,
