@@ -5,6 +5,10 @@ import shelter3 from '../../assets/shelter-3.jpg';
 import shelter4 from '../../assets/shelter-4.jpg';
 
 function AboutUs() {
+  const handleDonateClick = () => {
+    window.location.href = "https://www.mercadopago.com.ar/";
+  };
+
   return (
     <div className='about-container'>
       <article className='images-aboutUs'>
@@ -33,6 +37,7 @@ function AboutUs() {
           <p>
             <strong>¡Dona ahora y sé parte de nuestro sueño de un mundo donde cada animal tenga un hogar lleno de amor!</strong>
           </p>
+          <button onClick={handleDonateClick} className='donate-button'>¡Dona!</button>
         </div>
       </div>
     </div>
