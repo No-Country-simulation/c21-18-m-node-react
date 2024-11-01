@@ -150,6 +150,7 @@ export const PetForm = () => {
           alignItems: "center",
         }}
       >
+        <h1>{id ? "Editar Mascota" : "Crear Mascota"}</h1>
         <TextField
           name="name"
           label="Nombre"

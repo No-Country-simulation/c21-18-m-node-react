@@ -28,38 +28,41 @@ export const ShelterTable = () => {
   }, []);
 
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Dirección</TableCell>
-            <TableCell>Telefono</TableCell>
-            <TableCell>Editar</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {shelters.map((shelter) => (
-            <TableRow key={shelter.id}>
-              <TableCell>{shelter.name}</TableCell>
-              <TableCell>{shelter.address}</TableCell>
-              <TableCell>{shelter.phone}</TableCell>
-              <TableCell>
-                <Link to={`/ShelterForm/${shelter.id}`}>
-                  <Button
-                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
-                    variant="contained"
-                    color="primary"
-                    to={`/ShelterForm/${shelter.id}`}
-                  >
-                    Editar
-                  </Button>
-                </Link>
-              </TableCell>
+    <>
+      <h1>Tabla de refugios</h1>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Dirección</TableCell>
+              <TableCell>Telefono</TableCell>
+              <TableCell>Editar</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {shelters.map((shelter) => (
+              <TableRow key={shelter.id}>
+                <TableCell>{shelter.name}</TableCell>
+                <TableCell>{shelter.address}</TableCell>
+                <TableCell>{shelter.phone}</TableCell>
+                <TableCell>
+                  <Link to={`/ShelterForm/${shelter.id}`}>
+                    <Button
+                      sx={{ backgroundColor: "#cdeac0", color: "black" }}
+                      variant="contained"
+                      color="primary"
+                      to={`/ShelterForm/${shelter.id}`}
+                    >
+                      Editar
+                    </Button>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };

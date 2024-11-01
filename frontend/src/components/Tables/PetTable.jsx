@@ -44,60 +44,63 @@ export const PetTable = () => {
   };
 
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Edad</TableCell>
-            <TableCell>Genero</TableCell>
-            <TableCell>Tamaño</TableCell>
-            <TableCell>Vista</TableCell>
-            <TableCell>Estado</TableCell>
-            <TableCell>Editar</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {pets.map((pet) => (
-            <TableRow key={pet.id}>
-              <TableCell>{pet.name}</TableCell>
-              <TableCell>{pet.age}</TableCell>
-              <TableCell>{pet.gender}</TableCell>
-              <TableCell>{pet.size}</TableCell>
-              <TableCell>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ backgroundColor: "#cdeac0", color: "black" }}
-                  component={Link}
-                  to={`/api/pet/${pet.id}`}
-                >
-                  View
-                </Button>
-              </TableCell>
-              <TableCell>
-                <Switch
-                  color="primary"
-                  sx={{ backgroundColor: "#cdeac0" }}
-                  checked={pet.status}
-                  onChange={() => handleStatusChange(pet.id)}
-                />
-              </TableCell>
-              <TableCell>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  component={Link}
-                  sx={{ backgroundColor: "#cdeac0", color: "black" }}
-                  to={`/petForm/${pet.id}`}
-                >
-                  Editar
-                </Button>
-              </TableCell>
+    <>
+      <h1>Tabla de mascotas</h1>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Edad</TableCell>
+              <TableCell>Genero</TableCell>
+              <TableCell>Tamaño</TableCell>
+              <TableCell>Vista</TableCell>
+              <TableCell>Estado</TableCell>
+              <TableCell>Editar</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {pets.map((pet) => (
+              <TableRow key={pet.id}>
+                <TableCell>{pet.name}</TableCell>
+                <TableCell>{pet.age}</TableCell>
+                <TableCell>{pet.gender}</TableCell>
+                <TableCell>{pet.size}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
+                    component={Link}
+                    to={`/api/pet/${pet.id}`}
+                  >
+                    View
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Switch
+                    color="primary"
+                    sx={{ backgroundColor: "#cdeac0" }}
+                    checked={pet.status}
+                    onChange={() => handleStatusChange(pet.id)}
+                  />
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
+                    to={`/petForm/${pet.id}`}
+                  >
+                    Editar
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
