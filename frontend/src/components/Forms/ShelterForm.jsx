@@ -15,14 +15,30 @@ export const ShelterForm = () => {
   const [feedback, setFeedback] = React.useState({ message: "", type: "" });
   const [loading, setLoading] = React.useState(false);
 
-  if (id) {
-    API.getShelter(id).then((shelter) => {
-      setShelterName(shelter.data.name);
-      setShelterAddress(shelter.data.address);
-      setShelterPhoneNumber(shelter.data.phoneNumber);
-      setShelterEmail(shelter.data.email);
-    });
-  }
+  // Utiliza useEffect para cargar los datos del refugio si hay un ID
+  React.useEffect(() => {
+    const fetchShelterData = async () => {
+      if (id) {
+        try {
+          const shelter = await API.getShelter(id);
+          if (shelter) {
+            setShelterName(shelter.name);
+            setShelterAddress(shelter.address);
+            setShelterPhoneNumber(shelter.phone);
+            setShelterEmail(shelter.email);
+          }
+        } catch (error) {
+          console.error("Error fetching shelter data:", error);
+          setFeedback({
+            message: "Error al cargar los datos del refugio",
+            type: "error",
+          });
+        }
+      }
+    };
+
+    fetchShelterData();
+  }, [id]); // Solo se ejecuta cuando cambia el ID
 
   const validateForm = () => {
     if (
@@ -44,9 +60,12 @@ export const ShelterForm = () => {
       return false;
     }
 
-    const phoneRegex = /^\d{10}$/; // Adjust this regex according to your needs
+    const phoneRegex = /^\d{10}$/; // Ajusta esta expresión regular según tus necesidades
     if (!phoneRegex.test(shelterPhoneNumber)) {
-      setFeedback({ message: "Phone number must be 10 digits", type: "error" });
+      setFeedback({
+        message: "El número de teléfono debe tener 10 dígitos",
+        type: "error",
+      });
       return false;
     }
 
@@ -102,6 +121,7 @@ export const ShelterForm = () => {
         bgcolor: "#cdeac0",
       }}
     >
+      <h1>{id ? "Editar" : "Crear"} Refugio</h1>
       {feedback.message && (
         <Alert severity={feedback.type} sx={{ marginBottom: 2, width: "50%" }}>
           {feedback.message}
@@ -116,14 +136,14 @@ export const ShelterForm = () => {
         sx={{ width: "50%", marginBottom: "20px" }}
       />
       <TextField
-        label="Dirección"
+        label="Dirección"
         variant="outlined"
         value={shelterAddress}
         onChange={(e) => setShelterAddress(e.target.value)}
         sx={{ width: "50%", marginBottom: "20px" }}
       />
       <TextField
-        label="Numero de Telefono"
+        label="Número de Teléfono"
         variant="outlined"
         value={shelterPhoneNumber}
         onChange={(e) => setShelterPhoneNumber(e.target.value)}
@@ -144,7 +164,7 @@ export const ShelterForm = () => {
         sx={{ width: "50%", backgroundColor: "#ffac81 ", color: "black" }}
         disabled={loading}
       >
-        {loading ? "Guardar" : "Guardar"}
+        {loading ? "Guardando..." : "Guardar"}
       </Button>
     </Box>
   );
