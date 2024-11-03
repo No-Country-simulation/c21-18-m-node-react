@@ -17,6 +17,7 @@
 	"homepage": "https://github.com/No-Country-simulation/c21-18-m-node-react#readme",
 	"description": "",
 	"dependencies": {
+		"@mui/material": "^6.1.6",
 		"@prisma/client": "^5.20.0",
 		"cloudinary": "^2.5.1",
 		"compression": "^1.7.4",
