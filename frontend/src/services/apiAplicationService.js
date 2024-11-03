@@ -14,7 +14,12 @@ export async function getAllApplications() {
   }
 }
 
-export async function toggleStatus(id, newStatus) {
+export async function toggleStatus(
+  applicationId,
+  newStatus,
+  applicationDetails
+) {
+  const { userId, petId, email, name, isApproved } = applicationDetails;
   const userCredentials = Cookies.get("user");
 
   if (!userCredentials) {
@@ -32,7 +37,15 @@ export async function toggleStatus(id, newStatus) {
           "X-User-Credentials": userCredentials,
         },
         credentials: "include",
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({
+          applicationId,
+          status: newStatus,
+          isApproved,
+          userId,
+          petId,
+          email,
+          name,
+        }), // Incluyendo isApproved en el cuerpo
       }
     );
 

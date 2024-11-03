@@ -11,7 +11,7 @@ import {
   PetTable,
   UserTable,
   ShelterTable,
-  AplicationTable,
+  ApplicationTable,
 } from "./components/index.js";
 import { ProtectedRoute } from "./components/ProtectedRoute/index.jsx";
 import { Admin } from "./pages/Admin/Admin.jsx";
@@ -31,7 +31,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/ShelterForm/:id" element={<ShelterForm />} />
           <Route path="/PetForm" element={<PetForm />} />
           <Route path="/PetForm/:id" element={<PetForm />} />
-          <Route path="/AplicationTable" element={<AplicationTable />} />
+          <Route path="/AplicationTable" element={<ApplicationTable />} />
           <Route path="/PetTable" element={<PetTable />} />
           <Route path="/UserTable" element={<UserTable />} />
           <Route path="/ShelterTable" element={<ShelterTable />} />

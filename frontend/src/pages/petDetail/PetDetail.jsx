@@ -43,9 +43,11 @@ function PetDetail() {
       <div className="container-title">
         <h1>{pet.data.name}</h1>
         <div className="container">
+
           <div className="image">
             <img src={pet.data.picture} alt={pet.name} />
           </div>
+          
           <section className="info">
             <div className="items">
               <p>

@@ -4,7 +4,7 @@ import { RequestHandler } from "express";
 
 export const sendApplicationConfirmation: RequestHandler = async (req, res) => {
   const { isApproved, userId, petId, email, name } = req.body;
-
+  console.log("Datos recibidos:", { isApproved, userId, petId, email, name });
   try {
     const updatedAppication = await prisma.application.update({
       where: {
@@ -36,7 +36,7 @@ export const sendApplicationConfirmation: RequestHandler = async (req, res) => {
         subject: "Solicitud de adopción",
         replyTo: email,
         html: ` 
-        <h1>Solicitud de adopción de ${name}<h1/>
+        <h1>Solicitud de adopción de ${name}</h1>
         <p><strong> Haz aprobado la solitud de adopción para el usuario: </strong> ${name}</p>
         <p><strong>Deberas llamar a ${name} para coordinar horario y día para finalizar la adopción</strong></p>
         <p><strong>El email del del solicitante aprobado para la adopción es: </strong>${email}</p>
@@ -77,6 +77,7 @@ export const sendApplicationConfirmation: RequestHandler = async (req, res) => {
       data: updatedAppication,
     });
   } catch (error) {
+    console.error("Error en sendApplicationConfirmation:", error);
     res
       .status(500)
       .json({ success: false, message: "Failed to send email", error });
