@@ -13,7 +13,7 @@ function PetDetail() {
   useEffect(() => {
     getPet(id)
       .then((data) => {
-        setPet(data); 
+        setPet(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -39,38 +39,35 @@ function PetDetail() {
   }
 
   return (
-    <>
-      <div className="container-title">
-        <h1>{pet.data.name}</h1>
-        <div className="container">
-
-          <div className="image">
-            <img src={pet.data.picture} alt={pet.name} />
-          </div>
-          
-          <section className="info">
-            <div className="items">
-              <p>
-                <b>Edad:</b> {pet.data.age} años
-              </p>
-              <p>
-                <b>Tamaño:</b> {pet.data.size.toLowerCase()}
-              </p>
-              <p>
-                <b>Género:</b> {pet.data.gender.toLowerCase()}
-              </p>
-            </div>
-            <div className="description">
-              <p>
-                <b>Descripción:</b>{" "}
-              </p>
-              <p>{pet.data.description}</p>
-            </div>
-          </section>
-          <button onClick={handleAdoptClick}>Adoptame</button>
+    <div className="container-title">
+      <h1>{pet.data.name}</h1>
+      <div className="container">
+        <div className="image">
+          <img className="image" src={pet.data.picture} alt={pet.name} />
         </div>
+
+        <section className="info">
+          <div className="items">
+            <p>
+              <b>Edad:</b> {pet.data.age} años
+            </p>
+            <p>
+              <b>Tamaño:</b> {pet.data.size.toLowerCase()}
+            </p>
+            <p>
+              <b>Género:</b> {pet.data.gender.toLowerCase()}
+            </p>
+          </div>
+          <div className="description">
+            <p>
+              <b>Descripción:</b>{" "}
+            </p>
+            <p>{pet.data.description}</p>
+          </div>
+        </section>
+        <button onClick={handleAdoptClick}>Adoptame</button>
       </div>
-    </>
+    </div>
   );
 }
 
