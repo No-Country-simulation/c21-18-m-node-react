@@ -32,7 +32,6 @@ export const PetTable = () => {
     try {
       const updatedStatus = await API.toggleStatus(petId);
 
-      // Asegúrate de que el estado se actualiza correctamente
       setPets((prevPets) =>
         prevPets.map((pet) =>
           pet.id === petId ? { ...pet, status: updatedStatus } : pet
@@ -43,16 +42,39 @@ export const PetTable = () => {
     }
   };
 
+  // Estilos en línea
+  const appStyle = {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "60vh",
+    padding: "20px",
+  };
+
+  const tableContainerStyle = {
+    flex: 1,
+    maxHeight: "60vh", 
+    marginBottom: "20px",
+  };
+
+
+  const buttonStyle = {
+    backgroundColor: "#cdeac0",
+    color: "black",
+    "&:hover": {
+      backgroundColor: "#b0d4a5",
+    },
+  };
+
   return (
-    <>
+    <div style={appStyle}>
       <h1>Tabla de mascotas</h1>
-      <TableContainer>
+      <TableContainer style={tableContainerStyle}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
               <TableCell>Edad</TableCell>
-              <TableCell>Genero</TableCell>
+              <TableCell>Género</TableCell>
               <TableCell>Tamaño</TableCell>
               <TableCell>Vista</TableCell>
               <TableCell>Estado</TableCell>
@@ -69,18 +91,16 @@ export const PetTable = () => {
                 <TableCell>
                   <Button
                     variant="contained"
-                    color="primary"
-                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
+                    sx={buttonStyle}
                     component={Link}
                     to={`/api/pet/${pet.id}`}
                   >
-                    View
+                    Ver
                   </Button>
                 </TableCell>
                 <TableCell>
                   <Switch
                     color="primary"
-                    sx={{ backgroundColor: "#cdeac0" }}
                     checked={pet.status}
                     onChange={() => handleStatusChange(pet.id)}
                   />
@@ -88,9 +108,8 @@ export const PetTable = () => {
                 <TableCell>
                   <Button
                     variant="contained"
-                    color="primary"
+                    sx={buttonStyle}
                     component={Link}
-                    sx={{ backgroundColor: "#cdeac0", color: "black" }}
                     to={`/petForm/${pet.id}`}
                   >
                     Editar
@@ -101,6 +120,6 @@ export const PetTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </div>
   );
 };

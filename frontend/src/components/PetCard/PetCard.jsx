@@ -1,6 +1,5 @@
 import './PetCard.css';
 import PropTypes from 'prop-types';
-import { SkeletonCard } from './SkeletonCard';
 
 export default function PetCard({ name, age, size, gender, image }) {
     return (

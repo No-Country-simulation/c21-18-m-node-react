@@ -79,7 +79,7 @@ export const PetForm = () => {
 
     try {
       const response = await fetch(url, {
-        method: id ? "PUT" : "POST", // Usa PUT para actualizar y POST para crear
+        method: id ? "PUT" : "POST",
         body: formDataToSend,
         credentials: "include",
       });
@@ -125,14 +125,11 @@ export const PetForm = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
-        width: "100%",
+        height: "100%", // Mantiene la altura completa
         bgcolor: "#cdeac0",
-        boxSizing: "content-box",
         justifyContent: "center",
         alignItems: "center",
         padding: "20px",
-        gap: "10px",
       }}
     >
       <Box
@@ -150,12 +147,15 @@ export const PetForm = () => {
           alignItems: "center",
         }}
       >
-        <h1>{id ? "Editar Mascota" : "Crear Mascota"}</h1>
+        <h1 style={{ width: "100%", textAlign: "center" }}>
+          {id ? "Editar Mascota" : "Crear Mascota"}
+        </h1>
         <TextField
           name="name"
           label="Nombre"
           value={formData.name}
           onChange={handleChange}
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         />
         <TextField
           name="age"
@@ -163,12 +163,14 @@ export const PetForm = () => {
           type="number"
           value={formData.age}
           onChange={handleChange}
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         />
         <TextField
           name="type"
           label="Tipo (PERRO o GATO)"
           value={formData.type}
           onChange={handleChange}
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         />
         <TextField
           name="shelterId"
@@ -176,19 +178,23 @@ export const PetForm = () => {
           type="number"
           value={formData.shelterId}
           onChange={handleChange}
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         />
         <TextField
           name="description"
           label="Descripción"
           multiline
+          rows={4}
           value={formData.description}
           onChange={handleChange}
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         />
         <Select
           name="gender"
           value={formData.gender}
           onChange={handleChange}
           displayEmpty
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         >
           <MenuItem value="" disabled>
             Seleccionar Género
@@ -201,6 +207,7 @@ export const PetForm = () => {
           value={formData.size}
           onChange={handleChange}
           displayEmpty
+          fullWidth // Hace que el campo ocupe todo el ancho disponible
         >
           <MenuItem value="" disabled>
             Seleccionar Tamaño
@@ -220,7 +227,12 @@ export const PetForm = () => {
           }
           label="Disponible para adopción"
         />
-        <TextField name="picture" type="file" onChange={handleChange} />
+        <TextField
+          name="picture"
+          type="file"
+          onChange={handleChange}
+          inputProps={{ accept: "image/*" }}
+        />
 
         {feedback.message && (
           <Alert severity={feedback.type}>{feedback.message}</Alert>

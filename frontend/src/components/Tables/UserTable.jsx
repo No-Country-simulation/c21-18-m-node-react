@@ -25,10 +25,24 @@ export const UserTable = () => {
     fetchUsers();
   }, []);
 
+  const appStyle = {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "60vh",
+    padding: "20px",
+  };
+
+  const tableContainerStyle = {
+    flex: 1,
+    maxHeight: "60vh", 
+    marginBottom: "20px",
+  };
+
+
   return (
-    <>
+    <div style={appStyle}>
       <h1>Tabla de usuarios</h1>
-      <TableContainer>
+      <TableContainer style={tableContainerStyle}>
         <Table>
           <TableHead>
             <TableRow>
@@ -46,6 +60,6 @@ export const UserTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </div>
   );
 };
