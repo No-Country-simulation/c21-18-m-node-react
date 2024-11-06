@@ -50,7 +50,6 @@ function PetDetail() {
         <div className="image">
           <img src={pet.data.picture} alt={pet.name} />
         </div>
-        
         <section className="info">
           <div className="items">
             <p>
@@ -70,8 +69,8 @@ function PetDetail() {
             <p>{pet.data.description}</p>
           </div>
         </section>
+        <button onClick={handleAdoptClick}>Adoptame</button>
       </div>
-      <button onClick={handleAdoptClick}>Adoptame</button>
     </div>
   );
 }
