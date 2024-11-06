@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./petDetail.css";
 import Cookies from "js-cookie";
+import { SkeletonCard } from "../../components/PetCard/SkeletonCard";
 
 function PetDetail() {
   const { id } = useParams();
@@ -31,7 +32,11 @@ function PetDetail() {
   };
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return (
+      <div className="skeleton-container">
+        <SkeletonCard />
+      </div>
+    );
   }
 
   if (!pet) {
@@ -43,9 +48,8 @@ function PetDetail() {
       <h1>{pet.data.name}</h1>
       <div className="container">
         <div className="image">
-          <img className="image" src={pet.data.picture} alt={pet.name} />
+          <img src={pet.data.picture} alt={pet.name} />
         </div>
-
         <section className="info">
           <div className="items">
             <p>

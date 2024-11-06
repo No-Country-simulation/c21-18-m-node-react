@@ -27,16 +27,30 @@ export const ShelterTable = () => {
     fetchShelters();
   }, []);
 
+  // Estilos en línea
+  const appStyle = {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "60vh",
+    padding: "20px",
+  };
+
+  const tableContainerStyle = {
+    flex: 1,
+    maxHeight: "60vh",
+  };
+
+
   return (
-    <>
+    <div style={appStyle}>
       <h1>Tabla de refugios</h1>
-      <TableContainer>
+      <TableContainer style={tableContainerStyle}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
               <TableCell>Dirección</TableCell>
-              <TableCell>Telefono</TableCell>
+              <TableCell>Teléfono</TableCell>
               <TableCell>Editar</TableCell>
             </TableRow>
           </TableHead>
@@ -52,7 +66,6 @@ export const ShelterTable = () => {
                       sx={{ backgroundColor: "#cdeac0", color: "black" }}
                       variant="contained"
                       color="primary"
-                      to={`/ShelterForm/${shelter.id}`}
                     >
                       Editar
                     </Button>
@@ -63,6 +76,6 @@ export const ShelterTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </div>
   );
 };

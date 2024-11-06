@@ -3,16 +3,16 @@ import FilterButton from "../../components/FilterButton/FilterButton";
 import Card from "../../components/PetCard/PetCard";
 import * as API from "../../services/apiPetService";
 import { Link } from "react-router-dom";
+import { SkeletonCard } from "../../components/PetCard/SkeletonCard";
 
 function randomArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-///////main component
 const AllPets = () => {
   const [pets, setPets] = useState([]);
+  const [loading, setLoading] = useState(true); 
   const [isChildActive, setIsChildActive] = useState(false);
-  // Manejamos el estado de los filtros del child
   const [selectedFilters, setSelectedFilters] = useState({
     type: [],
     gender: [],
@@ -20,30 +20,27 @@ const AllPets = () => {
     age: [],
   });
 
-  // Función que manejará los datos recibidos desde el hijo
   const handleChildActiveStatus = (status) => {
     setIsChildActive(status);
   };
 
-  // Función para manejar los filtros seleccionados desde el hijo
   const handleFiltersFromChild = (filters) => {
     setSelectedFilters(filters);
   };
 
-  // Traemos las mascotas
   useEffect(() => {
+    setLoading(true);
     API.getAllPets()
       .then((response) => {
-        // console.log("API response:", response);
         if (response && Array.isArray(response.data)) {
           const randomPets = randomArray(response.data);
           setPets(randomPets);
         }
       })
-      .catch((error) => console.error("Error fetching pets:", error));
+      .catch((error) => console.error("Error fetching pets:", error))
+      .finally(() => setLoading(false));
   }, []);
 
-  // Filtrar las mascotas que cumplan con los filtros
   const filteredPets = pets.filter((pet) => {
     return (
       (selectedFilters.type.length === 0 ||
@@ -61,35 +58,26 @@ const AllPets = () => {
   });
 
   return (
-    <div div className="main-container">
+    <div className="main-container">
       <FilterButton 
-      setActive={handleChildActiveStatus}
-      sendFilters={handleFiltersFromChild}
+        setActive={handleChildActiveStatus}
+        sendFilters={handleFiltersFromChild}
       />
       <div className="pet-container">
-        { filteredPets.length > 0 ? (
-            filteredPets.map((pet) => (
+        {loading ? ( //
+          Array(4).fill().map((_, index) => (
+            <SkeletonCard key={index} />
+          ))
+        ) : filteredPets.length > 0 ? (
+          filteredPets.map((pet) => (
             <Link to={`/api/pet/${pet.id}`} key={pet.id}>
-            <Card
-                key={pet.id}
+              <Card
                 name={pet.name}
                 age={pet.age}
                 gender={pet.gender}
                 size={pet.size}
                 image={pet.picture}
-            />
-            </Link>
-        ))) : pets ? (
-          pets.map((pet) => (
-            <Link to={`/api/pet/${pet.id}`} key={pet.id}>
-            <Card
-              key={pet.id}
-              name={pet.name}
-              age={pet.age}
-              gender={pet.gender}
-              size={pet.size}
-              image={pet.picture}
-            />
+              />
             </Link>
           ))
         ) : (
@@ -101,5 +89,4 @@ const AllPets = () => {
 };
 
 export default AllPets;
-
 
