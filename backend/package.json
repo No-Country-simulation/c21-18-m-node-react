@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./dist/server.js",
     "dev": "tsx watch --clear-screen=false src/server.ts",
-  "build": "npx rimraf ./dist && npx tsc && npx tsc-alias",
+    "build": "tsc",
     "restartData": "ts-node  src/data/import-data.ts "
   },
   "repository": {
