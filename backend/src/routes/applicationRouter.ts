@@ -5,3 +5,4 @@ applicationRouter.get('/', application.getAllApplications);
 applicationRouter.post('/create', application.createApplication);
 applicationRouter.put('/update/:id', application.updateApplicationStatus);
 export default applicationRouter;
+
