@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
-
+const  URL = import.meta.env.VITE_BACKEND_URL
 export async function getAllPets() {
   try {
-    const response = await fetch(`http://localhost:3000/api/pet/`);
+    const response = await fetch(`${URL}/api/pet/`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -12,7 +12,7 @@ export async function getAllPets() {
 
 export async function newPet() {
   try {
-    const response = await fetch(`http://localhost:3000/api/pet/create-pet`);
+    const response = await fetch(`${URL}/api/pet/create-pet`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -22,7 +22,7 @@ export async function newPet() {
 
 export async function getPet(id) {
   try {
-    const response = await fetch(`http://localhost:3000/api/pet/${id}`);
+    const response = await fetch(`${URL}/api/pet/${id}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -37,7 +37,7 @@ export async function toggleStatus(id) {
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/api/pet/${id}`);
+    const response = await fetch(`${URL}/api/pet/${id}`);
     const petData = await response.json();
 
     if (!petData) {
@@ -48,7 +48,7 @@ export async function toggleStatus(id) {
     const newStatus = !petData.data.status;
 
     // Realizar la actualización en el servidor
-    const updateResponse = await fetch(`http://localhost:3000/api/pet/${id}`, {
+    const updateResponse = await fetch(`${URL}/api/pet/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

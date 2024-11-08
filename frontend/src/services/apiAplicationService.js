@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
-
+const  URL = import.meta.env.VITE_BACKEND_URL
 export async function getAllApplications() {
   try {
-    const response = await fetch(`http://localhost:3000/api/application-form`);
+    const response = await fetch(`${URL}/api/application-form`);
     if (!response.ok) {
       throw new Error("Error al obtener las aplicaciones");
     }
@@ -29,7 +29,7 @@ export async function toggleStatus(
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/application-confirmation/send`,
+      `${URL}/api/application-confirmation/send`,
       {
         method: "POST",
         headers: {

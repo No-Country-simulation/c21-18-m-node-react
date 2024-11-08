@@ -60,7 +60,7 @@ export const ShelterForm = () => {
       return false;
     }
 
-    const phoneRegex = /^\d{10}$/; // Ajusta esta expresión regular según tus necesidades
+    const phoneRegex = /^\d{10,}$/; // Ajusta esta expresión regular según tus necesidades
     if (!phoneRegex.test(shelterPhoneNumber)) {
       setFeedback({
         message: "El número de teléfono debe tener 10 dígitos",

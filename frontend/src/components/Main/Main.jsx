@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import './Main.css';
 import PetCard from "../PetCard/PetCard";
 import * as API from '../../services/apiPetService';

@@ -4,6 +4,7 @@ import './Navbar.css';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { extractUserDetails, logged } from '../../services/auth';
+const  URL = import.meta.env.VITE_BACKEND_URL
 
 export default function Navbar() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -60,7 +61,7 @@ export default function Navbar() {
 						)}
 						{!logged() ? (
 							<NavLink
-								to='http://localhost:3000/api/auth/google'
+								to={`${URL}/api/auth/google`}
 								className={({ isActive }) =>
 									isActive ? 'login active' : 'login'
 								}
@@ -69,7 +70,7 @@ export default function Navbar() {
 							</NavLink>
 						) : (
 							<NavLink
-								to='http://localhost:3000/api/auth/logout'
+								to={`${URL}/api/auth/logout`}
 								className={({ isActive }) =>
 									isActive ? 'login active' : 'logout'
 								}
