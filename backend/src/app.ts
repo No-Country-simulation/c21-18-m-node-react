@@ -29,11 +29,12 @@ const app = express();
 // Express configuration
 
 app.set("port", envs.PORT ?? 3001);
+const allowedOrigins = ["http://localhost:5173", envs.FRONTEND_URL];
 
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
