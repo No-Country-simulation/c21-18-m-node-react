@@ -9,6 +9,7 @@ import { getPet } from "../../services/apiPetService";
 import { useParams } from "react-router-dom";
 import "./ApplyForm.css";
 import { getUsersByEmail } from "../../services/apiUserServices";
+const  URL = import.meta.env.VITE_BACKEND_URL
 
 const ApplyForm = () => {
   const { id } = useParams();
@@ -120,7 +121,7 @@ const ApplyForm = () => {
 
       // userFormData al endpoint de update
       const userResponse = await fetch(
-        `http://localhost:3000/api/user/users/${userId}`,
+        `${URL}/api/user/users/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -154,7 +155,7 @@ const ApplyForm = () => {
 
       // applyFormData al endpoint de create form
       const applyResponse = await fetch(
-        "http://localhost:3000/api/application-form/create",
+        `${URL}/api/application-form/create`,
         {
           method: "POST",
           headers: {

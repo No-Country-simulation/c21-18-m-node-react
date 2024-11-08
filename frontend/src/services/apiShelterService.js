@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+const  URL = import.meta.env.VITE_BACKEND_URL
 export async function createShelter(
   shelterName,
   shelterAddress,
@@ -16,7 +17,7 @@ export async function createShelter(
   }
   try {
     const response = await fetch(
-      "http://localhost:3000/api/shelter/create-shelter",
+      `${URL}/api/shelter/create-shelter`,
       {
         method: "POST",
         headers: {
@@ -43,7 +44,7 @@ export async function createShelter(
 
 export async function getAllShelters() {
   try {
-    const response = await fetch(`http://localhost:3000/api/shelter`);
+    const response = await fetch(`${URL}/api/shelter`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -53,7 +54,7 @@ export async function getAllShelters() {
 
 export async function getShelter(id) {
   try {
-    const response = await fetch(`http://localhost:3000/api/shelter/${id}`);
+    const response = await fetch(`${URL}/api/shelter/${id}`);
     const data = await response.json();
     console.log(data);
     return data;

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './BurgerMenu.css';
 import BurgerMenuIcon from '../../assets/bars-solid.svg';
 import { extractUserDetails, logged } from '../../services/auth';
+const  URL = import.meta.env.VITE_BACKEND_URL
 
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function BurgerMenu() {
 
           {logged() ? (
             <NavLink
-              to="http://localhost:3000/api/auth/logout"
+              to={`${URL}/api/auth/logout`}
               className={({ isActive }) => (isActive ? 'logout active' : 'logout')}
               onClick={toggleMenu}
             >
@@ -63,7 +64,7 @@ export default function BurgerMenu() {
             </NavLink>
           ) : (
             <NavLink
-              to="http://localhost:3000/api/auth/google"
+              to={`${URL}/api/auth/google`}
               className={({ isActive }) => (isActive ? 'login active' : 'login')}
               onClick={toggleMenu}
             >
