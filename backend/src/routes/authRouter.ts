@@ -1,8 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import { roleCheck } from '../middleware/roleCheck';
+import { envs } from '../config/plugins/env.plugin';
+
 
 const authRouter = express.Router();
+
+const FRONTEND_URL = envs.FRONTEND_URL || 'http://localhost:5173';
 
 // Google OAuth route
 authRouter.get(
@@ -51,7 +55,7 @@ authRouter.get(
 			}
 		);
 
-		res.redirect('http://localhost:5173');
+		res.redirect(FRONTEND_URL);
 	}
 );
 
@@ -87,7 +91,7 @@ authRouter.get('/logout', (req: Request, res: Response, next: NextFunction) => {
 		// Clear cookies when user logs out
 		res.clearCookie('access_token');
 		res.clearCookie('user');
-		res.redirect('http://localhost:5173'); // Redirect after logout
+		res.redirect(FRONTEND_URL); // Redirect after logout
 	});
 });
 
